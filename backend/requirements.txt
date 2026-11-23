@@ -1,0 +1,34 @@
+# CauseLine backend - pinned. scikit-learn MUST stay 1.9.1: every shipped model artifact was serialised with it
+# and the registry refuses to load an artifact that raises InconsistentVersionWarning.
+# Verified on Python 3.14.7 (Windows). The NLP handover was built on 3.12; 3.12+ is expected to work.
+
+# web
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.4
+pydantic-settings==2.16.3
+email-validator==2.4.0
+python-multipart==0.0.34
+
+# data / auth
+SQLAlchemy==2.1.9
+bcrypt==5.0.0
+PyJWT==2.15.1
+openpyxl==3.1.5
+# add psycopg[binary] when DATABASE_URL points at PostgreSQL / Supabase
+
+# ML (artifact-compatible versions)
+numpy==2.5.5
+pandas==3.1.1
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
+
+# similarity search (optional: without these, /similar degrades to "unavailable" and everything else works)
+torch==2.15.0
+sentence-transformers==6.3.0
+transformers==5.24.0
+
+# tests
+pytest==9.2.0
+httpx==0.28.1

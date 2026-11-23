@@ -1,0 +1,26 @@
+# Render blueprint for Member 2 - AI Complaint Intelligence
+#
+# Full install (all 7 endpoints). Needs >= 2 GB RAM because of torch:
+# on a 512 MB free instance use requirements-inference-lite.txt instead,
+# which leaves /similar returning HTTP 503 by design.
+#
+# See DEPLOYMENT_README.md section B for the full explanation.
+services:
+  - type: web
+    name: member2-nlp-complaint-intelligence
+    runtime: python
+    plan: starter
+    buildCommand: |
+      pip install -r requirements.txt
+      python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
+    startCommand: uvicorn src.api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: HF_HOME
+        value: /opt/render/project/.cache/huggingface
+      - key: SENTENCE_TRANSFORMERS_HOME
+        value: /opt/render/project/.cache/huggingface
+      - key: OMP_NUM_THREADS
+        value: "1"

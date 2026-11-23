@@ -1,0 +1,11 @@
+complaint_category,value,pct,cum_pct,vital_few
+Packaging issue,2933,16.294444444444444,16.294444444444444,True
+Product quality deviation,2882,16.011111111111113,32.30555555555556,True
+Sensory characteristic,2763,15.35,47.65555555555556,True
+Process-related defect,2118,11.766666666666667,59.422222222222224,True
+Physical defect / foreign matter,2004,11.133333333333333,70.55555555555556,True
+Contamination / microbiological,1359,7.55,78.10555555555555,True
+Weight / quantity issue,1202,6.677777777777778,84.78333333333333,True
+Storage / transportation issue,1144,6.355555555555555,91.13888888888889,False
+Infestation / pest,844,4.688888888888889,95.82777777777777,False
+Labelling / allergen issue,751,4.1722222222222225,99.99999999999999,False

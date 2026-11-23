@@ -1,0 +1,196 @@
+==========================================================================
+ Member 2 - AI Complaint Intelligence : deployment API test
+ target: http://127.0.0.1:8077
+==========================================================================
+
+1. GET /health
+  [PASS] status code is 200  -  got 200
+  [PASS] status field == 'ok'
+  [PASS] primary_model_loaded is True  -  models/tfidf_logreg.joblib must be present
+  [PASS] subcat_model_loaded is True  -  models/tfidf_logreg_subcat.joblib must be present
+  [PASS] embeddings_available is True  -  models/complaint_embeddings.npy + _index.joblib must be present
+  [PASS] embeddings_shape is [18000, 384]  -  got [18000, 384]
+  [PASS] sbert_model_name == 'all-MiniLM-L6-v2'
+  [PASS] disclaimer present
+      sentence-transformers available in this deployment: False
+      sbert_error: ModuleNotFoundError: No module named 'sentence_transformers'
+      response time: 18 ms
+
+2. GET /categories
+  [PASS] status code is 200  -  got 200
+  [PASS] complaint_category is a non-empty list
+  [PASS] complaint_category has 10 labels  -  got 10
+  [PASS] 'Physical defect / foreign matter' is a known label
+  [PASS] defect_subcategory is a non-empty list  -  74 labels
+
+3. POST /classify
+  [PASS] metal fragment: status code is 200  -  got 200
+  [PASS] metal fragment: field 'input_text' present
+  [PASS] metal fragment: field 'category_predictions' present
+  [PASS] metal fragment: field 'top_category' present
+  [PASS] metal fragment: field 'top_category_confidence' present
+  [PASS] metal fragment: field 'subcategory_predictions' present
+  [PASS] metal fragment: field 'top_subcategory' present
+  [PASS] metal fragment: field 'top_subcategory_confidence' present
+  [PASS] metal fragment: field 'food_safety_flag' present
+  [PASS] metal fragment: field 'disclaimer' present
+  [PASS] metal fragment: category_predictions is a list
+  [PASS] metal fragment: prediction has label+probability
+  [PASS] metal fragment: probability is a float in [0,1]
+  [PASS] metal fragment: predictions sorted descending by probability
+  [PASS] metal fragment: top_category is a string
+  [PASS] metal fragment: food_safety_flag.escalate_for_food_safety_review present
+  [PASS] metal fragment: food_safety_flag.reason_keywords present
+  [PASS] metal fragment: food_safety_flag.reason_category_in_safety_bucket present
+  [PASS] metal fragment: food_safety_flag.note present
+  [PASS] metal fragment: escalate flag is a bool
+  [PASS] metal fragment: escalation flag == True  -  top_category='Physical defect / foreign matter' conf=0.23969349467843692
+  [PASS] metal fragment: top_k honoured (3 predictions)
+  [PASS] plastic fragment: status code is 200  -  got 200
+  [PASS] plastic fragment: field 'input_text' present
+  [PASS] plastic fragment: field 'category_predictions' present
+  [PASS] plastic fragment: field 'top_category' present
+  [PASS] plastic fragment: field 'top_category_confidence' present
+  [PASS] plastic fragment: field 'subcategory_predictions' present
+  [PASS] plastic fragment: field 'top_subcategory' present
+  [PASS] plastic fragment: field 'top_subcategory_confidence' present
+  [PASS] plastic fragment: field 'food_safety_flag' present
+  [PASS] plastic fragment: field 'disclaimer' present
+  [PASS] plastic fragment: category_predictions is a list
+  [PASS] plastic fragment: prediction has label+probability
+  [PASS] plastic fragment: probability is a float in [0,1]
+  [PASS] plastic fragment: predictions sorted descending by probability
+  [PASS] plastic fragment: top_category is a string
+  [PASS] plastic fragment: food_safety_flag.escalate_for_food_safety_review present
+  [PASS] plastic fragment: food_safety_flag.reason_keywords present
+  [PASS] plastic fragment: food_safety_flag.reason_category_in_safety_bucket present
+  [PASS] plastic fragment: food_safety_flag.note present
+  [PASS] plastic fragment: escalate flag is a bool
+  [PASS] plastic fragment: escalation flag == True  -  top_category='Physical defect / foreign matter' conf=0.559839958677993
+  [PASS] plastic fragment: top_k honoured (3 predictions)
+  [PASS] packaging defect: status code is 200  -  got 200
+  [PASS] packaging defect: field 'input_text' present
+  [PASS] packaging defect: field 'category_predictions' present
+  [PASS] packaging defect: field 'top_category' present
+  [PASS] packaging defect: field 'top_category_confidence' present
+  [PASS] packaging defect: field 'subcategory_predictions' present
+  [PASS] packaging defect: field 'top_subcategory' present
+  [PASS] packaging defect: field 'top_subcategory_confidence' present
+  [PASS] packaging defect: field 'food_safety_flag' present
+  [PASS] packaging defect: field 'disclaimer' present
+  [PASS] packaging defect: category_predictions is a list
+  [PASS] packaging defect: prediction has label+probability
+  [PASS] packaging defect: probability is a float in [0,1]
+  [PASS] packaging defect: predictions sorted descending by probability
+  [PASS] packaging defect: top_category is a string
+  [PASS] packaging defect: food_safety_flag.escalate_for_food_safety_review present
+  [PASS] packaging defect: food_safety_flag.reason_keywords present
+  [PASS] packaging defect: food_safety_flag.reason_category_in_safety_bucket present
+  [PASS] packaging defect: food_safety_flag.note present
+  [PASS] packaging defect: escalate flag is a bool
+  [PASS] packaging defect: escalation flag == False  -  top_category='Packaging issue' conf=0.7409082686879203
+  [PASS] packaging defect: top_k honoured (3 predictions)
+  [PASS] sensory defect: status code is 200  -  got 200
+  [PASS] sensory defect: field 'input_text' present
+  [PASS] sensory defect: field 'category_predictions' present
+  [PASS] sensory defect: field 'top_category' present
+  [PASS] sensory defect: field 'top_category_confidence' present
+  [PASS] sensory defect: field 'subcategory_predictions' present
+  [PASS] sensory defect: field 'top_subcategory' present
+  [PASS] sensory defect: field 'top_subcategory_confidence' present
+  [PASS] sensory defect: field 'food_safety_flag' present
+  [PASS] sensory defect: field 'disclaimer' present
+  [PASS] sensory defect: category_predictions is a list
+  [PASS] sensory defect: prediction has label+probability
+  [PASS] sensory defect: probability is a float in [0,1]
+  [PASS] sensory defect: predictions sorted descending by probability
+  [PASS] sensory defect: top_category is a string
+  [PASS] sensory defect: food_safety_flag.escalate_for_food_safety_review present
+  [PASS] sensory defect: food_safety_flag.reason_keywords present
+  [PASS] sensory defect: food_safety_flag.reason_category_in_safety_bucket present
+  [PASS] sensory defect: food_safety_flag.note present
+  [PASS] sensory defect: escalate flag is a bool
+  [PASS] sensory defect: escalation flag == False  -  top_category='Sensory characteristic' conf=0.2494689795983665
+  [PASS] sensory defect: top_k honoured (3 predictions)
+
+4. POST /classify  -  food-safety escalation
+  [PASS] status code is 200  -  got 200
+  [PASS] escalate_for_food_safety_review is True
+  [PASS] reason_keywords is a non-empty list  -  matched ['glass', 'hospital', 'vomit']
+  [PASS] 'glass' detected as a safety keyword
+  [PASS] note states this is not a safety determination
+
+5. Invalid input handling
+  [PASS] whitespace-only text -> HTTP 400  -  got 400
+  [PASS] 400 detail mentions empty text  -  {'detail': 'Empty text after cleaning'}
+  [PASS] empty-string text -> HTTP 422 (schema min_length=1)  -  got 422
+  [PASS] malformed body -> HTTP 422  -  got 422
+  [PASS] top_k above le=10 -> HTTP 422  -  got 422
+  [PASS] unknown pareto column -> HTTP 400  -  got 400
+
+6. POST /similar
+  [SKIP] similar: documented 503 degradation (sentence-transformers absent)  -  install sentence-transformers to enable this endpoint
+
+7. POST /analyze  (combined)
+  [PASS] status code is 200  -  got 200
+  [PASS] top-level field 'classification' present
+  [PASS] top-level field 'similar' present
+  [PASS] top-level field 'similar_error' present
+  [PASS] top-level field 'food_safety_flag' present
+  [PASS] top-level field 'disclaimer' present
+  [PASS] classification is a nested object
+  [PASS] analyze.classification: field 'input_text' present
+  [PASS] analyze.classification: field 'category_predictions' present
+  [PASS] analyze.classification: field 'top_category' present
+  [PASS] analyze.classification: field 'top_category_confidence' present
+  [PASS] analyze.classification: field 'subcategory_predictions' present
+  [PASS] analyze.classification: field 'top_subcategory' present
+  [PASS] analyze.classification: field 'top_subcategory_confidence' present
+  [PASS] analyze.classification: field 'food_safety_flag' present
+  [PASS] analyze.classification: field 'disclaimer' present
+  [PASS] analyze.classification: category_predictions is a list
+  [PASS] analyze.classification: prediction has label+probability
+  [PASS] analyze.classification: probability is a float in [0,1]
+  [PASS] analyze.classification: predictions sorted descending by probability
+  [PASS] analyze.classification: top_category is a string
+  [PASS] analyze.classification: food_safety_flag.escalate_for_food_safety_review present
+  [PASS] analyze.classification: food_safety_flag.reason_keywords present
+  [PASS] analyze.classification: food_safety_flag.reason_category_in_safety_bucket present
+  [PASS] analyze.classification: food_safety_flag.note present
+  [PASS] analyze.classification: escalate flag is a bool
+  [PASS] analyze.food_safety_flag mirrors classification.food_safety_flag
+  [PASS] similar is a list
+  [SKIP] analyze: similar=[] + similar_error set (documented degradation)  -  sentence-transformers is not installed in this environment. Install it (pip inst
+      response time: 5 ms
+
+8. GET /pareto
+  [PASS] status code is 200  -  got 200
+  [PASS] field 'column' echoes the request
+  [PASS] field 'rows' is a non-empty list
+  [PASS] row field 'complaint_category' present
+  [PASS] row field 'count' present
+  [PASS] row field 'pct' present
+  [PASS] row field 'cum_pct' present
+  [PASS] row field 'is_vital_few' present
+  [PASS] rows sorted descending by count
+  [PASS] cum_pct reaches ~100 on the last row  -  got 99.99999999999999
+  [PASS] is_vital_few is a bool
+      response time: 7 ms
+
+9. GET /trends
+  [PASS] status code is 200  -  got 200
+  [PASS] field 'monthly' present
+  [PASS] field 'recurring' present
+  [PASS] field 'emerging' present
+  [PASS] field 'disclaimer' present
+  [PASS] monthly is a non-empty list  -  2257 rows
+  [PASS] monthly row field 'month' present
+  [PASS] monthly row field 'complaint_category' present
+  [PASS] monthly row field 'count' present
+  [PASS] recurring is a list
+  [PASS] emerging is a list
+      response time: 202 ms
+
+==========================================================================
+ SUMMARY: 162 PASS   0 FAIL   2 SKIP   (164 checks)
+==========================================================================

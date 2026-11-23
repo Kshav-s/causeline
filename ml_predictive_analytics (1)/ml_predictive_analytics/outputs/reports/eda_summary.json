@@ -1,0 +1,61 @@
+{
+  "complaints_rows": 18000,
+  "date_range": [
+    "2007-01-08",
+    "2025-12-31"
+  ],
+  "severity_share": {
+    "Routine": 0.6361,
+    "Major": 0.3083,
+    "Critical": 0.0557
+  },
+  "food_safety_share": 0.2269,
+  "root_cause_status_share": {
+    "Not assessed": 0.3572,
+    "Probable": 0.2061,
+    "Confirmed": 0.1949,
+    "Hypothesis": 0.1646,
+    "Unknown": 0.0773
+  },
+  "closure_days_median": 29.0,
+  "missing_pct_top": {
+    "capa_follow_up_days": 88.4,
+    "prior_capa_id": 88.4,
+    "capa_id": 60.4,
+    "root_cause_category": 43.4,
+    "root_cause_confidence": 43.4,
+    "root_cause_evidence": 35.7,
+    "investigation_id": 35.7,
+    "days_from_dispatch_to_event": 24.4,
+    "dispatch_date": 24.4,
+    "batch_id": 24.4,
+    "shipment_id": 24.4,
+    "haccp_monitoring_id": 24.4
+  },
+  "batch_rows": 40000,
+  "batch_eligible": 39262,
+  "batch_complaint_rate": 0.0861,
+  "batch_rate_by_split": {
+    "test": 0.0808,
+    "train": 0.0866,
+    "validation": 0.0885
+  },
+  "batch_rate_by_food_family": {
+    "Ready-to-eat foods": 0.0932,
+    "Packaged foods": 0.0898,
+    "Eggs & egg products": 0.0878,
+    "Fish & seafood": 0.0866,
+    "Bakery products": 0.0862,
+    "Dairy products": 0.086,
+    "Grains & cereals": 0.0851,
+    "Beverages": 0.0847,
+    "Meat & poultry": 0.0827,
+    "Fresh fruits & vegetables": 0.0822
+  },
+  "capa_status": {
+    "Closed": 2388,
+    "In progress": 358,
+    "Awaiting verification": 291,
+    "Open": 262
+  }
+}

@@ -1,0 +1,11 @@
+corrective_action,n,ineffective,avg_post_capa_complaints,ineffective_rate,ci_low,ci_high
+Compare retained sample with the approved reference and review ingredient/storage history.,241,170,1.2738589211618256,0.7053941908713693,0.6449788254234693,0.7593642273910851
+Segregate affected packs; inspect seal and closure settings; verify packaging material lot.,310,215,1.238709677419355,0.6935483870967742,0.6401183832180223,0.7422401059051532
+"Review retained sample, supplier lot and process records against the product specification.",298,194,1.2114093959731544,0.6510067114093959,0.5952770473121786,0.7028925886823297
+Inspect retained samples and relevant screening equipment; hold affected lot pending QA disposition.,322,189,0.937888198757764,0.5869565217391305,0.5324584541474636,0.6394041932247566
+Review process data for the affected production window and verify equipment settings.,285,160,0.9368421052631579,0.5614035087719298,0.5033546253031373,0.617819056050241
+Place affected product on hold; review environmental and product test evidence; assess disposition with QA.,254,110,0.5905511811023622,0.4330708661417323,0.37357820330306424,0.49455789265662564
+Review time-temperature history and evaluate product against its approved handling specification.,184,68,0.5108695652173914,0.3695652173913043,0.3031531682663445,0.4413123814308471
+Recheck retained packs and verify checkweigher or dosing records.,142,51,0.5492957746478874,0.3591549295774648,0.2849132817662331,0.44081655114838103
+Inspect affected stock and nearby storage zones; segregate suspect material.,147,44,0.4217687074829932,0.29931972789115646,0.23116798348527115,0.37769323251880205
+Quarantine affected labels or packs; reconcile approved artwork and allergen declarations.,151,35,0.33112582781456956,0.23178807947019867,0.1716442991236911,0.30524046569403224

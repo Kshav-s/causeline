@@ -1,0 +1,155 @@
+{
+  "selected_model": "logistic_regression",
+  "model_comparison_validation": [
+    {
+      "model": "logistic_regression",
+      "val_roc_auc": 0.5439,
+      "val_pr_auc": 0.1113
+    },
+    {
+      "model": "hist_gradient_boosting",
+      "val_roc_auc": 0.5493,
+      "val_pr_auc": 0.107
+    },
+    {
+      "model": "xgboost",
+      "val_roc_auc": 0.5408,
+      "val_pr_auc": 0.1063
+    }
+  ],
+  "test_metrics_at_f1_threshold": {
+    "n": 4541,
+    "prevalence": 0.0808,
+    "threshold": 0.4547,
+    "roc_auc": 0.5539,
+    "pr_auc": 0.1067,
+    "precision": 0.0845,
+    "recall": 0.6431,
+    "f1": 0.1493,
+    "brier": 0.2403,
+    "confusion_matrix [[TN,FP],[FN,TP]]": [
+      [
+        1616,
+        2558
+      ],
+      [
+        131,
+        236
+      ]
+    ]
+  },
+  "test_roc_auc_95ci_bootstrap": [
+    0.5194,
+    0.5858
+  ],
+  "tier_thresholds_from_validation": {
+    "medium": 0.5118890379597377,
+    "high": 0.5821331837294212
+  },
+  "tier_performance_test": [
+    {
+      "tier": "High",
+      "batches": 499,
+      "share_pct": 11.0,
+      "complaints": 61,
+      "observed_complaint_rate": 0.1222,
+      "lift_vs_base": 1.51,
+      "share_of_all_complaints_pct": 16.6
+    },
+    {
+      "tier": "Medium",
+      "batches": 895,
+      "share_pct": 19.7,
+      "complaints": 76,
+      "observed_complaint_rate": 0.0849,
+      "lift_vs_base": 1.05,
+      "share_of_all_complaints_pct": 20.7
+    },
+    {
+      "tier": "Low",
+      "batches": 3147,
+      "share_pct": 69.3,
+      "complaints": 230,
+      "observed_complaint_rate": 0.0731,
+      "lift_vs_base": 0.9,
+      "share_of_all_complaints_pct": 62.7
+    }
+  ],
+  "all_model_test_auc": {
+    "majority_class_pr_auc(=prevalence)": 0.0808,
+    "logistic_regression_test_roc_auc": 0.5539,
+    "hist_gradient_boosting_test_roc_auc": 0.5679,
+    "xgboost_test_roc_auc": 0.5286
+  },
+  "split_dates": {
+    "test": {
+      "min": "2023-12-24",
+      "max": "2025-11-22"
+    },
+    "train": {
+      "min": "2007-01-01",
+      "max": "2021-12-29"
+    },
+    "validation": {
+      "min": "2021-12-25",
+      "max": "2023-12-29"
+    }
+  },
+  "class_balance_train": {
+    "positives": 2595,
+    "negatives": 27379
+  },
+  "leakage_controls": "Excluded: ['target_customer_complaint_within_30d', 'target_eligible_flag', 'target_outcome_window_days', 'target_window_matured_flag', 'model_split', 'shipment_mean_temp_c', 'shipment_max_temp_c', 'temperature_excursion_minutes', 'temperature_excursion_flag', 'transit_hours', 'shipment_status', 'batch_hold_flag', 'shipment_id', 'batch_id', 'dispatch_tonnes']. Temporal split; threshold/tier cut-offs set on validation only.",
+  "test_auc_by_food_family": [
+    {
+      "food_family": "Bakery products",
+      "n": 466,
+      "roc_auc": 0.5199
+    },
+    {
+      "food_family": "Beverages",
+      "n": 293,
+      "roc_auc": 0.6273
+    },
+    {
+      "food_family": "Dairy products",
+      "n": 497,
+      "roc_auc": 0.5528
+    },
+    {
+      "food_family": "Eggs & egg products",
+      "n": 314,
+      "roc_auc": 0.6128
+    },
+    {
+      "food_family": "Fish & seafood",
+      "n": 411,
+      "roc_auc": 0.6249
+    },
+    {
+      "food_family": "Fresh fruits & vegetables",
+      "n": 635,
+      "roc_auc": 0.511
+    },
+    {
+      "food_family": "Grains & cereals",
+      "n": 436,
+      "roc_auc": 0.5282
+    },
+    {
+      "food_family": "Meat & poultry",
+      "n": 579,
+      "roc_auc": 0.5925
+    },
+    {
+      "food_family": "Packaged foods",
+      "n": 497,
+      "roc_auc": 0.5466
+    },
+    {
+      "food_family": "Ready-to-eat foods",
+      "n": 413,
+      "roc_auc": 0.4713
+    }
+  ]
+}

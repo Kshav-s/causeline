@@ -1,0 +1,29 @@
+# ============================================================================
+# Member 2 - AI Complaint Intelligence : INFERENCE requirements
+# ----------------------------------------------------------------------------
+# Versions are pinned to the EXACT set read from the working development
+# virtual environment (D:\HACKATHON\.venv312, Python 3.12, win_amd64).
+# The serialized model artifacts in models/ were produced by
+# scikit-learn 1.9.1 - do NOT upgrade scikit-learn without re-training,
+# or joblib.load() will emit InconsistentVersionWarning and may fail.
+# ============================================================================
+
+# --- web layer ---
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.4
+
+# --- numeric / classical ML (loads models/*.joblib) ---
+numpy==2.5.5
+pandas==3.1.1
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
+
+# --- semantic similarity (/similar and the "similar" block of /analyze) ---
+# Omit these three lines for a lightweight deployment: the service still
+# starts and /health /categories /classify /pareto /trends work in full,
+# while /similar returns HTTP 503 with an install hint. See DEPLOYMENT_README.md.
+sentence-transformers==6.3.0
+torch==2.15.0
+transformers==5.24.0

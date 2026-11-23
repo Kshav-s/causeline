@@ -1,0 +1,15 @@
+# secrets
+.env
+backend/.env
+# environments / builds
+backend/.venv/
+**/__pycache__/
+frontend/node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+frontend/vite.log
+# runtime data (database, uploaded originals, logs)
+backend/data/
+backend/storage/
+backups/

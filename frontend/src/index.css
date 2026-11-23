@@ -1,0 +1,172 @@
+@import "tailwindcss";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- Design tokens (docs/DESIGN_SYSTEM.md §2) ---- */
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --color-graphite-950: #0b1117;
+  --color-graphite-900: #111a22;
+  --color-graphite-800: #1a2530;
+  --color-graphite-700: #2a3744;
+  --color-graphite-600: #3e4c5a;
+  --color-graphite-500: #5b6b7b;
+  --color-graphite-400: #8696a7;
+  --color-graphite-300: #b4c0cc;
+  --color-graphite-200: #d6dde4;
+  --color-graphite-100: #eaeff3;
+  --color-graphite-50: #f5f7f9;
+
+  --color-petrol-800: #083f52;
+  --color-petrol-700: #0a4f66;
+  --color-petrol-600: #0b6a87;
+  --color-petrol-500: #0e86a8;
+  --color-petrol-400: #3aa5c4;
+  --color-petrol-100: #ddf1f7;
+  --color-petrol-50: #eff8fb;
+
+  --text-overline: 11px;
+  --text-overline--line-height: 16px;
+  --text-kpi: 30px;
+  --text-kpi--line-height: 36px;
+
+  --radius-control: 6px;
+  --radius-card: 8px;
+  --radius-modal: 12px;
+}
+
+/* Semantic, theme-switched tokens */
+:root {
+  --canvas: #f5f7f9;
+  --surface: #ffffff;
+  --surface-2: #f5f7f9;
+  --surface-hover: #eaeff3;
+  --line: #d6dde4;
+  --line-strong: #b4c0cc;
+  --ink: #0b1117;
+  --ink-2: #3e4c5a;
+  --muted: #5b6b7b;
+  --faint: #8696a7;
+  --link: #0b6a87;
+  --primary: #0b6a87;
+  --primary-hover: #0a4f66;
+  --primary-tint: #eff8fb;
+  --grid: #eaeff3;
+  --shadow-1: 0 1px 2px rgba(11, 17, 23, 0.06);
+  --shadow-2: 0 8px 24px rgba(11, 17, 23, 0.12);
+
+  --ok-fg: #1f7a45; --ok-bg: #e6f4ec; --ok-bd: #a8d5ba;
+  --warn-fg: #9a6212; --warn-bg: #fdf3e1; --warn-bd: #ebc98a;
+  --bad-fg: #b42f28; --bad-bg: #fbe9e7; --bad-bd: #edb0aa;
+  --info-fg: #2a62a0; --info-bg: #e7f0fa; --info-bd: #a9c6e8;
+  --neu-fg: #3e4c5a; --neu-bg: #eaeff3; --neu-bd: #d6dde4;
+
+  --pv-recorded-fg: #3e4c5a; --pv-recorded-bg: #eaeff3; --pv-recorded-bd: #b4c0cc;
+  --pv-model-fg: #5b3fc4; --pv-model-bg: #f0ecfd; --pv-model-bd: #b9a9f0;
+  --pv-nlp-fg: #7a3aa8; --pv-nlp-bg: #f6ecfb; --pv-nlp-bd: #d3b0e8;
+  --pv-sim-fg: #0c6e76; --pv-sim-bg: #e3f4f5; --pv-sim-bd: #9fd3d7;
+  --pv-rule-fg: #3f548a; --pv-rule-bg: #e9edf6; --pv-rule-bd: #b3bfdd;
+  --pv-human-fg: #1f7a45; --pv-human-bg: #e6f4ec; --pv-human-bd: #a8d5ba;
+  --pv-insuf-fg: #5b6b7b; --pv-insuf-bg: #f5f7f9; --pv-insuf-bd: #b4c0cc;
+  --pv-demo-fg: #92400e; --pv-demo-bg: #fef3c7; --pv-demo-bd: #f2c66d;
+  --pv-hist-fg: #6b4f2a; --pv-hist-bg: #f6efe4; --pv-hist-bd: #d8c4a3;
+
+  /* Chart categorical (validated with dataviz validate_palette.js, light surface) */
+  --c1: #0e86a8; --c2: #d0622a; --c3: #5b3fc4; --c4: #1f7a45; --c5: #2a62a0; --c6: #8c6d1f; --c7: #c2367a; --c-other: #8696a7;
+  color-scheme: light;
+}
+
+.dark {
+  --canvas: #0b1117;
+  --surface: #111a22;
+  --surface-2: #1a2530;
+  --surface-hover: #1a2530;
+  --line: #2a3744;
+  --line-strong: #3e4c5a;
+  --ink: #e8edf2;
+  --ink-2: #b4c0cc;
+  --muted: #8696a7;
+  --faint: #5b6b7b;
+  --link: #3aa5c4;
+  --primary: #0e86a8;
+  --primary-hover: #3aa5c4;
+  --primary-tint: rgba(14, 134, 168, 0.14);
+  --grid: #1f2b37;
+  --shadow-1: none;
+  --shadow-2: 0 0 0 1px #2a3744;
+
+  --ok-fg: #6fcf97; --ok-bg: rgba(31, 122, 69, 0.18); --ok-bd: #2f6b49;
+  --warn-fg: #f2c66d; --warn-bg: rgba(154, 98, 18, 0.2); --warn-bd: #7a5a20;
+  --bad-fg: #f19a93; --bad-bg: rgba(180, 47, 40, 0.2); --bad-bd: #7c3530;
+  --info-fg: #8fb8e8; --info-bg: rgba(42, 98, 160, 0.2); --info-bd: #34557c;
+  --neu-fg: #b4c0cc; --neu-bg: #1a2530; --neu-bd: #3e4c5a;
+
+  --pv-recorded-fg: #b4c0cc; --pv-recorded-bg: #1a2530; --pv-recorded-bd: #3e4c5a;
+  --pv-model-fg: #b9a9f0; --pv-model-bg: rgba(91, 63, 196, 0.18); --pv-model-bd: #6a55c0;
+  --pv-nlp-fg: #d3b0e8; --pv-nlp-bg: rgba(122, 58, 168, 0.18); --pv-nlp-bd: #7f4ea4;
+  --pv-sim-fg: #8fd3d8; --pv-sim-bg: rgba(12, 110, 118, 0.2); --pv-sim-bd: #2d7c82;
+  --pv-rule-fg: #b3bfdd; --pv-rule-bg: rgba(63, 84, 138, 0.22); --pv-rule-bd: #4f6496;
+  --pv-human-fg: #6fcf97; --pv-human-bg: rgba(31, 122, 69, 0.18); --pv-human-bd: #2f6b49;
+  --pv-insuf-fg: #8696a7; --pv-insuf-bg: #111a22; --pv-insuf-bd: #3e4c5a;
+  --pv-demo-fg: #f2c66d; --pv-demo-bg: rgba(146, 64, 14, 0.25); --pv-demo-bd: #8a5a1c;
+  --pv-hist-fg: #d8c4a3; --pv-hist-bg: rgba(107, 79, 42, 0.25); --pv-hist-bd: #6b5636;
+
+  /* Dark chart palette: separately validated against #1A2530 (not an automatic flip) */
+  --c1: #2a9ec2; --c2: #d9733a; --c3: #8169e0; --c4: #2f9a5c; --c5: #4f86cf; --c6: #a8873a; --c7: #d3518c; --c-other: #5b6b7b;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-hover: var(--surface-hover);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-link: var(--link);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-tint: var(--primary-tint);
+  --shadow-card: var(--shadow-1);
+  --shadow-pop: var(--shadow-2);
+}
+
+html, body, #root { height: 100%; }
+body {
+  @apply bg-canvas text-ink font-sans antialiased;
+  font-size: 14px;
+  line-height: 20px;
+}
+.num { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid #3aa5c4; outline-offset: 2px; }
+.hatched {
+  background-image: repeating-linear-gradient(135deg, transparent 0 6px, var(--line) 6px 7px);
+}
+.grid-texture {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.overline { font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  .print-break { break-before: page; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

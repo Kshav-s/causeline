@@ -1,0 +1,142 @@
+{
+  "target": "complaint_category",
+  "n_samples": 18000,
+  "n_classes": 10,
+  "accuracy": 1.0,
+  "f1_macro": 1.0,
+  "f1_weighted": 1.0,
+  "classes": [
+    "Contamination / microbiological",
+    "Infestation / pest",
+    "Labelling / allergen issue",
+    "Packaging issue",
+    "Physical defect / foreign matter",
+    "Process-related defect",
+    "Product quality deviation",
+    "Sensory characteristic",
+    "Storage / transportation issue",
+    "Weight / quantity issue"
+  ],
+  "confusion_matrix": [
+    [
+      272,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      169,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      150,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      586,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      401,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      424,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      576,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      553,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      229,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      240
+    ]
+  ]
+}

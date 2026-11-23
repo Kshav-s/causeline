@@ -1,0 +1,7 @@
+# TRAINING / ANALYTICS-REGENERATION requirements.
+# NOT needed to serve the API. Only required if someone re-runs
+# `python -m src.train`, `python -m src.semantic`, or `python -m src.analytics`.
+# WARNING: the handover package ships pre-trained artifacts. Re-training is
+# NOT part of this handover and will overwrite models/.
+-r requirements.txt
+matplotlib==3.11.2

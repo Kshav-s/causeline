@@ -1,0 +1,491 @@
+product_id,product_name,complaint_category,total,max_in_90d,last_12m,prior_12m,severity_weighted,critical,post_capa_recurrences,last_complaint,recurring_flag,emerging_flag,priority_score
+ABT-PROD-0025,Graded table eggs,Product quality deviation,120,7,7,14,190,0,22,2025-07-11,True,False,276
+ABT-PROD-0026,Pasteurized liquid whole egg,Physical defect / foreign matter,75,5,6,2,189,13,13,2025-12-26,True,True,248
+ABT-PROD-0026,Pasteurized liquid whole egg,Product quality deviation,106,7,6,9,168,2,18,2025-09-24,True,False,243
+ABT-PROD-0033,Butter biscuits,Physical defect / foreign matter,68,4,2,3,178,15,20,2025-08-24,True,False,236
+ABT-PROD-0034,Chocolate cake slices,Product quality deviation,91,7,4,6,147,2,24,2025-08-17,True,False,228
+ABT-PROD-0025,Graded table eggs,Physical defect / foreign matter,72,5,1,5,182,7,12,2025-07-27,True,False,224
+ABT-PROD-0032,Burger buns,Packaging issue,94,6,6,5,152,1,13,2025-10-27,True,True,214
+ABT-PROD-0025,Graded table eggs,Process-related defect,80,7,7,4,138,2,14,2025-05-14,True,True,208
+ABT-PROD-0025,Graded table eggs,Packaging issue,95,6,5,3,157,1,8,2025-11-27,True,True,206
+ABT-PROD-0022,Frozen prawns,Physical defect / foreign matter,61,5,5,3,143,8,12,2025-10-26,True,True,197
+ABT-PROD-0026,Pasteurized liquid whole egg,Packaging issue,87,9,4,11,141,0,8,2025-12-31,True,False,196
+ABT-PROD-0029,Rolled oats,Packaging issue,82,7,5,7,132,2,11,2025-10-06,True,False,190
+ABT-PROD-0016,Frozen chicken nuggets,Product quality deviation,74,4,5,5,122,1,18,2025-09-24,True,False,185
+ABT-PROD-0026,Pasteurized liquid whole egg,Contamination / microbiological,46,4,2,1,148,16,9,2025-12-18,True,True,184
+ABT-PROD-0027,Packaged raw rice,Packaging issue,71,6,7,6,121,0,9,2025-07-31,True,True,178
+ABT-PROD-0034,Chocolate cake slices,Packaging issue,78,5,2,5,132,2,12,2025-11-21,True,False,177
+ABT-PROD-0033,Butter biscuits,Packaging issue,78,7,4,6,130,0,7,2025-11-28,True,False,177
+ABT-PROD-0015,Chilled chicken breast portions,Product quality deviation,78,7,5,7,120,0,10,2025-12-12,True,False,176
+ABT-PROD-0017,Frozen beef patties,Physical defect / foreign matter,51,5,1,3,141,12,8,2025-07-08,True,False,175
+ABT-PROD-0031,Sliced sandwich bread,Physical defect / foreign matter,55,4,4,4,135,11,7,2025-12-23,True,False,173
+ABT-PROD-0023,Chilled whole fish,Product quality deviation,78,6,2,4,132,3,8,2025-05-09,True,False,172
+ABT-PROD-0017,Frozen beef patties,Product quality deviation,67,6,5,1,119,0,10,2025-08-02,True,True,172
+ABT-PROD-0023,Chilled whole fish,Contamination / microbiological,47,3,5,3,141,14,2,2025-12-07,True,True,169
+ABT-PROD-0029,Rolled oats,Physical defect / foreign matter,55,5,0,6,123,5,15,2024-11-30,True,False,168
+ABT-PROD-0039,Canned baked beans,Packaging issue,65,6,7,3,119,1,5,2025-11-09,True,True,168
+ABT-PROD-0034,Chocolate cake slices,Sensory characteristic,71,5,3,3,111,0,16,2025-08-20,True,False,167
+ABT-PROD-0025,Graded table eggs,Contamination / microbiological,43,3,3,1,143,17,2,2025-04-26,True,True,165
+ABT-PROD-0027,Packaged raw rice,Contamination / microbiological,40,5,2,0,128,13,8,2025-10-14,True,True,165
+ABT-PROD-0024,Breaded fish fingers,Packaging issue,69,6,1,3,121,0,11,2025-09-13,True,False,164
+ABT-PROD-0014,Mango yoghurt cup,Product quality deviation,63,5,3,5,111,2,14,2025-11-06,True,False,163
+ABT-PROD-0018,Chilled mutton cubes,Product quality deviation,68,5,9,6,112,3,4,2025-11-29,True,True,162
+ABT-PROD-0026,Pasteurized liquid whole egg,Sensory characteristic,74,6,2,9,108,1,15,2025-10-18,True,False,162
+ABT-PROD-0031,Sliced sandwich bread,Product quality deviation,71,5,9,3,103,0,8,2025-12-07,True,True,161
+ABT-PROD-0024,Breaded fish fingers,Physical defect / foreign matter,50,6,4,6,118,7,6,2025-10-03,True,False,160
+ABT-PROD-0044,Flavoured malt beverage,Packaging issue,66,4,4,4,116,0,10,2025-12-05,True,False,160
+ABT-PROD-0024,Breaded fish fingers,Product quality deviation,69,5,3,8,113,1,11,2025-07-22,True,False,159
+ABT-PROD-0033,Butter biscuits,Process-related defect,65,4,2,3,109,1,16,2025-09-02,True,False,159
+ABT-PROD-0035,Potato chips salted,Physical defect / foreign matter,52,4,5,2,124,4,4,2025-12-07,True,True,159
+ABT-PROD-0002,Table grapes,Packaging issue,58,4,3,1,110,1,14,2025-03-02,True,True,159
+ABT-PROD-0048,Chicken sandwich,Packaging issue,65,6,5,0,105,0,10,2025-11-16,True,True,158
+ABT-PROD-0047,Mixed vegetable salad,Physical defect / foreign matter,46,4,3,2,116,6,10,2025-08-12,True,True,157
+ABT-PROD-0032,Burger buns,Contamination / microbiological,40,5,3,0,124,12,4,2025-08-06,True,True,156
+ABT-PROD-0020,Smoked chicken sausage,Physical defect / foreign matter,51,4,2,1,127,7,5,2025-12-09,True,True,155
+ABT-PROD-0025,Graded table eggs,Sensory characteristic,85,5,3,4,115,0,8,2025-11-19,True,False,155
+ABT-PROD-0036,Roasted mixed nuts,Physical defect / foreign matter,45,5,2,2,123,7,5,2025-12-02,True,False,154
+ABT-PROD-0019,Cooked chicken strips,Physical defect / foreign matter,46,5,1,5,120,8,8,2025-01-31,True,False,154
+ABT-PROD-0020,Smoked chicken sausage,Packaging issue,62,5,5,4,100,0,11,2025-09-20,True,True,152
+ABT-PROD-0028,Wheat flour,Packaging issue,70,5,3,4,112,0,8,2025-07-21,True,False,152
+ABT-PROD-0027,Packaged raw rice,Physical defect / foreign matter,45,4,2,4,119,8,7,2025-03-09,True,False,151
+ABT-PROD-0032,Burger buns,Physical defect / foreign matter,46,4,3,2,112,4,9,2025-05-12,True,True,151
+ABT-PROD-0016,Frozen chicken nuggets,Packaging issue,67,6,6,4,105,0,5,2025-09-11,True,True,151
+ABT-PROD-0017,Frozen beef patties,Packaging issue,72,5,1,5,118,1,7,2025-02-01,True,False,150
+ABT-PROD-0034,Chocolate cake slices,Physical defect / foreign matter,45,5,1,5,123,6,4,2025-01-07,True,False,149
+ABT-PROD-0021,Frozen fish fillets,Physical defect / foreign matter,44,4,1,2,122,7,6,2025-06-03,True,False,149
+ABT-PROD-0018,Chilled mutton cubes,Packaging issue,57,6,9,4,85,0,9,2025-12-19,True,True,148
+ABT-PROD-0012,Fresh paneer blocks,Packaging issue,57,5,4,4,95,0,13,2025-07-10,True,False,148
+ABT-PROD-0028,Wheat flour,Contamination / microbiological,35,4,3,7,115,13,6,2025-07-01,True,False,148
+ABT-PROD-0001,Fresh-cut mango cubes,Physical defect / foreign matter,46,4,2,3,118,6,6,2025-07-25,True,False,148
+ABT-PROD-0029,Rolled oats,Sensory characteristic,64,5,8,2,86,0,11,2025-11-23,True,True,147
+ABT-PROD-0043,Packaged drinking water,Sensory characteristic,79,6,4,3,103,0,7,2025-05-10,True,True,147
+ABT-PROD-0030,Corn flakes,Product quality deviation,71,5,2,6,107,1,9,2025-05-01,True,False,146
+ABT-PROD-0026,Pasteurized liquid whole egg,Process-related defect,62,6,6,4,98,0,6,2025-12-05,True,True,146
+ABT-PROD-0043,Packaged drinking water,Product quality deviation,57,5,6,5,103,2,5,2025-04-24,True,True,146
+ABT-PROD-0028,Wheat flour,Process-related defect,50,5,3,1,102,3,10,2025-10-11,True,True,146
+ABT-PROD-0005,Fresh carrots,Sensory characteristic,69,5,5,5,99,1,8,2025-12-10,True,False,145
+ABT-PROD-0032,Burger buns,Product quality deviation,63,4,2,5,101,1,13,2025-07-28,True,False,145
+ABT-PROD-0010,Plain set yoghurt,Physical defect / foreign matter,36,3,5,1,108,10,6,2025-07-21,True,True,144
+ABT-PROD-0021,Frozen fish fillets,Sensory characteristic,71,6,6,6,97,1,5,2025-11-21,True,False,143
+ABT-PROD-0006,Fresh-cut mixed vegetables,Physical defect / foreign matter,41,3,2,2,115,7,6,2025-11-18,True,False,142
+ABT-PROD-0038,Tomato ketchup pouch,Packaging issue,60,5,5,4,92,0,10,2025-12-12,True,True,142
+ABT-PROD-0023,Chilled whole fish,Packaging issue,68,5,3,8,110,0,4,2025-08-06,True,False,142
+ABT-PROD-0017,Frozen beef patties,Process-related defect,50,5,6,0,94,2,7,2025-12-22,True,True,141
+ABT-PROD-0049,Paneer curry ready meal,Packaging issue,68,5,2,0,100,2,10,2025-11-01,True,True,141
+ABT-PROD-0019,Cooked chicken strips,Product quality deviation,68,6,2,1,108,2,4,2025-08-13,True,True,140
+ABT-PROD-0022,Frozen prawns,Contamination / microbiological,35,4,1,2,121,13,2,2025-02-06,True,False,140
+ABT-PROD-0029,Rolled oats,Product quality deviation,61,6,3,3,101,1,6,2025-05-14,True,False,140
+ABT-PROD-0032,Burger buns,Sensory characteristic,67,6,3,5,91,0,11,2025-12-17,True,False,140
+ABT-PROD-0022,Frozen prawns,Sensory characteristic,69,5,4,4,91,0,11,2025-07-30,True,False,140
+ABT-PROD-0023,Chilled whole fish,Physical defect / foreign matter,45,4,1,2,101,3,12,2025-01-02,True,False,140
+ABT-PROD-0038,Tomato ketchup pouch,Process-related defect,50,5,4,1,90,3,11,2025-10-20,True,True,139
+ABT-PROD-0030,Corn flakes,Packaging issue,58,5,4,4,96,2,8,2025-12-25,True,False,139
+ABT-PROD-0013,Salted table butter,Contamination / microbiological,33,4,1,4,111,14,6,2025-01-23,True,False,138
+ABT-PROD-0027,Packaged raw rice,Product quality deviation,63,5,4,2,97,0,7,2025-12-31,True,True,138
+ABT-PROD-0049,Paneer curry ready meal,Product quality deviation,65,5,5,5,101,0,3,2025-12-28,True,False,137
+ABT-PROD-0017,Frozen beef patties,Contamination / microbiological,35,4,0,2,113,11,6,2024-10-02,True,False,137
+ABT-PROD-0019,Cooked chicken strips,Process-related defect,56,4,5,3,88,0,11,2025-12-04,True,True,137
+ABT-PROD-0013,Salted table butter,Physical defect / foreign matter,37,4,0,2,103,8,11,2024-02-03,True,False,137
+ABT-PROD-0019,Cooked chicken strips,Packaging issue,59,7,1,4,85,0,14,2025-02-27,True,False,137
+ABT-PROD-0019,Cooked chicken strips,Contamination / microbiological,34,3,3,4,112,13,3,2025-04-11,True,False,136
+ABT-PROD-0028,Wheat flour,Product quality deviation,62,4,4,5,92,0,10,2025-05-03,True,False,136
+ABT-PROD-0031,Sliced sandwich bread,Packaging issue,69,6,0,3,105,0,6,2024-11-23,True,False,135
+ABT-PROD-0033,Butter biscuits,Product quality deviation,58,5,0,4,96,1,12,2024-10-14,True,False,135
+ABT-PROD-0043,Packaged drinking water,Physical defect / foreign matter,42,4,5,2,96,5,6,2025-12-15,True,True,135
+ABT-PROD-0049,Paneer curry ready meal,Physical defect / foreign matter,37,4,8,2,95,4,2,2025-10-15,True,True,135
+ABT-PROD-0020,Smoked chicken sausage,Contamination / microbiological,35,4,2,2,111,10,2,2025-12-05,True,False,133
+ABT-PROD-0028,Wheat flour,Physical defect / foreign matter,43,5,1,9,109,5,3,2025-03-01,True,False,133
+ABT-PROD-0037,Mixed curry spice blend,Physical defect / foreign matter,42,3,6,1,102,5,2,2025-11-30,True,True,133
+ABT-PROD-0021,Frozen fish fillets,Contamination / microbiological,30,5,6,3,90,9,5,2025-09-30,True,True,133
+ABT-PROD-0039,Canned baked beans,Product quality deviation,60,4,3,4,102,2,5,2025-09-12,True,False,133
+ABT-PROD-0048,Chicken sandwich,Physical defect / foreign matter,46,5,1,2,106,5,4,2025-11-07,True,False,132
+ABT-PROD-0034,Chocolate cake slices,Contamination / microbiological,36,3,1,2,110,14,5,2025-07-12,True,False,132
+ABT-PROD-0015,Chilled chicken breast portions,Packaging issue,52,4,4,2,88,1,10,2025-12-10,True,True,132
+ABT-PROD-0040,Instant soup mix,Packaging issue,48,4,7,3,76,0,11,2025-11-17,True,True,131
+ABT-PROD-0047,Mixed vegetable salad,Process-related defect,43,5,7,1,83,2,6,2025-12-31,True,True,131
+ABT-PROD-0007,Fresh pineapple slices,Product quality deviation,56,5,3,5,90,1,8,2025-12-11,True,False,130
+ABT-PROD-0037,Mixed curry spice blend,Contamination / microbiological,31,4,1,0,107,15,4,2025-03-05,True,False,130
+ABT-PROD-0039,Canned baked beans,Physical defect / foreign matter,38,3,3,1,98,5,7,2025-09-09,True,True,130
+ABT-PROD-0040,Instant soup mix,Product quality deviation,54,6,4,1,88,1,6,2025-10-15,True,True,130
+ABT-PROD-0003,Fresh tomatoes,Process-related defect,46,4,4,1,92,2,7,2025-08-24,True,True,130
+ABT-PROD-0030,Corn flakes,Process-related defect,55,5,2,5,99,2,5,2025-11-19,True,False,130
+ABT-PROD-0008,Fresh onions,Process-related defect,51,4,0,5,93,1,12,2024-12-02,True,False,129
+ABT-PROD-0045,Vegetable pulao ready meal,Packaging issue,60,5,1,3,96,1,7,2025-10-18,True,False,128
+ABT-PROD-0008,Fresh onions,Packaging issue,54,5,3,2,84,0,10,2025-10-09,True,True,128
+ABT-PROD-0015,Chilled chicken breast portions,Contamination / microbiological,31,4,2,5,107,12,1,2025-05-21,True,False,127
+ABT-PROD-0035,Potato chips salted,Contamination / microbiological,29,4,2,5,107,14,1,2025-08-17,True,False,127
+ABT-PROD-0038,Tomato ketchup pouch,Physical defect / foreign matter,36,4,3,0,96,5,5,2025-10-27,True,True,127
+ABT-PROD-0023,Chilled whole fish,Sensory characteristic,57,6,8,2,77,1,4,2025-08-25,True,True,127
+ABT-PROD-0021,Frozen fish fillets,Process-related defect,51,4,2,2,99,1,5,2025-09-21,True,False,127
+ABT-PROD-0044,Flavoured malt beverage,Physical defect / foreign matter,33,4,2,1,99,5,5,2025-09-18,True,True,127
+ABT-PROD-0049,Paneer curry ready meal,Sensory characteristic,61,5,2,2,93,0,6,2025-02-28,True,False,126
+ABT-PROD-0035,Potato chips salted,Process-related defect,46,4,4,1,84,0,9,2025-05-02,True,True,126
+ABT-PROD-0012,Fresh paneer blocks,Product quality deviation,58,5,5,2,88,0,4,2025-12-18,True,True,126
+ABT-PROD-0003,Fresh tomatoes,Physical defect / foreign matter,37,4,2,2,99,4,4,2025-06-08,True,False,125
+ABT-PROD-0035,Potato chips salted,Product quality deviation,59,3,3,2,93,2,7,2025-09-25,True,True,125
+ABT-PROD-0030,Corn flakes,Physical defect / foreign matter,41,4,3,2,91,6,6,2025-07-17,True,True,124
+ABT-PROD-0020,Smoked chicken sausage,Process-related defect,47,4,3,2,89,2,7,2025-11-07,True,True,124
+ABT-PROD-0043,Packaged drinking water,Packaging issue,56,4,3,6,84,1,9,2025-12-29,True,False,123
+ABT-PROD-0045,Vegetable pulao ready meal,Product quality deviation,49,4,6,1,83,0,5,2025-11-09,True,True,123
+ABT-PROD-0016,Frozen chicken nuggets,Physical defect / foreign matter,37,4,2,7,95,6,5,2025-05-25,True,False,123
+ABT-PROD-0034,Chocolate cake slices,Process-related defect,53,5,1,4,95,3,5,2025-06-27,True,False,123
+ABT-PROD-0009,Pasteurized toned milk,Packaging issue,57,5,1,4,93,2,6,2025-09-09,True,False,123
+ABT-PROD-0047,Mixed vegetable salad,Product quality deviation,60,5,1,0,84,0,10,2025-01-26,True,False,122
+ABT-PROD-0009,Pasteurized toned milk,Product quality deviation,56,4,2,4,90,0,7,2025-11-21,True,False,122
+ABT-PROD-0032,Burger buns,Storage / transportation issue,44,4,4,3,92,4,3,2025-12-31,True,True,122
+ABT-PROD-0046,Chicken biryani ready meal,Sensory characteristic,66,5,1,7,94,0,5,2025-02-21,True,False,122
+ABT-PROD-0038,Tomato ketchup pouch,Sensory characteristic,52,4,4,1,80,0,9,2025-06-01,True,True,122
+ABT-PROD-0004,Washed baby spinach,Physical defect / foreign matter,34,5,2,3,88,5,6,2025-08-05,True,False,121
+ABT-PROD-0010,Plain set yoghurt,Packaging issue,61,5,1,4,93,0,5,2025-08-19,True,False,121
+ABT-PROD-0009,Pasteurized toned milk,Process-related defect,48,5,4,3,80,0,7,2025-12-21,True,True,121
+ABT-PROD-0031,Sliced sandwich bread,Sensory characteristic,60,5,2,8,86,0,7,2025-05-13,True,False,121
+ABT-PROD-0036,Roasted mixed nuts,Packaging issue,59,4,2,3,89,1,7,2025-01-09,True,False,121
+ABT-PROD-0002,Table grapes,Product quality deviation,47,4,1,0,85,0,10,2025-09-11,True,False,120
+ABT-PROD-0031,Sliced sandwich bread,Process-related defect,45,4,3,6,85,0,7,2025-06-25,True,False,120
+ABT-PROD-0035,Potato chips salted,Packaging issue,49,4,3,2,81,0,9,2025-11-28,True,True,120
+ABT-PROD-0042,Orange juice chilled,Packaging issue,45,4,3,3,81,1,9,2025-10-09,True,False,120
+ABT-PROD-0041,Mango fruit beverage,Sensory characteristic,53,5,3,5,83,1,6,2025-11-01,True,False,119
+ABT-PROD-0005,Fresh carrots,Packaging issue,53,4,2,3,91,0,5,2025-09-12,True,False,119
+ABT-PROD-0045,Vegetable pulao ready meal,Process-related defect,47,5,3,6,85,1,5,2025-08-27,True,False,119
+ABT-PROD-0037,Mixed curry spice blend,Sensory characteristic,53,4,8,1,69,0,7,2025-12-18,True,True,119
+ABT-PROD-0028,Wheat flour,Sensory characteristic,68,5,2,5,86,0,6,2025-09-18,True,False,119
+ABT-PROD-0022,Frozen prawns,Packaging issue,55,5,3,3,83,1,6,2025-08-24,True,False,119
+ABT-PROD-0047,Mixed vegetable salad,Sensory characteristic,64,5,6,5,84,0,1,2025-11-22,True,True,119
+ABT-PROD-0001,Fresh-cut mango cubes,Sensory characteristic,52,5,6,1,70,0,8,2025-07-23,True,True,119
+ABT-PROD-0020,Smoked chicken sausage,Product quality deviation,54,4,6,2,76,0,6,2025-06-13,True,True,118
+ABT-PROD-0006,Fresh-cut mixed vegetables,Packaging issue,53,5,4,3,85,0,3,2025-12-06,True,True,118
+ABT-PROD-0016,Frozen chicken nuggets,Process-related defect,48,4,4,1,72,0,11,2025-11-30,True,True,118
+ABT-PROD-0021,Frozen fish fillets,Packaging issue,46,3,1,6,84,0,11,2025-03-27,True,False,118
+ABT-PROD-0042,Orange juice chilled,Process-related defect,49,5,1,1,91,4,4,2025-04-03,True,False,117
+ABT-PROD-0047,Mixed vegetable salad,Packaging issue,47,5,1,4,89,0,5,2025-07-20,True,False,117
+ABT-PROD-0003,Fresh tomatoes,Sensory characteristic,52,4,5,4,82,1,4,2025-05-26,True,True,117
+ABT-PROD-0027,Packaged raw rice,Sensory characteristic,66,5,2,1,88,0,4,2025-07-07,True,True,117
+ABT-PROD-0011,Processed cheese slices,Product quality deviation,49,4,4,4,75,1,9,2025-11-02,True,False,117
+ABT-PROD-0033,Butter biscuits,Sensory characteristic,72,5,2,3,88,0,4,2025-12-31,True,False,117
+ABT-PROD-0036,Roasted mixed nuts,Sensory characteristic,49,6,7,5,63,0,7,2025-07-09,True,True,116
+ABT-PROD-0044,Flavoured malt beverage,Product quality deviation,49,3,4,2,81,0,7,2025-09-21,True,True,116
+ABT-PROD-0015,Chilled chicken breast portions,Sensory characteristic,48,3,2,1,72,0,14,2025-11-14,True,True,115
+ABT-PROD-0001,Fresh-cut mango cubes,Process-related defect,44,5,0,4,88,2,6,2024-10-08,True,False,115
+ABT-PROD-0024,Breaded fish fingers,Contamination / microbiological,32,3,0,0,98,11,4,2023-11-13,True,False,115
+ABT-PROD-0027,Packaged raw rice,Process-related defect,49,4,0,1,83,0,10,2024-04-05,True,False,115
+ABT-PROD-0030,Corn flakes,Sensory characteristic,61,4,2,3,81,0,8,2025-10-27,True,False,115
+ABT-PROD-0018,Chilled mutton cubes,Physical defect / foreign matter,37,5,0,1,91,5,4,2024-01-07,True,False,114
+ABT-PROD-0040,Instant soup mix,Physical defect / foreign matter,38,4,2,3,88,2,4,2025-03-27,True,False,114
+ABT-PROD-0038,Tomato ketchup pouch,Contamination / microbiological,30,2,0,0,100,10,4,2023-07-08,False,False,114
+ABT-PROD-0042,Orange juice chilled,Sensory characteristic,55,5,1,4,81,0,7,2025-04-02,True,False,113
+ABT-PROD-0037,Mixed curry spice blend,Process-related defect,53,5,3,2,77,0,6,2025-09-13,True,True,113
+ABT-PROD-0018,Chilled mutton cubes,Sensory characteristic,57,4,0,5,87,1,7,2024-11-26,True,False,113
+ABT-PROD-0019,Cooked chicken strips,Sensory characteristic,65,4,2,2,87,0,4,2025-10-15,True,False,113
+ABT-PROD-0046,Chicken biryani ready meal,Packaging issue,53,4,2,2,85,0,5,2025-07-26,True,False,113
+ABT-PROD-0010,Plain set yoghurt,Process-related defect,45,6,5,1,69,1,5,2025-08-04,True,True,112
+ABT-PROD-0018,Chilled mutton cubes,Process-related defect,51,5,2,2,79,1,6,2025-04-30,True,False,112
+ABT-PROD-0012,Fresh paneer blocks,Contamination / microbiological,27,3,2,0,89,11,4,2025-08-01,True,True,112
+ABT-PROD-0031,Sliced sandwich bread,Contamination / microbiological,31,3,0,2,87,6,7,2024-12-25,True,False,110
+ABT-PROD-0016,Frozen chicken nuggets,Contamination / microbiological,28,4,0,1,88,9,5,2024-04-16,True,False,110
+ABT-PROD-0013,Salted table butter,Sensory characteristic,50,5,4,5,66,0,8,2025-12-11,True,False,109
+ABT-PROD-0011,Processed cheese slices,Packaging issue,43,4,4,1,71,0,7,2025-11-28,True,True,109
+ABT-PROD-0001,Fresh-cut mango cubes,Packaging issue,50,4,1,4,76,2,9,2025-04-25,True,False,109
+ABT-PROD-0036,Roasted mixed nuts,Product quality deviation,55,5,3,2,81,0,2,2025-08-08,True,True,109
+ABT-PROD-0005,Fresh carrots,Product quality deviation,54,5,0,3,80,0,7,2024-11-10,True,False,109
+ABT-PROD-0024,Breaded fish fingers,Process-related defect,43,5,5,0,71,1,4,2025-09-04,True,True,109
+ABT-PROD-0048,Chicken sandwich,Contamination / microbiological,30,4,4,2,78,6,3,2025-12-15,True,True,108
+ABT-PROD-0048,Chicken sandwich,Product quality deviation,51,5,0,1,77,1,8,2024-12-23,True,False,108
+ABT-PROD-0004,Washed baby spinach,Packaging issue,57,4,3,4,77,0,5,2025-10-18,True,False,108
+ABT-PROD-0003,Fresh tomatoes,Product quality deviation,47,4,3,5,81,0,3,2025-11-20,True,False,108
+ABT-PROD-0030,Corn flakes,Contamination / microbiological,26,3,5,1,76,6,4,2025-12-06,True,True,108
+ABT-PROD-0011,Processed cheese slices,Contamination / microbiological,30,3,2,0,88,8,2,2025-08-05,True,True,107
+ABT-PROD-0005,Fresh carrots,Process-related defect,39,4,2,0,81,0,4,2025-10-30,True,True,107
+ABT-PROD-0046,Chicken biryani ready meal,Process-related defect,39,4,4,2,73,0,5,2025-10-14,True,True,107
+ABT-PROD-0026,Pasteurized liquid whole egg,Weight / quantity issue,49,7,0,3,69,1,8,2024-09-10,True,False,106
+ABT-PROD-0013,Salted table butter,Packaging issue,42,4,6,1,64,0,6,2025-12-19,True,True,106
+ABT-PROD-0023,Chilled whole fish,Process-related defect,41,4,6,1,71,1,2,2025-12-15,True,True,105
+ABT-PROD-0011,Processed cheese slices,Physical defect / foreign matter,30,2,3,1,82,6,4,2025-12-19,False,False,105
+ABT-PROD-0004,Washed baby spinach,Process-related defect,35,4,6,2,57,1,9,2025-10-31,True,True,105
+ABT-PROD-0020,Smoked chicken sausage,Sensory characteristic,59,6,1,3,83,1,0,2025-03-09,True,False,104
+ABT-PROD-0010,Plain set yoghurt,Contamination / microbiological,24,3,3,0,78,9,4,2025-11-24,True,True,104
+ABT-PROD-0008,Fresh onions,Physical defect / foreign matter,29,4,3,5,75,4,4,2025-10-28,True,False,104
+ABT-PROD-0037,Mixed curry spice blend,Product quality deviation,51,5,0,4,71,0,9,2024-12-21,True,False,104
+ABT-PROD-0014,Mango yoghurt cup,Sensory characteristic,47,5,2,1,61,0,11,2025-04-10,True,True,104
+ABT-PROD-0033,Butter biscuits,Labelling / allergen issue,33,3,2,2,83,7,3,2025-05-08,True,False,104
+ABT-PROD-0002,Table grapes,Sensory characteristic,51,5,1,1,67,1,9,2025-12-08,True,False,103
+ABT-PROD-0040,Instant soup mix,Sensory characteristic,52,5,1,7,68,0,8,2025-07-09,True,False,102
+ABT-PROD-0048,Chicken sandwich,Sensory characteristic,50,6,3,2,66,1,4,2025-12-20,True,True,101
+ABT-PROD-0045,Vegetable pulao ready meal,Sensory characteristic,53,3,3,4,73,0,5,2025-10-15,True,False,101
+ABT-PROD-0002,Table grapes,Physical defect / foreign matter,26,3,2,0,80,6,3,2025-09-09,True,True,101
+ABT-PROD-0004,Washed baby spinach,Sensory characteristic,49,5,1,2,69,0,7,2025-07-10,True,False,101
+ABT-PROD-0004,Washed baby spinach,Product quality deviation,45,4,3,3,73,0,3,2025-06-06,True,False,100
+ABT-PROD-0022,Frozen prawns,Product quality deviation,54,5,1,2,80,3,1,2025-07-08,True,False,100
+ABT-PROD-0041,Mango fruit beverage,Contamination / microbiological,29,3,0,0,85,8,3,2023-12-29,True,False,100
+ABT-PROD-0049,Paneer curry ready meal,Process-related defect,39,4,7,2,63,0,2,2025-11-26,True,True,100
+ABT-PROD-0033,Butter biscuits,Contamination / microbiological,26,2,0,0,86,9,3,2023-11-07,False,False,98
+ABT-PROD-0007,Fresh pineapple slices,Physical defect / foreign matter,33,3,0,2,81,3,4,2024-10-09,True,False,98
+ABT-PROD-0014,Mango yoghurt cup,Process-related defect,34,4,2,0,70,0,5,2025-08-16,True,True,98
+ABT-PROD-0007,Fresh pineapple slices,Packaging issue,49,4,3,1,65,0,6,2025-12-02,True,True,98
+ABT-PROD-0009,Pasteurized toned milk,Physical defect / foreign matter,30,3,1,4,78,3,4,2025-08-24,True,False,98
+ABT-PROD-0015,Chilled chicken breast portions,Process-related defect,36,4,3,2,70,0,3,2025-11-30,True,True,97
+ABT-PROD-0006,Fresh-cut mixed vegetables,Product quality deviation,49,4,6,2,61,0,3,2025-12-29,True,True,97
+ABT-PROD-0035,Potato chips salted,Sensory characteristic,43,6,2,4,65,1,4,2025-09-10,True,False,97
+ABT-PROD-0039,Canned baked beans,Process-related defect,48,5,2,3,74,1,1,2025-08-22,True,False,97
+ABT-PROD-0003,Fresh tomatoes,Contamination / microbiological,24,4,1,3,74,9,4,2025-05-24,True,False,97
+ABT-PROD-0021,Frozen fish fillets,Product quality deviation,45,5,2,2,69,1,3,2025-08-22,True,False,96
+ABT-PROD-0014,Mango yoghurt cup,Contamination / microbiological,20,3,3,1,72,9,3,2025-03-11,True,True,96
+ABT-PROD-0008,Fresh onions,Product quality deviation,41,4,4,3,63,0,4,2025-07-25,True,True,95
+ABT-PROD-0018,Chilled mutton cubes,Contamination / microbiological,27,3,1,3,75,5,4,2025-12-24,True,False,95
+ABT-PROD-0045,Vegetable pulao ready meal,Physical defect / foreign matter,34,3,0,2,76,6,5,2024-06-09,True,False,95
+ABT-PROD-0025,Graded table eggs,Storage / transportation issue,37,4,5,1,57,1,5,2025-10-12,True,True,94
+ABT-PROD-0014,Mango yoghurt cup,Packaging issue,42,4,0,2,70,0,6,2024-09-17,True,False,94
+ABT-PROD-0046,Chicken biryani ready meal,Physical defect / foreign matter,29,3,2,0,67,3,6,2025-08-29,True,True,94
+ABT-PROD-0042,Orange juice chilled,Product quality deviation,36,4,2,5,68,1,4,2025-10-18,True,False,94
+ABT-PROD-0046,Chicken biryani ready meal,Product quality deviation,44,5,1,3,62,0,7,2025-10-31,True,False,94
+ABT-PROD-0017,Frozen beef patties,Sensory characteristic,58,4,1,3,74,0,2,2025-01-16,True,False,93
+ABT-PROD-0008,Fresh onions,Sensory characteristic,35,6,2,5,53,1,8,2025-10-17,True,False,93
+ABT-PROD-0012,Fresh paneer blocks,Sensory characteristic,48,6,1,1,64,0,4,2025-07-04,True,False,93
+ABT-PROD-0011,Processed cheese slices,Process-related defect,41,4,4,0,69,0,0,2025-09-15,True,True,93
+ABT-PROD-0003,Fresh tomatoes,Packaging issue,48,4,2,7,70,0,2,2025-05-19,True,False,92
+ABT-PROD-0024,Breaded fish fingers,Sensory characteristic,48,5,3,4,60,0,4,2025-09-21,True,False,92
+ABT-PROD-0040,Instant soup mix,Process-related defect,36,3,1,0,72,3,4,2025-07-15,True,False,92
+ABT-PROD-0011,Processed cheese slices,Sensory characteristic,54,4,2,2,68,0,3,2025-12-28,True,False,92
+ABT-PROD-0038,Tomato ketchup pouch,Product quality deviation,45,4,2,3,67,0,3,2025-11-18,True,False,91
+ABT-PROD-0006,Fresh-cut mixed vegetables,Sensory characteristic,52,5,2,7,64,0,3,2025-12-23,True,False,91
+ABT-PROD-0029,Rolled oats,Process-related defect,33,4,4,4,63,1,2,2025-12-18,True,False,91
+ABT-PROD-0022,Frozen prawns,Process-related defect,36,3,4,2,66,0,2,2025-10-21,True,True,91
+ABT-PROD-0026,Pasteurized liquid whole egg,Labelling / allergen issue,28,3,3,5,66,4,3,2025-09-13,True,False,90
+ABT-PROD-0016,Frozen chicken nuggets,Sensory characteristic,54,4,2,5,70,0,1,2025-03-27,True,False,90
+ABT-PROD-0013,Salted table butter,Process-related defect,36,3,1,3,64,0,7,2025-04-15,True,False,90
+ABT-PROD-0033,Butter biscuits,Infestation / pest,34,3,0,0,70,3,5,2023-04-10,True,False,89
+ABT-PROD-0037,Mixed curry spice blend,Packaging issue,39,7,1,10,61,1,2,2025-12-01,True,False,89
+ABT-PROD-0031,Sliced sandwich bread,Infestation / pest,20,5,5,2,48,1,5,2025-10-15,True,True,88
+ABT-PROD-0042,Orange juice chilled,Physical defect / foreign matter,25,3,4,3,65,4,1,2025-11-01,True,True,88
+ABT-PROD-0007,Fresh pineapple slices,Contamination / microbiological,25,4,1,1,69,4,2,2025-03-28,True,False,88
+ABT-PROD-0001,Fresh-cut mango cubes,Product quality deviation,50,4,2,3,70,1,0,2025-05-23,True,False,88
+ABT-PROD-0001,Fresh-cut mango cubes,Contamination / microbiological,24,3,0,0,70,5,4,2023-11-02,True,False,87
+ABT-PROD-0002,Table grapes,Process-related defect,34,4,1,1,60,0,6,2025-01-29,True,False,87
+ABT-PROD-0013,Salted table butter,Product quality deviation,48,4,1,4,64,0,4,2025-10-29,True,False,87
+ABT-PROD-0009,Pasteurized toned milk,Contamination / microbiological,23,3,3,1,63,6,3,2025-10-28,True,True,87
+ABT-PROD-0015,Chilled chicken breast portions,Physical defect / foreign matter,24,3,0,0,66,3,6,2023-02-20,True,False,87
+ABT-PROD-0021,Frozen fish fillets,Storage / transportation issue,37,3,3,3,61,0,3,2025-11-24,True,False,85
+ABT-PROD-0034,Chocolate cake slices,Weight / quantity issue,33,6,2,1,49,0,6,2025-03-29,True,True,85
+ABT-PROD-0005,Fresh carrots,Contamination / microbiological,23,3,0,2,65,6,5,2024-12-01,True,False,84
+ABT-PROD-0029,Rolled oats,Contamination / microbiological,22,4,2,1,60,4,3,2025-09-23,True,True,84
+ABT-PROD-0040,Instant soup mix,Contamination / microbiological,26,3,1,3,72,7,0,2025-08-01,True,False,84
+ABT-PROD-0041,Mango fruit beverage,Process-related defect,33,5,2,3,61,0,1,2025-08-01,True,False,84
+ABT-PROD-0041,Mango fruit beverage,Packaging issue,40,5,2,1,58,0,2,2025-09-19,True,True,83
+ABT-PROD-0033,Butter biscuits,Storage / transportation issue,34,3,4,1,56,0,3,2025-12-10,True,True,83
+ABT-PROD-0020,Smoked chicken sausage,Storage / transportation issue,32,4,3,0,56,1,3,2025-08-31,True,True,83
+ABT-PROD-0007,Fresh pineapple slices,Sensory characteristic,36,4,2,3,60,0,2,2025-08-28,True,False,82
+ABT-PROD-0026,Pasteurized liquid whole egg,Storage / transportation issue,37,4,1,1,53,0,7,2025-02-21,True,False,82
+ABT-PROD-0010,Plain set yoghurt,Sensory characteristic,36,5,1,4,56,0,4,2025-08-09,True,False,82
+ABT-PROD-0023,Chilled whole fish,Storage / transportation issue,34,3,2,4,60,1,3,2025-09-25,True,False,81
+ABT-PROD-0046,Chicken biryani ready meal,Contamination / microbiological,22,4,1,0,64,5,1,2025-07-11,True,False,81
+ABT-PROD-0009,Pasteurized toned milk,Sensory characteristic,45,4,0,0,61,0,4,2023-12-20,True,False,81
+ABT-PROD-0049,Paneer curry ready meal,Contamination / microbiological,21,4,1,0,65,6,0,2025-07-04,True,False,80
+ABT-PROD-0025,Graded table eggs,Labelling / allergen issue,28,3,1,2,64,4,2,2025-10-03,True,False,80
+ABT-PROD-0042,Orange juice chilled,Contamination / microbiological,23,2,0,2,69,6,2,2024-11-25,False,False,79
+ABT-PROD-0044,Flavoured malt beverage,Contamination / microbiological,19,3,1,0,59,7,4,2025-07-07,True,False,79
+ABT-PROD-0026,Pasteurized liquid whole egg,Infestation / pest,34,4,1,4,64,2,0,2025-03-13,True,False,79
+ABT-PROD-0006,Fresh-cut mixed vegetables,Storage / transportation issue,27,3,2,2,53,0,5,2025-05-23,True,False,78
+ABT-PROD-0032,Burger buns,Process-related defect,30,3,1,1,56,0,5,2025-02-26,True,False,78
+ABT-PROD-0046,Chicken biryani ready meal,Storage / transportation issue,30,3,1,3,58,1,4,2025-01-29,True,False,78
+ABT-PROD-0036,Roasted mixed nuts,Contamination / microbiological,23,3,0,3,61,7,4,2024-07-13,True,False,78
+ABT-PROD-0012,Fresh paneer blocks,Process-related defect,33,4,2,3,53,0,3,2025-11-03,True,False,77
+ABT-PROD-0008,Fresh onions,Contamination / microbiological,18,3,0,3,64,8,2,2024-11-27,True,False,77
+ABT-PROD-0025,Graded table eggs,Infestation / pest,29,3,1,0,61,1,2,2025-02-24,True,False,77
+ABT-PROD-0004,Washed baby spinach,Contamination / microbiological,22,3,1,2,60,7,2,2025-06-21,True,False,76
+ABT-PROD-0015,Chilled chicken breast portions,Storage / transportation issue,30,4,2,2,56,0,1,2025-05-08,True,False,76
+ABT-PROD-0048,Chicken sandwich,Process-related defect,32,4,1,1,56,1,2,2025-03-25,True,False,75
+ABT-PROD-0017,Frozen beef patties,Infestation / pest,24,4,1,0,54,2,3,2025-12-20,True,False,75
+ABT-PROD-0039,Canned baked beans,Sensory characteristic,46,4,1,5,58,0,1,2025-06-04,True,False,75
+ABT-PROD-0036,Roasted mixed nuts,Process-related defect,29,2,3,0,55,1,2,2025-05-11,False,False,74
+ABT-PROD-0027,Packaged raw rice,Labelling / allergen issue,17,3,0,3,55,5,5,2024-07-11,True,False,74
+ABT-PROD-0002,Table grapes,Contamination / microbiological,20,3,0,2,62,8,1,2024-08-05,True,False,73
+ABT-PROD-0012,Fresh paneer blocks,Physical defect / foreign matter,27,3,1,0,61,3,0,2025-07-05,True,False,73
+ABT-PROD-0005,Fresh carrots,Physical defect / foreign matter,23,3,1,1,57,3,2,2025-01-26,True,False,73
+ABT-PROD-0023,Chilled whole fish,Weight / quantity issue,31,4,1,3,47,1,5,2025-11-09,True,False,72
+ABT-PROD-0031,Sliced sandwich bread,Weight / quantity issue,36,3,5,3,46,0,1,2025-12-06,True,True,72
+ABT-PROD-0030,Corn flakes,Weight / quantity issue,34,4,1,7,50,2,3,2025-06-25,True,False,71
+ABT-PROD-0006,Fresh-cut mixed vegetables,Process-related defect,32,3,1,2,54,0,2,2025-09-11,True,False,70
+ABT-PROD-0044,Flavoured malt beverage,Process-related defect,30,4,1,1,46,0,4,2025-02-05,True,False,69
+ABT-PROD-0018,Chilled mutton cubes,Infestation / pest,28,3,0,0,54,2,3,2023-10-26,True,False,69
+ABT-PROD-0001,Fresh-cut mango cubes,Storage / transportation issue,25,4,2,1,47,2,2,2025-09-17,True,True,69
+ABT-PROD-0041,Mango fruit beverage,Physical defect / foreign matter,20,4,0,0,46,3,5,2019-09-17,True,False,68
+ABT-PROD-0049,Paneer curry ready meal,Storage / transportation issue,26,4,0,3,48,1,4,2024-04-26,True,False,68
+ABT-PROD-0044,Flavoured malt beverage,Sensory characteristic,37,4,1,1,43,0,5,2025-11-10,True,False,68
+ABT-PROD-0019,Cooked chicken strips,Storage / transportation issue,29,3,2,2,51,0,1,2025-11-25,True,False,68
+ABT-PROD-0028,Wheat flour,Infestation / pest,23,3,3,2,43,0,3,2025-11-17,True,True,67
+ABT-PROD-0024,Breaded fish fingers,Storage / transportation issue,24,3,2,3,46,0,3,2025-12-01,True,False,67
+ABT-PROD-0012,Fresh paneer blocks,Infestation / pest,23,3,3,0,41,0,4,2025-10-23,True,True,67
+ABT-PROD-0031,Sliced sandwich bread,Storage / transportation issue,32,3,2,1,50,0,1,2025-09-23,True,True,67
+ABT-PROD-0025,Graded table eggs,Weight / quantity issue,29,4,2,4,41,0,4,2025-04-29,True,False,67
+ABT-PROD-0006,Fresh-cut mixed vegetables,Contamination / microbiological,17,3,2,0,49,3,1,2025-05-08,True,True,66
+ABT-PROD-0019,Cooked chicken strips,Weight / quantity issue,25,4,5,1,35,0,2,2025-09-28,True,True,66
+ABT-PROD-0042,Orange juice chilled,Labelling / allergen issue,20,3,1,0,48,3,3,2025-12-27,True,False,66
+ABT-PROD-0018,Chilled mutton cubes,Weight / quantity issue,28,3,2,0,42,0,4,2025-11-22,True,True,65
+ABT-PROD-0001,Fresh-cut mango cubes,Labelling / allergen issue,19,3,3,0,45,3,1,2025-08-14,True,True,65
+ABT-PROD-0001,Fresh-cut mango cubes,Weight / quantity issue,25,3,3,1,41,0,3,2025-10-18,True,True,65
+ABT-PROD-0042,Orange juice chilled,Weight / quantity issue,27,3,3,5,45,0,0,2025-10-06,True,False,63
+ABT-PROD-0029,Rolled oats,Weight / quantity issue,25,4,0,1,39,0,6,2024-12-18,True,False,63
+ABT-PROD-0028,Wheat flour,Weight / quantity issue,29,3,1,0,49,1,1,2025-05-31,True,False,63
+ABT-PROD-0039,Canned baked beans,Contamination / microbiological,20,2,1,2,52,4,1,2025-08-17,False,False,63
+ABT-PROD-0022,Frozen prawns,Weight / quantity issue,30,3,0,2,50,0,2,2024-09-13,True,False,63
+ABT-PROD-0004,Washed baby spinach,Weight / quantity issue,25,3,2,0,45,1,1,2025-02-16,True,True,62
+ABT-PROD-0024,Breaded fish fingers,Labelling / allergen issue,26,4,0,1,46,1,2,2024-03-04,True,False,62
+ABT-PROD-0041,Mango fruit beverage,Product quality deviation,30,2,2,3,50,0,0,2025-06-15,False,False,62
+ABT-PROD-0034,Chocolate cake slices,Storage / transportation issue,29,3,2,3,41,1,3,2025-11-26,True,False,62
+ABT-PROD-0043,Packaged drinking water,Weight / quantity issue,27,4,1,2,43,1,2,2025-05-31,True,False,62
+ABT-PROD-0007,Fresh pineapple slices,Storage / transportation issue,27,3,1,0,47,0,1,2025-05-23,True,False,61
+ABT-PROD-0017,Frozen beef patties,Storage / transportation issue,25,3,1,3,47,0,1,2025-06-08,True,False,61
+ABT-PROD-0029,Rolled oats,Storage / transportation issue,24,3,0,0,48,1,2,2023-03-26,True,False,61
+ABT-PROD-0007,Fresh pineapple slices,Weight / quantity issue,24,4,1,1,42,0,2,2025-10-24,True,False,61
+ABT-PROD-0017,Frozen beef patties,Weight / quantity issue,27,5,3,3,35,0,1,2025-04-01,True,False,61
+ABT-PROD-0044,Flavoured malt beverage,Storage / transportation issue,26,4,1,0,36,0,5,2025-02-16,True,False,61
+ABT-PROD-0047,Mixed vegetable salad,Contamination / microbiological,20,2,2,2,46,2,1,2025-11-03,False,False,60
+ABT-PROD-0013,Salted table butter,Labelling / allergen issue,23,3,0,4,47,1,2,2024-11-07,True,False,60
+ABT-PROD-0015,Chilled chicken breast portions,Weight / quantity issue,28,3,4,0,36,0,1,2025-05-22,True,True,59
+ABT-PROD-0007,Fresh pineapple slices,Process-related defect,27,4,0,2,47,1,0,2024-10-10,True,False,59
+ABT-PROD-0021,Frozen fish fillets,Labelling / allergen issue,18,2,3,1,42,4,1,2025-11-17,False,False,59
+ABT-PROD-0010,Plain set yoghurt,Product quality deviation,33,4,1,0,39,0,2,2025-10-19,True,False,58
+ABT-PROD-0036,Roasted mixed nuts,Storage / transportation issue,24,4,0,1,40,0,3,2024-06-11,True,False,58
+ABT-PROD-0002,Table grapes,Storage / transportation issue,19,2,1,1,41,1,4,2025-11-05,False,False,58
+ABT-PROD-0014,Mango yoghurt cup,Physical defect / foreign matter,21,2,0,0,43,1,4,2023-09-26,False,False,57
+ABT-PROD-0009,Pasteurized toned milk,Storage / transportation issue,19,2,0,1,43,1,4,2024-11-19,False,False,57
+ABT-PROD-0008,Fresh onions,Weight / quantity issue,23,3,2,0,37,0,2,2025-12-09,True,True,56
+ABT-PROD-0039,Canned baked beans,Labelling / allergen issue,17,3,2,0,37,0,2,2025-11-27,True,True,56
+ABT-PROD-0038,Tomato ketchup pouch,Infestation / pest,18,3,1,0,42,2,1,2025-08-29,True,False,56
+ABT-PROD-0022,Frozen prawns,Labelling / allergen issue,16,3,0,1,40,1,3,2024-12-07,True,False,55
+ABT-PROD-0019,Cooked chicken strips,Labelling / allergen issue,19,2,0,1,45,3,2,2024-12-14,False,False,55
+ABT-PROD-0001,Fresh-cut mango cubes,Infestation / pest,20,4,1,0,36,1,2,2025-05-02,True,False,55
+ABT-PROD-0038,Tomato ketchup pouch,Labelling / allergen issue,16,3,3,1,36,2,0,2025-09-15,True,True,54
+ABT-PROD-0047,Mixed vegetable salad,Storage / transportation issue,20,3,5,2,30,0,0,2025-12-07,True,True,54
+ABT-PROD-0016,Frozen chicken nuggets,Storage / transportation issue,25,3,0,2,45,2,0,2024-07-12,True,False,54
+ABT-PROD-0011,Processed cheese slices,Storage / transportation issue,23,4,1,3,39,1,0,2025-05-04,True,False,54
+ABT-PROD-0031,Sliced sandwich bread,Labelling / allergen issue,16,3,0,0,34,2,5,2022-01-02,True,False,53
+ABT-PROD-0005,Fresh carrots,Weight / quantity issue,26,4,1,0,38,0,0,2025-07-25,True,False,53
+ABT-PROD-0027,Packaged raw rice,Weight / quantity issue,33,4,0,4,39,0,1,2024-10-13,True,False,53
+ABT-PROD-0019,Cooked chicken strips,Infestation / pest,19,3,3,0,33,1,1,2025-10-30,True,True,53
+ABT-PROD-0007,Fresh pineapple slices,Infestation / pest,16,3,3,1,26,0,4,2025-08-23,True,True,52
+ABT-PROD-0029,Rolled oats,Infestation / pest,21,3,2,0,37,1,0,2025-06-06,True,True,52
+ABT-PROD-0012,Fresh paneer blocks,Weight / quantity issue,30,3,1,3,36,0,2,2025-01-10,True,False,52
+ABT-PROD-0009,Pasteurized toned milk,Weight / quantity issue,23,3,4,1,31,0,0,2025-09-09,True,True,52
+ABT-PROD-0033,Butter biscuits,Weight / quantity issue,29,3,0,1,37,0,3,2024-03-05,True,False,52
+ABT-PROD-0048,Chicken sandwich,Weight / quantity issue,22,3,3,1,34,1,0,2025-08-17,True,True,52
+ABT-PROD-0030,Corn flakes,Labelling / allergen issue,20,3,1,3,40,3,0,2025-06-17,True,False,52
+ABT-PROD-0046,Chicken biryani ready meal,Labelling / allergen issue,16,3,3,0,32,1,1,2025-04-29,True,True,52
+ABT-PROD-0032,Burger buns,Labelling / allergen issue,21,2,0,0,45,2,0,2023-07-23,False,False,51
+ABT-PROD-0008,Fresh onions,Storage / transportation issue,18,3,2,1,32,1,2,2025-10-02,True,True,51
+ABT-PROD-0022,Frozen prawns,Storage / transportation issue,19,3,1,0,39,1,0,2025-11-22,True,False,51
+ABT-PROD-0006,Fresh-cut mixed vegetables,Weight / quantity issue,28,3,0,1,38,0,2,2024-09-04,True,False,51
+ABT-PROD-0023,Chilled whole fish,Infestation / pest,17,3,1,0,37,3,1,2025-08-17,True,False,51
+ABT-PROD-0012,Fresh paneer blocks,Storage / transportation issue,20,3,0,1,40,2,1,2024-11-24,True,False,51
+ABT-PROD-0017,Frozen beef patties,Labelling / allergen issue,19,2,1,1,41,3,0,2025-09-04,False,False,50
+ABT-PROD-0013,Salted table butter,Weight / quantity issue,22,3,1,0,34,0,2,2025-11-09,True,False,50
+ABT-PROD-0013,Salted table butter,Storage / transportation issue,19,3,0,3,39,0,1,2024-10-05,True,False,50
+ABT-PROD-0049,Paneer curry ready meal,Infestation / pest,16,3,1,1,36,1,1,2025-11-19,True,False,50
+ABT-PROD-0044,Flavoured malt beverage,Labelling / allergen issue,16,2,0,0,38,2,3,2023-07-31,False,False,50
+ABT-PROD-0034,Chocolate cake slices,Infestation / pest,19,3,1,0,33,0,2,2025-04-07,True,False,49
+ABT-PROD-0042,Orange juice chilled,Infestation / pest,21,2,0,1,43,1,0,2024-08-16,False,False,49
+ABT-PROD-0018,Chilled mutton cubes,Labelling / allergen issue,14,4,1,0,30,2,2,2025-06-01,True,False,49
+ABT-PROD-0010,Plain set yoghurt,Storage / transportation issue,20,6,1,7,26,0,1,2025-10-13,True,False,49
+ABT-PROD-0042,Orange juice chilled,Storage / transportation issue,21,3,1,1,35,0,1,2025-12-08,True,False,49
+ABT-PROD-0024,Breaded fish fingers,Weight / quantity issue,23,4,0,0,37,0,0,2022-09-07,True,False,49
+ABT-PROD-0046,Chicken biryani ready meal,Infestation / pest,20,3,1,0,32,1,2,2025-01-22,True,False,48
+ABT-PROD-0023,Chilled whole fish,Labelling / allergen issue,17,2,1,2,39,3,0,2025-08-23,False,False,48
+ABT-PROD-0048,Chicken sandwich,Storage / transportation issue,16,2,0,0,40,2,1,2023-01-24,False,False,48
+ABT-PROD-0018,Chilled mutton cubes,Storage / transportation issue,14,3,3,3,30,1,0,2025-07-12,True,False,48
+ABT-PROD-0035,Potato chips salted,Storage / transportation issue,18,2,0,2,36,1,3,2024-03-24,False,False,48
+ABT-PROD-0043,Packaged drinking water,Contamination / microbiological,15,3,0,1,37,4,1,2024-03-27,True,False,48
+ABT-PROD-0043,Packaged drinking water,Storage / transportation issue,18,4,1,0,30,0,1,2025-01-04,True,False,47
+ABT-PROD-0020,Smoked chicken sausage,Labelling / allergen issue,13,3,1,0,35,5,0,2025-08-06,True,False,47
+ABT-PROD-0041,Mango fruit beverage,Labelling / allergen issue,13,2,0,3,41,5,0,2024-12-02,False,False,47
+ABT-PROD-0011,Processed cheese slices,Labelling / allergen issue,13,2,0,1,37,3,2,2024-11-21,False,False,47
+ABT-PROD-0027,Packaged raw rice,Infestation / pest,19,3,0,0,33,0,2,2021-11-14,True,False,46
+ABT-PROD-0005,Fresh carrots,Storage / transportation issue,19,2,1,2,33,0,2,2025-08-31,False,False,46
+ABT-PROD-0043,Packaged drinking water,Process-related defect,18,2,2,1,30,0,2,2025-11-30,False,False,46
+ABT-PROD-0041,Mango fruit beverage,Weight / quantity issue,22,2,0,2,32,0,4,2024-08-17,False,False,46
+ABT-PROD-0049,Paneer curry ready meal,Weight / quantity issue,22,4,0,1,30,0,2,2024-04-03,True,False,46
+ABT-PROD-0038,Tomato ketchup pouch,Storage / transportation issue,20,2,3,1,26,0,2,2025-07-20,False,False,45
+ABT-PROD-0045,Vegetable pulao ready meal,Contamination / microbiological,12,3,0,1,36,3,0,2024-12-08,True,False,45
+ABT-PROD-0009,Pasteurized toned milk,Labelling / allergen issue,17,2,0,1,39,3,0,2024-08-22,False,False,45
+ABT-PROD-0045,Vegetable pulao ready meal,Infestation / pest,19,4,0,4,31,0,1,2024-11-16,True,False,45
+ABT-PROD-0014,Mango yoghurt cup,Storage / transportation issue,16,2,0,1,34,1,2,2024-06-21,False,False,44
+ABT-PROD-0020,Smoked chicken sausage,Infestation / pest,17,3,0,0,29,0,3,2023-03-25,True,False,44
+ABT-PROD-0008,Fresh onions,Infestation / pest,21,4,1,2,29,0,0,2025-08-15,True,False,44
+ABT-PROD-0028,Wheat flour,Storage / transportation issue,18,2,2,0,32,0,0,2025-10-11,False,False,44
+ABT-PROD-0010,Plain set yoghurt,Weight / quantity issue,21,4,1,0,29,0,0,2025-05-15,True,False,44
+ABT-PROD-0011,Processed cheese slices,Infestation / pest,18,3,1,1,32,1,0,2025-05-25,True,False,44
+ABT-PROD-0047,Mixed vegetable salad,Infestation / pest,17,3,0,1,33,0,1,2024-10-16,True,False,44
+ABT-PROD-0003,Fresh tomatoes,Labelling / allergen issue,14,2,0,0,38,1,0,2023-06-06,False,False,44
+ABT-PROD-0047,Mixed vegetable salad,Labelling / allergen issue,15,3,0,1,35,1,0,2024-03-20,True,False,44
+ABT-PROD-0036,Roasted mixed nuts,Infestation / pest,18,2,1,2,32,0,1,2025-03-31,False,False,43
+ABT-PROD-0038,Tomato ketchup pouch,Weight / quantity issue,21,3,1,2,29,0,1,2025-02-27,True,False,43
+ABT-PROD-0039,Canned baked beans,Infestation / pest,11,4,0,0,27,2,2,2022-02-11,True,False,43
+ABT-PROD-0039,Canned baked beans,Weight / quantity issue,20,3,0,0,32,0,1,2023-12-03,True,False,43
+ABT-PROD-0020,Smoked chicken sausage,Weight / quantity issue,16,4,2,0,24,0,0,2025-04-13,True,True,42
+ABT-PROD-0040,Instant soup mix,Weight / quantity issue,19,4,1,4,27,0,0,2025-05-09,True,False,42
+ABT-PROD-0047,Mixed vegetable salad,Weight / quantity issue,26,3,1,1,30,0,0,2025-11-04,True,False,42
+ABT-PROD-0030,Corn flakes,Storage / transportation issue,19,2,1,0,29,0,2,2025-03-30,False,False,42
+ABT-PROD-0014,Mango yoghurt cup,Weight / quantity issue,20,3,0,1,30,0,1,2024-07-26,True,False,41
+ABT-PROD-0027,Packaged raw rice,Storage / transportation issue,21,4,0,3,29,0,0,2024-12-20,True,False,41
+ABT-PROD-0044,Flavoured malt beverage,Infestation / pest,17,3,1,0,27,1,1,2025-09-28,True,False,41
+ABT-PROD-0021,Frozen fish fillets,Weight / quantity issue,22,4,1,3,26,0,0,2025-04-19,True,False,41
+ABT-PROD-0009,Pasteurized toned milk,Infestation / pest,18,3,0,2,26,0,3,2024-08-25,True,False,41
+ABT-PROD-0048,Chicken sandwich,Infestation / pest,14,2,1,0,30,1,1,2025-11-13,False,False,41
+ABT-PROD-0016,Frozen chicken nuggets,Weight / quantity issue,22,3,0,3,30,0,1,2024-11-16,True,False,41
+ABT-PROD-0032,Burger buns,Infestation / pest,16,3,0,2,32,1,0,2024-10-13,True,False,41
+ABT-PROD-0015,Chilled chicken breast portions,Labelling / allergen issue,10,3,0,0,32,4,0,2022-04-27,True,False,41
+ABT-PROD-0005,Fresh carrots,Labelling / allergen issue,12,2,0,1,32,2,1,2024-02-17,False,False,40
+ABT-PROD-0021,Frozen fish fillets,Infestation / pest,13,2,1,1,27,1,2,2025-07-18,False,False,40
+ABT-PROD-0030,Corn flakes,Infestation / pest,11,3,0,0,31,2,0,2023-08-06,True,False,40
+ABT-PROD-0003,Fresh tomatoes,Storage / transportation issue,20,2,1,1,30,0,0,2025-01-21,False,False,39
+ABT-PROD-0002,Table grapes,Infestation / pest,12,3,0,2,30,0,0,2024-10-28,True,False,39
+ABT-PROD-0034,Chocolate cake slices,Labelling / allergen issue,13,2,0,0,33,3,0,2022-09-14,False,False,39
+ABT-PROD-0007,Fresh pineapple slices,Labelling / allergen issue,16,2,1,0,30,2,0,2025-06-27,False,False,39
+ABT-PROD-0044,Flavoured malt beverage,Weight / quantity issue,23,3,0,0,29,0,0,2022-11-02,True,False,38
+ABT-PROD-0002,Table grapes,Labelling / allergen issue,13,2,1,0,29,1,0,2025-01-22,False,False,38
+ABT-PROD-0022,Frozen prawns,Infestation / pest,16,2,0,2,28,1,2,2024-11-30,False,False,38
+ABT-PROD-0008,Fresh onions,Labelling / allergen issue,12,3,0,1,22,0,3,2024-06-13,True,False,37
+ABT-PROD-0035,Potato chips salted,Infestation / pest,15,2,2,2,25,0,0,2025-12-12,False,False,37
+ABT-PROD-0003,Fresh tomatoes,Weight / quantity issue,17,2,2,0,25,0,0,2025-12-04,False,False,37
+ABT-PROD-0003,Fresh tomatoes,Infestation / pest,16,3,0,0,28,2,0,2022-01-25,True,False,37
+ABT-PROD-0046,Chicken biryani ready meal,Weight / quantity issue,21,2,0,3,27,0,2,2024-06-08,False,False,37
+ABT-PROD-0039,Canned baked beans,Storage / transportation issue,16,3,0,0,28,0,0,2023-11-23,True,False,37
+ABT-PROD-0010,Plain set yoghurt,Labelling / allergen issue,17,2,0,1,29,1,1,2024-02-24,False,False,37
+ABT-PROD-0037,Mixed curry spice blend,Labelling / allergen issue,13,3,0,0,25,0,1,2023-04-13,True,False,36
+ABT-PROD-0014,Mango yoghurt cup,Labelling / allergen issue,12,2,0,0,28,2,1,2022-09-13,False,False,36
+ABT-PROD-0004,Washed baby spinach,Storage / transportation issue,17,2,0,0,27,0,1,2023-12-14,False,False,35
+ABT-PROD-0005,Fresh carrots,Infestation / pest,15,2,0,1,25,0,2,2024-08-08,False,False,35
+ABT-PROD-0014,Mango yoghurt cup,Infestation / pest,15,2,0,1,29,1,0,2024-12-23,False,False,35
+ABT-PROD-0024,Breaded fish fingers,Infestation / pest,12,3,0,2,24,1,1,2024-04-10,True,False,35
+ABT-PROD-0015,Chilled chicken breast portions,Infestation / pest,17,2,0,1,29,0,0,2024-05-02,False,False,35
+ABT-PROD-0002,Table grapes,Weight / quantity issue,17,3,0,0,25,0,0,2023-05-03,True,False,34
+ABT-PROD-0029,Rolled oats,Labelling / allergen issue,10,2,2,0,22,2,0,2025-07-15,False,False,34
+ABT-PROD-0041,Mango fruit beverage,Infestation / pest,13,2,1,1,23,0,1,2025-10-05,False,False,34
+ABT-PROD-0004,Washed baby spinach,Infestation / pest,12,2,2,1,20,0,1,2025-12-13,False,False,34
+ABT-PROD-0028,Wheat flour,Labelling / allergen issue,12,2,0,1,28,1,0,2024-06-29,False,False,34
+ABT-PROD-0045,Vegetable pulao ready meal,Labelling / allergen issue,8,3,0,0,22,2,1,2020-01-27,True,False,33
+ABT-PROD-0045,Vegetable pulao ready meal,Weight / quantity issue,13,2,2,2,17,0,2,2025-06-30,False,False,33
+ABT-PROD-0040,Instant soup mix,Storage / transportation issue,13,2,1,2,21,0,1,2025-08-07,False,False,32
+ABT-PROD-0045,Vegetable pulao ready meal,Storage / transportation issue,16,2,0,3,26,0,0,2024-12-25,False,False,32
+ABT-PROD-0013,Salted table butter,Infestation / pest,9,3,0,3,21,0,1,2024-04-20,True,False,32
+ABT-PROD-0032,Burger buns,Weight / quantity issue,20,2,0,1,26,0,0,2024-04-08,False,False,32
+ABT-PROD-0016,Frozen chicken nuggets,Infestation / pest,14,2,0,2,24,0,1,2024-12-29,False,False,32
+ABT-PROD-0036,Roasted mixed nuts,Weight / quantity issue,20,2,0,1,26,0,0,2024-01-31,False,False,32
+ABT-PROD-0040,Instant soup mix,Labelling / allergen issue,11,2,0,0,25,2,0,2023-01-21,False,False,31
+ABT-PROD-0011,Processed cheese slices,Weight / quantity issue,15,2,1,1,21,0,0,2025-03-28,False,False,30
+ABT-PROD-0037,Mixed curry spice blend,Weight / quantity issue,18,2,0,0,24,0,0,2023-08-17,False,False,30
+ABT-PROD-0041,Mango fruit beverage,Storage / transportation issue,14,1,0,1,26,0,0,2024-01-28,False,False,29
+ABT-PROD-0037,Mixed curry spice blend,Storage / transportation issue,13,2,0,1,19,0,2,2024-04-21,False,False,29
+ABT-PROD-0035,Potato chips salted,Labelling / allergen issue,9,2,0,0,21,0,1,2022-11-01,False,False,29
+ABT-PROD-0004,Washed baby spinach,Labelling / allergen issue,12,2,0,0,22,0,0,2019-09-26,False,False,28
+ABT-PROD-0036,Roasted mixed nuts,Labelling / allergen issue,9,2,1,0,19,1,0,2025-07-07,False,False,28
+ABT-PROD-0012,Fresh paneer blocks,Labelling / allergen issue,10,2,0,0,22,2,0,2023-06-15,False,False,28
+ABT-PROD-0049,Paneer curry ready meal,Labelling / allergen issue,12,2,0,1,22,1,0,2024-10-28,False,False,28
+ABT-PROD-0048,Chicken sandwich,Labelling / allergen issue,9,2,0,1,19,0,1,2024-07-02,False,False,27
+ABT-PROD-0006,Fresh-cut mixed vegetables,Infestation / pest,7,2,0,0,21,2,0,2022-05-29,False,False,27
+ABT-PROD-0040,Instant soup mix,Infestation / pest,10,3,0,0,18,0,0,2023-10-19,True,False,27
+ABT-PROD-0037,Mixed curry spice blend,Infestation / pest,11,2,1,0,17,0,0,2025-03-20,False,False,26
+ABT-PROD-0035,Potato chips salted,Weight / quantity issue,16,2,0,1,20,0,0,2024-04-06,False,False,26
+ABT-PROD-0043,Packaged drinking water,Infestation / pest,11,2,0,2,17,0,1,2024-09-08,False,False,25
+ABT-PROD-0016,Frozen chicken nuggets,Labelling / allergen issue,9,1,1,1,19,1,0,2025-03-13,False,False,25
+ABT-PROD-0006,Fresh-cut mixed vegetables,Labelling / allergen issue,9,2,1,0,15,0,0,2025-08-17,False,False,24
+ABT-PROD-0043,Packaged drinking water,Labelling / allergen issue,9,2,0,1,15,0,0,2024-11-02,False,False,21
+ABT-PROD-0010,Plain set yoghurt,Infestation / pest,8,1,0,0,10,0,0,2020-12-19,False,False,13

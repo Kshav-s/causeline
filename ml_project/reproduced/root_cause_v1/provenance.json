@@ -1,0 +1,26 @@
+{
+  "model_id": "root-cause",
+  "version": "1.0.0-reproduced",
+  "created_at": "2026-11-23T10:21:08.766681+00:00",
+  "sklearn_version": "1.9.1",
+  "source_code": "ml_predictive_analytics/src/root_cause.py::run (classifier block, verbatim)",
+  "training_data": "AI_COMPLAINT_INTELLIGENCE\\HACKATHON_MEMBER2_NLP_HANDOVER\\data\\01_ABT_CPD_Complaints_18000.csv",
+  "seed": 42,
+  "metrics": {
+    "train_rows": 5773,
+    "test_rows": 1444,
+    "n_classes": 36,
+    "top1_accuracy": 0.4003,
+    "top3_accuracy": 0.874,
+    "macro_f1": 0.3944
+  },
+  "published_metrics_match": true,
+  "published_predictions_match": {
+    "rows": 10783,
+    "min_cause_agreement": 1.0,
+    "max_prob_diff": 0.0
+  },
+  "sha256": "e9ff27906b7d6ea324a3b9d6afe5e719ea0ab63f6baf9467d1927b2619a0d93b",
+  "approved_by": "project owner, 2026-11-23",
+  "caveat": "Trained on Confirmed/Probable labels (random 80/20 split). Predictions are hypotheses for investigators, not confirmed causes."
+}

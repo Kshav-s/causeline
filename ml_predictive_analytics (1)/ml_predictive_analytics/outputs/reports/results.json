@@ -1,0 +1,921 @@
+{
+  "eda": {
+    "complaints_rows": 18000,
+    "date_range": [
+      "2007-01-08",
+      "2025-12-31"
+    ],
+    "severity_share": {
+      "Routine": 0.6361,
+      "Major": 0.3083,
+      "Critical": 0.0557
+    },
+    "food_safety_share": 0.2269,
+    "root_cause_status_share": {
+      "Not assessed": 0.3572,
+      "Probable": 0.2061,
+      "Confirmed": 0.1949,
+      "Hypothesis": 0.1646,
+      "Unknown": 0.0773
+    },
+    "closure_days_median": 29.0,
+    "missing_pct_top": {
+      "capa_follow_up_days": 88.4,
+      "prior_capa_id": 88.4,
+      "capa_id": 60.4,
+      "root_cause_category": 43.4,
+      "root_cause_confidence": 43.4,
+      "root_cause_evidence": 35.7,
+      "investigation_id": 35.7,
+      "days_from_dispatch_to_event": 24.4,
+      "dispatch_date": 24.4,
+      "batch_id": 24.4,
+      "shipment_id": 24.4,
+      "haccp_monitoring_id": 24.4
+    },
+    "batch_rows": 40000,
+    "batch_eligible": 39262,
+    "batch_complaint_rate": 0.0861,
+    "batch_rate_by_split": {
+      "test": 0.0808,
+      "train": 0.0866,
+      "validation": 0.0885
+    },
+    "batch_rate_by_food_family": {
+      "Ready-to-eat foods": 0.0932,
+      "Packaged foods": 0.0898,
+      "Eggs & egg products": 0.0878,
+      "Fish & seafood": 0.0866,
+      "Bakery products": 0.0862,
+      "Dairy products": 0.086,
+      "Grains & cereals": 0.0851,
+      "Beverages": 0.0847,
+      "Meat & poultry": 0.0827,
+      "Fresh fruits & vegetables": 0.0822
+    },
+    "capa_status": {
+      "Closed": 2388,
+      "In progress": 358,
+      "Awaiting verification": 291,
+      "Open": 262
+    }
+  },
+  "pareto": {
+    "complaint_category_count": {
+      "n_items": 10,
+      "n_vital_few": 7,
+      "top5": [
+        [
+          "Packaging issue",
+          16.3
+        ],
+        [
+          "Product quality deviation",
+          16.0
+        ],
+        [
+          "Sensory characteristic",
+          15.3
+        ],
+        [
+          "Process-related defect",
+          11.8
+        ],
+        [
+          "Physical defect / foreign matter",
+          11.1
+        ]
+      ]
+    },
+    "complaint_category_severity": {
+      "n_items": 10,
+      "n_vital_few": 7,
+      "top5": [
+        [
+          "Physical defect / foreign matter",
+          15.3
+        ],
+        [
+          "Packaging issue",
+          14.3
+        ],
+        [
+          "Product quality deviation",
+          13.7
+        ],
+        [
+          "Contamination / microbiological",
+          12.6
+        ],
+        [
+          "Sensory characteristic",
+          11.5
+        ]
+      ]
+    },
+    "defect_subcategory_count": {
+      "n_items": 74,
+      "n_vital_few": 29,
+      "top5": [
+        [
+          "A pouch seam had separated during handling",
+          4.3
+        ],
+        [
+          "The consistency varied between packs from the same delivery",
+          4.2
+        ],
+        [
+          "The outer carton was crushed and several inner packs were exposed",
+          4.1
+        ],
+        [
+          "A measured product-quality attribute was outside the approved acceptance range",
+          4.1
+        ],
+        [
+          "The closure did not remain secure during transport",
+          4.0
+        ]
+      ]
+    },
+    "defect_subcategory_severity": {
+      "n_items": 74,
+      "n_vital_few": 29,
+      "top5": [
+        [
+          "A dark particle was visible in the product",
+          4.0
+        ],
+        [
+          "A metal-like fragment was suspected by the customer",
+          3.9
+        ],
+        [
+          "A hard fragment was found inside one retail pack",
+          3.9
+        ],
+        [
+          "A pouch seam had separated during handling",
+          3.8
+        ],
+        [
+          "The product did not meet the agreed quality specification",
+          3.6
+        ]
+      ]
+    },
+    "product_name_count": {
+      "n_items": 49,
+      "n_vital_few": 38,
+      "top5": [
+        [
+          "Graded table eggs",
+          3.4
+        ],
+        [
+          "Pasteurized liquid whole egg",
+          3.3
+        ],
+        [
+          "Butter biscuits",
+          2.8
+        ],
+        [
+          "Chocolate cake slices",
+          2.6
+        ],
+        [
+          "Burger buns",
+          2.5
+        ]
+      ]
+    },
+    "product_name_severity": {
+      "n_items": 49,
+      "n_vital_few": 37,
+      "top5": [
+        [
+          "Graded table eggs",
+          3.5
+        ],
+        [
+          "Pasteurized liquid whole egg",
+          3.3
+        ],
+        [
+          "Butter biscuits",
+          2.8
+        ],
+        [
+          "Chocolate cake slices",
+          2.6
+        ],
+        [
+          "Frozen beef patties",
+          2.5
+        ]
+      ]
+    },
+    "food_family_count": {
+      "n_items": 10,
+      "n_vital_few": 8,
+      "top5": [
+        [
+          "Fresh fruits & vegetables",
+          14.1
+        ],
+        [
+          "Meat & poultry",
+          13.0
+        ],
+        [
+          "Packaged foods",
+          11.0
+        ],
+        [
+          "Dairy products",
+          10.5
+        ],
+        [
+          "Bakery products",
+          10.2
+        ]
+      ]
+    },
+    "food_family_severity": {
+      "n_items": 10,
+      "n_vital_few": 8,
+      "top5": [
+        [
+          "Fresh fruits & vegetables",
+          14.1
+        ],
+        [
+          "Meat & poultry",
+          13.2
+        ],
+        [
+          "Packaged foods",
+          11.0
+        ],
+        [
+          "Dairy products",
+          10.5
+        ],
+        [
+          "Bakery products",
+          10.3
+        ]
+      ]
+    },
+    "customer_name_count": {
+      "n_items": 180,
+      "n_vital_few": 97,
+      "top5": [
+        [
+          "Wholesale distributor Account 141",
+          1.6
+        ],
+        [
+          "Export distributor Account 036",
+          1.5
+        ],
+        [
+          "Foodservice distributor Account 046",
+          1.4
+        ],
+        [
+          "Online grocery Account 177",
+          1.4
+        ],
+        [
+          "Retail chain Account 112",
+          1.4
+        ]
+      ]
+    },
+    "customer_name_severity": {
+      "n_items": 180,
+      "n_vital_few": 97,
+      "top5": [
+        [
+          "Wholesale distributor Account 141",
+          1.6
+        ],
+        [
+          "Export distributor Account 036",
+          1.5
+        ],
+        [
+          "Retail chain Account 135",
+          1.4
+        ],
+        [
+          "Online grocery Account 177",
+          1.4
+        ],
+        [
+          "Retail chain Account 112",
+          1.4
+        ]
+      ]
+    },
+    "root_cause_category_count": {
+      "n_items": 36,
+      "n_vital_few": 24,
+      "top5": [
+        [
+          "Process parameter drift",
+          6.4
+        ],
+        [
+          "Packaging material integrity issue",
+          4.5
+        ],
+        [
+          "Raw-material variability",
+          4.3
+        ],
+        [
+          "Inadequate sensory release check",
+          4.1
+        ],
+        [
+          "Heat-seal parameter drift",
+          4.1
+        ]
+      ]
+    },
+    "root_cause_category_severity": {
+      "n_items": 36,
+      "n_vital_few": 24,
+      "top5": [
+        [
+          "Process parameter drift",
+          5.8
+        ],
+        [
+          "Temperature control deviation",
+          4.7
+        ],
+        [
+          "Incoming material contamination",
+          4.4
+        ],
+        [
+          "Equipment wear",
+          3.9
+        ],
+        [
+          "Metal detection verification gap",
+          3.9
+        ]
+      ]
+    },
+    "haccp_process_step_count": {
+      "n_items": 32,
+      "n_vital_few": 18,
+      "top5": [
+        [
+          "Receiving",
+          20.6
+        ],
+        [
+          "Packing",
+          15.0
+        ],
+        [
+          "Cold storage",
+          8.3
+        ],
+        [
+          "Storage",
+          5.1
+        ],
+        [
+          "Cutting / preparation",
+          3.6
+        ]
+      ]
+    },
+    "haccp_process_step_severity": {
+      "n_items": 32,
+      "n_vital_few": 18,
+      "top5": [
+        [
+          "Receiving",
+          20.9
+        ],
+        [
+          "Packing",
+          14.5
+        ],
+        [
+          "Cold storage",
+          8.5
+        ],
+        [
+          "Storage",
+          4.9
+        ],
+        [
+          "Cutting / preparation",
+          3.6
+        ]
+      ]
+    }
+  },
+  "recurrence": {
+    "hotspot_groups": 490,
+    "recurring_groups": 412,
+    "emerging_groups": 133,
+    "batches_with_complaints": 11100,
+    "recurring_batches": 2161,
+    "max_complaints_single_batch": 6,
+    "post_capa_recurrence_pct_overall": 11.56,
+    "top_hotspots": [
+      [
+        "Graded table eggs",
+        "Product quality deviation",
+        "120",
+        "7"
+      ],
+      [
+        "Pasteurized liquid whole egg",
+        "Physical defect / foreign matter",
+        "75",
+        "5"
+      ],
+      [
+        "Pasteurized liquid whole egg",
+        "Product quality deviation",
+        "106",
+        "7"
+      ],
+      [
+        "Butter biscuits",
+        "Physical defect / foreign matter",
+        "68",
+        "4"
+      ],
+      [
+        "Chocolate cake slices",
+        "Product quality deviation",
+        "91",
+        "7"
+      ]
+    ]
+  },
+  "risk": {
+    "selected_model": "logistic_regression",
+    "model_comparison_validation": [
+      {
+        "model": "logistic_regression",
+        "val_roc_auc": 0.5439,
+        "val_pr_auc": 0.1113
+      },
+      {
+        "model": "hist_gradient_boosting",
+        "val_roc_auc": 0.5493,
+        "val_pr_auc": 0.107
+      },
+      {
+        "model": "xgboost",
+        "val_roc_auc": 0.5408,
+        "val_pr_auc": 0.1063
+      }
+    ],
+    "test_metrics_at_f1_threshold": {
+      "n": 4541,
+      "prevalence": 0.0808,
+      "threshold": 0.4547,
+      "roc_auc": 0.5539,
+      "pr_auc": 0.1067,
+      "precision": 0.0845,
+      "recall": 0.6431,
+      "f1": 0.1493,
+      "brier": 0.2403,
+      "confusion_matrix [[TN,FP],[FN,TP]]": [
+        [
+          1616,
+          2558
+        ],
+        [
+          131,
+          236
+        ]
+      ]
+    },
+    "test_roc_auc_95ci_bootstrap": [
+      0.5194,
+      0.5858
+    ],
+    "tier_thresholds_from_validation": {
+      "medium": 0.5118890379597377,
+      "high": 0.5821331837294212
+    },
+    "tier_performance_test": [
+      {
+        "tier": "High",
+        "batches": 499,
+        "share_pct": 11.0,
+        "complaints": 61,
+        "observed_complaint_rate": 0.1222,
+        "lift_vs_base": 1.51,
+        "share_of_all_complaints_pct": 16.6
+      },
+      {
+        "tier": "Medium",
+        "batches": 895,
+        "share_pct": 19.7,
+        "complaints": 76,
+        "observed_complaint_rate": 0.0849,
+        "lift_vs_base": 1.05,
+        "share_of_all_complaints_pct": 20.7
+      },
+      {
+        "tier": "Low",
+        "batches": 3147,
+        "share_pct": 69.3,
+        "complaints": 230,
+        "observed_complaint_rate": 0.0731,
+        "lift_vs_base": 0.9,
+        "share_of_all_complaints_pct": 62.7
+      }
+    ],
+    "all_model_test_auc": {
+      "majority_class_pr_auc(=prevalence)": 0.0808,
+      "logistic_regression_test_roc_auc": 0.5539,
+      "hist_gradient_boosting_test_roc_auc": 0.5679,
+      "xgboost_test_roc_auc": 0.5286
+    },
+    "split_dates": {
+      "test": {
+        "min": "2023-12-24",
+        "max": "2025-11-22"
+      },
+      "train": {
+        "min": "2007-01-01",
+        "max": "2021-12-29"
+      },
+      "validation": {
+        "min": "2021-12-25",
+        "max": "2023-12-29"
+      }
+    },
+    "class_balance_train": {
+      "positives": 2595,
+      "negatives": 27379
+    },
+    "leakage_controls": "Excluded: ['target_customer_complaint_within_30d', 'target_eligible_flag', 'target_outcome_window_days', 'target_window_matured_flag', 'model_split', 'shipment_mean_temp_c', 'shipment_max_temp_c', 'temperature_excursion_minutes', 'temperature_excursion_flag', 'transit_hours', 'shipment_status', 'batch_hold_flag', 'shipment_id', 'batch_id', 'dispatch_tonnes']. Temporal split; threshold/tier cut-offs set on validation only.",
+    "test_auc_by_food_family": [
+      {
+        "food_family": "Bakery products",
+        "n": 466,
+        "roc_auc": 0.5199
+      },
+      {
+        "food_family": "Beverages",
+        "n": 293,
+        "roc_auc": 0.6273
+      },
+      {
+        "food_family": "Dairy products",
+        "n": 497,
+        "roc_auc": 0.5528
+      },
+      {
+        "food_family": "Eggs & egg products",
+        "n": 314,
+        "roc_auc": 0.6128
+      },
+      {
+        "food_family": "Fish & seafood",
+        "n": 411,
+        "roc_auc": 0.6249
+      },
+      {
+        "food_family": "Fresh fruits & vegetables",
+        "n": 635,
+        "roc_auc": 0.511
+      },
+      {
+        "food_family": "Grains & cereals",
+        "n": 436,
+        "roc_auc": 0.5282
+      },
+      {
+        "food_family": "Meat & poultry",
+        "n": 579,
+        "roc_auc": 0.5925
+      },
+      {
+        "food_family": "Packaged foods",
+        "n": 497,
+        "roc_auc": 0.5466
+      },
+      {
+        "food_family": "Ready-to-eat foods",
+        "n": 413,
+        "roc_auc": 0.4713
+      }
+    ]
+  },
+  "top_features": [
+    "process_deviation_count",
+    "vehicle_pre_cool_check",
+    "weight_check_status",
+    "remaining_shelf_life_days_at_dispatch",
+    "production_shift",
+    "incoming_material_quality_score"
+  ],
+  "capa": {
+    "capa_total": 3299,
+    "assessable_matured": 2334,
+    "overall_ineffective_rate": 0.5296,
+    "pending_not_assessable": 965,
+    "by_dimension": {
+      "root_cause_category": [
+        [
+          "Packaging material integrity issue",
+          95,
+          0.758,
+          true
+        ],
+        [
+          "Oxidation / storage exposure",
+          56,
+          0.75,
+          true
+        ],
+        [
+          "Processing time / temperature variation",
+          58,
+          0.724,
+          true
+        ],
+        [
+          "Inadequate sensory release check",
+          65,
+          0.723,
+          true
+        ]
+      ],
+      "root_cause_status": [
+        [
+          "Unknown",
+          285,
+          0.544,
+          false
+        ],
+        [
+          "Probable",
+          747,
+          0.537,
+          false
+        ],
+        [
+          "Confirmed",
+          709,
+          0.525,
+          false
+        ],
+        [
+          "Hypothesis",
+          593,
+          0.519,
+          false
+        ]
+      ],
+      "responsible_function": [
+        [
+          "Warehouse & Logistics",
+          266,
+          0.594,
+          true
+        ],
+        [
+          "Procurement",
+          230,
+          0.583,
+          false
+        ],
+        [
+          "Engineering & Maintenance",
+          349,
+          0.556,
+          false
+        ],
+        [
+          "Quality Assurance",
+          665,
+          0.514,
+          false
+        ]
+      ],
+      "complaint_category": [
+        [
+          "Sensory characteristic",
+          241,
+          0.705,
+          true
+        ],
+        [
+          "Packaging issue",
+          310,
+          0.694,
+          true
+        ],
+        [
+          "Product quality deviation",
+          298,
+          0.651,
+          true
+        ],
+        [
+          "Physical defect / foreign matter",
+          322,
+          0.587,
+          true
+        ]
+      ],
+      "food_family": [
+        [
+          "Eggs & egg products",
+          118,
+          0.678,
+          true
+        ],
+        [
+          "Bakery products",
+          220,
+          0.595,
+          false
+        ],
+        [
+          "Dairy products",
+          258,
+          0.55,
+          false
+        ],
+        [
+          "Grains & cereals",
+          202,
+          0.55,
+          false
+        ]
+      ],
+      "corrective_action": [
+        [
+          "Compare retained sample with the approved reference and review ingredient/storage history.",
+          241,
+          0.705,
+          true
+        ],
+        [
+          "Segregate affected packs; inspect seal and closure settings; verify packaging material lot.",
+          310,
+          0.694,
+          true
+        ],
+        [
+          "Review retained sample, supplier lot and process records against the product specification.",
+          298,
+          0.651,
+          true
+        ],
+        [
+          "Inspect retained samples and relevant screening equipment; hold affected lot pending QA disposition.",
+          322,
+          0.587,
+          true
+        ]
+      ]
+    },
+    "ineffective_rate_by_year": [
+      [
+        2007.0,
+        0.333,
+        90.0
+      ],
+      [
+        2008.0,
+        0.453,
+        86.0
+      ],
+      [
+        2009.0,
+        0.467,
+        105.0
+      ],
+      [
+        2010.0,
+        0.561,
+        107.0
+      ],
+      [
+        2011.0,
+        0.469,
+        128.0
+      ],
+      [
+        2012.0,
+        0.493,
+        134.0
+      ],
+      [
+        2013.0,
+        0.568,
+        111.0
+      ],
+      [
+        2014.0,
+        0.508,
+        126.0
+      ],
+      [
+        2015.0,
+        0.517,
+        147.0
+      ],
+      [
+        2016.0,
+        0.492,
+        130.0
+      ],
+      [
+        2017.0,
+        0.597,
+        134.0
+      ],
+      [
+        2018.0,
+        0.596,
+        146.0
+      ],
+      [
+        2019.0,
+        0.607,
+        150.0
+      ],
+      [
+        2020.0,
+        0.452,
+        124.0
+      ],
+      [
+        2021.0,
+        0.567,
+        134.0
+      ],
+      [
+        2022.0,
+        0.526,
+        135.0
+      ],
+      [
+        2023.0,
+        0.583,
+        144.0
+      ],
+      [
+        2024.0,
+        0.58,
+        131.0
+      ],
+      [
+        2025.0,
+        0.611,
+        72.0
+      ]
+    ],
+    "design_time_predictor_cv": {
+      "features": [
+        "root_cause_category",
+        "root_cause_status",
+        "responsible_function",
+        "complaint_category",
+        "food_family",
+        "corrective_action",
+        "preventive_action"
+      ],
+      "roc_auc": 0.6587,
+      "pr_auc": 0.6543,
+      "base_rate": 0.5296,
+      "interpretation": "Design-time attributes carry only modest signal (mainly root-cause category); not reliable for individual CAPAs."
+    }
+  },
+  "root_cause": {
+    "train_rows": 5773,
+    "test_rows": 1444,
+    "n_classes": 36,
+    "top1_accuracy": 0.4003,
+    "top3_accuracy": 0.874,
+    "macro_f1": 0.3944,
+    "baseline_top1_by_complaint_category": 0.3026,
+    "random_top1": 0.0278,
+    "caveat": "Trained on Confirmed/Probable labels (random 80/20 split). Predictions are hypotheses for investigators, not confirmed causes.",
+    "complaints_scored_without_confirmed_cause": 10783
+  }
+}

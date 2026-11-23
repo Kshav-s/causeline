@@ -1,0 +1,966 @@
+capa_id,product_name,complaint_category,root_cause_category,root_cause_status,capa_status,historical_ineffective_rate_for_root_cause
+ABT-CAPA-003036,Flavoured malt beverage,Packaging issue,Packaging material integrity issue,Probable,Awaiting verification,0.7578947368421053
+ABT-CAPA-003048,Wheat flour,Packaging issue,Packaging material integrity issue,Probable,In progress,0.7578947368421053
+ABT-CAPA-000455,Corn flakes,Packaging issue,Packaging material integrity issue,Confirmed,In progress,0.7578947368421053
+ABT-CAPA-003077,Plain set yoghurt,Packaging issue,Packaging material integrity issue,Confirmed,Awaiting verification,0.7578947368421053
+ABT-CAPA-001580,Smoked chicken sausage,Packaging issue,Packaging material integrity issue,Confirmed,In progress,0.7578947368421053
+ABT-CAPA-000961,Washed baby spinach,Packaging issue,Packaging material integrity issue,Probable,In progress,0.7578947368421053
+ABT-CAPA-000933,Vegetable pulao ready meal,Packaging issue,Packaging material integrity issue,Confirmed,In progress,0.7578947368421053
+ABT-CAPA-001772,Mango fruit beverage,Packaging issue,Packaging material integrity issue,Unknown,Awaiting verification,0.7578947368421053
+ABT-CAPA-002780,Frozen chicken nuggets,Packaging issue,Packaging material integrity issue,Probable,In progress,0.7578947368421053
+ABT-CAPA-002045,Pasteurized toned milk,Packaging issue,Packaging material integrity issue,Probable,Awaiting verification,0.7578947368421053
+ABT-CAPA-002016,Washed baby spinach,Packaging issue,Packaging material integrity issue,Confirmed,In progress,0.7578947368421053
+ABT-CAPA-001958,Chicken biryani ready meal,Packaging issue,Packaging material integrity issue,Probable,In progress,0.7578947368421053
+ABT-CAPA-001066,Flavoured malt beverage,Packaging issue,Packaging material integrity issue,Unknown,Open,0.7578947368421053
+ABT-CAPA-000716,Tomato ketchup pouch,Packaging issue,Packaging material integrity issue,Hypothesis,Awaiting verification,0.7578947368421053
+ABT-CAPA-000197,Chocolate cake slices,Packaging issue,Packaging material integrity issue,Hypothesis,Awaiting verification,0.7578947368421053
+ABT-CAPA-002442,Butter biscuits,Packaging issue,Packaging material integrity issue,Confirmed,Awaiting verification,0.7578947368421053
+ABT-CAPA-000632,Packaged raw rice,Packaging issue,Packaging material integrity issue,Confirmed,Open,0.7578947368421053
+ABT-CAPA-002312,Orange juice chilled,Packaging issue,Packaging material integrity issue,Confirmed,Awaiting verification,0.7578947368421053
+ABT-CAPA-002276,Chocolate cake slices,Packaging issue,Packaging material integrity issue,Confirmed,In progress,0.7578947368421053
+ABT-CAPA-002267,Plain set yoghurt,Packaging issue,Packaging material integrity issue,Hypothesis,Awaiting verification,0.7578947368421053
+ABT-CAPA-000704,Processed cheese slices,Packaging issue,Packaging material integrity issue,Confirmed,Open,0.7578947368421053
+ABT-CAPA-002017,Chilled whole fish,Packaging issue,Packaging material integrity issue,Probable,Awaiting verification,0.7578947368421053
+ABT-CAPA-002653,Orange juice chilled,Packaging issue,Packaging material integrity issue,Confirmed,In progress,0.7578947368421053
+ABT-CAPA-002646,Potato chips salted,Packaging issue,Packaging material integrity issue,Probable,Awaiting verification,0.7578947368421053
+ABT-CAPA-001773,Washed baby spinach,Packaging issue,Packaging material integrity issue,Probable,In progress,0.7578947368421053
+ABT-CAPA-001702,Mango yoghurt cup,Packaging issue,Packaging material integrity issue,Probable,In progress,0.7578947368421053
+ABT-CAPA-001174,Frozen chicken nuggets,Packaging issue,Packaging material integrity issue,Confirmed,Open,0.7578947368421053
+ABT-CAPA-002836,Vegetable pulao ready meal,Packaging issue,Packaging material integrity issue,Confirmed,Awaiting verification,0.7578947368421053
+ABT-CAPA-002813,Chicken biryani ready meal,Packaging issue,Packaging material integrity issue,Probable,Awaiting verification,0.7578947368421053
+ABT-CAPA-001321,Packaged drinking water,Sensory characteristic,Oxidation / storage exposure,Probable,In progress,0.75
+ABT-CAPA-001603,Chocolate cake slices,Sensory characteristic,Oxidation / storage exposure,Confirmed,Awaiting verification,0.75
+ABT-CAPA-003109,Chocolate cake slices,Sensory characteristic,Oxidation / storage exposure,Confirmed,In progress,0.75
+ABT-CAPA-001068,Breaded fish fingers,Sensory characteristic,Oxidation / storage exposure,Hypothesis,In progress,0.75
+ABT-CAPA-000505,Fresh pineapple slices,Sensory characteristic,Oxidation / storage exposure,Probable,Awaiting verification,0.75
+ABT-CAPA-001825,Mango fruit beverage,Sensory characteristic,Oxidation / storage exposure,Unknown,In progress,0.75
+ABT-CAPA-000553,Chicken biryani ready meal,Sensory characteristic,Oxidation / storage exposure,Probable,Open,0.75
+ABT-CAPA-002631,Tomato ketchup pouch,Sensory characteristic,Oxidation / storage exposure,Probable,Awaiting verification,0.75
+ABT-CAPA-002209,Chicken biryani ready meal,Sensory characteristic,Oxidation / storage exposure,Probable,Open,0.75
+ABT-CAPA-002475,Packaged raw rice,Sensory characteristic,Oxidation / storage exposure,Probable,Awaiting verification,0.75
+ABT-CAPA-001462,Roasted mixed nuts,Sensory characteristic,Oxidation / storage exposure,Probable,Awaiting verification,0.75
+ABT-CAPA-000736,Rolled oats,Sensory characteristic,Oxidation / storage exposure,Hypothesis,In progress,0.75
+ABT-CAPA-000809,Chicken sandwich,Sensory characteristic,Oxidation / storage exposure,Hypothesis,Awaiting verification,0.75
+ABT-CAPA-001031,Chilled chicken breast portions,Sensory characteristic,Oxidation / storage exposure,Hypothesis,In progress,0.75
+ABT-CAPA-001897,Orange juice chilled,Sensory characteristic,Oxidation / storage exposure,Hypothesis,Awaiting verification,0.75
+ABT-CAPA-000336,Chicken sandwich,Sensory characteristic,Oxidation / storage exposure,Unknown,Open,0.75
+ABT-CAPA-001667,Frozen beef patties,Sensory characteristic,Oxidation / storage exposure,Confirmed,Awaiting verification,0.75
+ABT-CAPA-001185,Graded table eggs,Sensory characteristic,Oxidation / storage exposure,Confirmed,Open,0.75
+ABT-CAPA-001747,Smoked chicken sausage,Sensory characteristic,Oxidation / storage exposure,Probable,Awaiting verification,0.75
+ABT-CAPA-001226,Chilled chicken breast portions,Sensory characteristic,Oxidation / storage exposure,Probable,Awaiting verification,0.75
+ABT-CAPA-002126,Fresh-cut mixed vegetables,Sensory characteristic,Oxidation / storage exposure,Hypothesis,Awaiting verification,0.75
+ABT-CAPA-002315,Paneer curry ready meal,Sensory characteristic,Oxidation / storage exposure,Probable,In progress,0.75
+ABT-CAPA-003145,Frozen beef patties,Sensory characteristic,Oxidation / storage exposure,Confirmed,Awaiting verification,0.75
+ABT-CAPA-003009,Smoked chicken sausage,Sensory characteristic,Oxidation / storage exposure,Probable,In progress,0.75
+ABT-CAPA-000332,Frozen beef patties,Sensory characteristic,Oxidation / storage exposure,Hypothesis,In progress,0.75
+ABT-CAPA-001060,Sliced sandwich bread,Sensory characteristic,Oxidation / storage exposure,Unknown,Awaiting verification,0.75
+ABT-CAPA-000570,Corn flakes,Sensory characteristic,Processing time / temperature variation,Hypothesis,Awaiting verification,0.7241379310344828
+ABT-CAPA-002536,Graded table eggs,Sensory characteristic,Processing time / temperature variation,Probable,In progress,0.7241379310344828
+ABT-CAPA-001007,Cooked chicken strips,Sensory characteristic,Processing time / temperature variation,Unknown,In progress,0.7241379310344828
+ABT-CAPA-001870,Frozen fish fillets,Sensory characteristic,Processing time / temperature variation,Confirmed,Open,0.7241379310344828
+ABT-CAPA-000537,Frozen fish fillets,Sensory characteristic,Processing time / temperature variation,Probable,Awaiting verification,0.7241379310344828
+ABT-CAPA-000059,Paneer curry ready meal,Sensory characteristic,Processing time / temperature variation,Unknown,In progress,0.7241379310344828
+ABT-CAPA-001556,Chilled whole fish,Sensory characteristic,Processing time / temperature variation,Confirmed,In progress,0.7241379310344828
+ABT-CAPA-000353,Packaged raw rice,Sensory characteristic,Processing time / temperature variation,Probable,Awaiting verification,0.7241379310344828
+ABT-CAPA-000366,Mixed vegetable salad,Sensory characteristic,Processing time / temperature variation,Confirmed,Awaiting verification,0.7241379310344828
+ABT-CAPA-001309,Potato chips salted,Sensory characteristic,Processing time / temperature variation,Confirmed,Awaiting verification,0.7241379310344828
+ABT-CAPA-001621,Frozen prawns,Sensory characteristic,Processing time / temperature variation,Probable,In progress,0.7241379310344828
+ABT-CAPA-000849,Instant soup mix,Sensory characteristic,Processing time / temperature variation,Probable,Open,0.7241379310344828
+ABT-CAPA-000845,Sliced sandwich bread,Sensory characteristic,Processing time / temperature variation,Confirmed,In progress,0.7241379310344828
+ABT-CAPA-003293,Flavoured malt beverage,Sensory characteristic,Processing time / temperature variation,Unknown,Awaiting verification,0.7241379310344828
+ABT-CAPA-000142,Packaged drinking water,Sensory characteristic,Processing time / temperature variation,Confirmed,In progress,0.7241379310344828
+ABT-CAPA-003276,Fresh carrots,Sensory characteristic,Processing time / temperature variation,Hypothesis,Closed,0.7241379310344828
+ABT-CAPA-000084,Sliced sandwich bread,Sensory characteristic,Processing time / temperature variation,Hypothesis,In progress,0.7241379310344828
+ABT-CAPA-003180,Chicken biryani ready meal,Sensory characteristic,Processing time / temperature variation,Probable,Awaiting verification,0.7241379310344828
+ABT-CAPA-002326,Vegetable pulao ready meal,Sensory characteristic,Processing time / temperature variation,Unknown,In progress,0.7241379310344828
+ABT-CAPA-001672,Wheat flour,Sensory characteristic,Processing time / temperature variation,Unknown,Awaiting verification,0.7241379310344828
+ABT-CAPA-001213,Canned baked beans,Sensory characteristic,Processing time / temperature variation,Hypothesis,In progress,0.7241379310344828
+ABT-CAPA-001780,Washed baby spinach,Sensory characteristic,Processing time / temperature variation,Confirmed,In progress,0.7241379310344828
+ABT-CAPA-002419,Burger buns,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-003225,Graded table eggs,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-003152,Mango fruit beverage,Sensory characteristic,Inadequate sensory release check,Probable,Awaiting verification,0.7230769230769231
+ABT-CAPA-000782,Frozen chicken nuggets,Sensory characteristic,Inadequate sensory release check,Hypothesis,Open,0.7230769230769231
+ABT-CAPA-002256,Plain set yoghurt,Sensory characteristic,Inadequate sensory release check,Confirmed,Open,0.7230769230769231
+ABT-CAPA-002222,Fresh-cut mixed vegetables,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-000654,Chicken sandwich,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-002583,Packaged raw rice,Sensory characteristic,Inadequate sensory release check,Hypothesis,In progress,0.7230769230769231
+ABT-CAPA-000411,Smoked chicken sausage,Sensory characteristic,Inadequate sensory release check,Hypothesis,Open,0.7230769230769231
+ABT-CAPA-002864,Canned baked beans,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-001152,Fresh carrots,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-000416,Packaged raw rice,Sensory characteristic,Inadequate sensory release check,Probable,Awaiting verification,0.7230769230769231
+ABT-CAPA-003066,Packaged drinking water,Sensory characteristic,Inadequate sensory release check,Confirmed,Open,0.7230769230769231
+ABT-CAPA-001258,Fresh tomatoes,Sensory characteristic,Inadequate sensory release check,Hypothesis,Open,0.7230769230769231
+ABT-CAPA-000469,Wheat flour,Sensory characteristic,Inadequate sensory release check,Hypothesis,In progress,0.7230769230769231
+ABT-CAPA-000039,Tomato ketchup pouch,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-001807,Roasted mixed nuts,Sensory characteristic,Inadequate sensory release check,Unknown,Open,0.7230769230769231
+ABT-CAPA-001820,Plain set yoghurt,Sensory characteristic,Inadequate sensory release check,Hypothesis,In progress,0.7230769230769231
+ABT-CAPA-002656,Roasted mixed nuts,Sensory characteristic,Inadequate sensory release check,Confirmed,Open,0.7230769230769231
+ABT-CAPA-000501,Orange juice chilled,Sensory characteristic,Inadequate sensory release check,Unknown,Open,0.7230769230769231
+ABT-CAPA-002835,Mixed vegetable salad,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-000677,Flavoured malt beverage,Sensory characteristic,Inadequate sensory release check,Hypothesis,In progress,0.7230769230769231
+ABT-CAPA-002515,Chocolate cake slices,Sensory characteristic,Inadequate sensory release check,Probable,Open,0.7230769230769231
+ABT-CAPA-002035,Chicken sandwich,Sensory characteristic,Inadequate sensory release check,Unknown,Open,0.7230769230769231
+ABT-CAPA-000938,Rolled oats,Sensory characteristic,Inadequate sensory release check,Confirmed,In progress,0.7230769230769231
+ABT-CAPA-001175,Frozen fish fillets,Sensory characteristic,Inadequate sensory release check,Probable,Open,0.7230769230769231
+ABT-CAPA-002968,Salted table butter,Sensory characteristic,Inadequate sensory release check,Probable,In progress,0.7230769230769231
+ABT-CAPA-002071,Instant soup mix,Sensory characteristic,Inadequate sensory release check,Hypothesis,Open,0.7230769230769231
+ABT-CAPA-001792,Potato chips salted,Sensory characteristic,Inadequate sensory release check,Probable,In progress,0.7230769230769231
+ABT-CAPA-003266,Butter biscuits,Physical defect / foreign matter,Metal detection verification gap,Probable,Open,0.6989247311827957
+ABT-CAPA-000800,Corn flakes,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,Awaiting verification,0.6989247311827957
+ABT-CAPA-001020,Wheat flour,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,Awaiting verification,0.6989247311827957
+ABT-CAPA-001381,Chicken biryani ready meal,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,Awaiting verification,0.6989247311827957
+ABT-CAPA-001525,Mixed vegetable salad,Physical defect / foreign matter,Metal detection verification gap,Confirmed,In progress,0.6989247311827957
+ABT-CAPA-001369,Smoked chicken sausage,Physical defect / foreign matter,Metal detection verification gap,Confirmed,Open,0.6989247311827957
+ABT-CAPA-001564,Sliced sandwich bread,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,In progress,0.6989247311827957
+ABT-CAPA-001341,Mango yoghurt cup,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,Open,0.6989247311827957
+ABT-CAPA-003023,Chocolate cake slices,Physical defect / foreign matter,Metal detection verification gap,Confirmed,In progress,0.6989247311827957
+ABT-CAPA-000312,Mixed curry spice blend,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,Open,0.6989247311827957
+ABT-CAPA-003093,Paneer curry ready meal,Physical defect / foreign matter,Metal detection verification gap,Unknown,In progress,0.6989247311827957
+ABT-CAPA-003297,Sliced sandwich bread,Physical defect / foreign matter,Metal detection verification gap,Confirmed,Open,0.6989247311827957
+ABT-CAPA-003256,Fresh-cut mixed vegetables,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,Closed,0.6989247311827957
+ABT-CAPA-001483,Frozen chicken nuggets,Physical defect / foreign matter,Metal detection verification gap,Probable,Open,0.6989247311827957
+ABT-CAPA-001493,Graded table eggs,Physical defect / foreign matter,Metal detection verification gap,Confirmed,Open,0.6989247311827957
+ABT-CAPA-000633,Fresh pineapple slices,Physical defect / foreign matter,Metal detection verification gap,Unknown,In progress,0.6989247311827957
+ABT-CAPA-000915,Breaded fish fingers,Physical defect / foreign matter,Metal detection verification gap,Unknown,Awaiting verification,0.6989247311827957
+ABT-CAPA-002586,Fresh paneer blocks,Physical defect / foreign matter,Metal detection verification gap,Unknown,Awaiting verification,0.6989247311827957
+ABT-CAPA-000657,Pasteurized liquid whole egg,Physical defect / foreign matter,Metal detection verification gap,Confirmed,Open,0.6989247311827957
+ABT-CAPA-001262,Chilled mutton cubes,Physical defect / foreign matter,Metal detection verification gap,Probable,Open,0.6989247311827957
+ABT-CAPA-002504,Frozen fish fillets,Physical defect / foreign matter,Metal detection verification gap,Confirmed,In progress,0.6989247311827957
+ABT-CAPA-002877,Wheat flour,Physical defect / foreign matter,Metal detection verification gap,Confirmed,Open,0.6989247311827957
+ABT-CAPA-000434,Tomato ketchup pouch,Physical defect / foreign matter,Metal detection verification gap,Probable,Awaiting verification,0.6989247311827957
+ABT-CAPA-002683,Packaged raw rice,Physical defect / foreign matter,Metal detection verification gap,Confirmed,In progress,0.6989247311827957
+ABT-CAPA-002669,Canned baked beans,Physical defect / foreign matter,Metal detection verification gap,Probable,Awaiting verification,0.6989247311827957
+ABT-CAPA-002902,Fresh onions,Physical defect / foreign matter,Metal detection verification gap,Confirmed,Open,0.6989247311827957
+ABT-CAPA-001818,Fresh paneer blocks,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,In progress,0.6989247311827957
+ABT-CAPA-002197,Pasteurized liquid whole egg,Physical defect / foreign matter,Metal detection verification gap,Probable,Open,0.6989247311827957
+ABT-CAPA-000970,Graded table eggs,Physical defect / foreign matter,Metal detection verification gap,Hypothesis,Awaiting verification,0.6989247311827957
+ABT-CAPA-003026,Graded table eggs,Packaging issue,Closure torque control gap,Probable,In progress,0.6875
+ABT-CAPA-003049,Pasteurized liquid whole egg,Packaging issue,Closure torque control gap,Probable,Awaiting verification,0.6875
+ABT-CAPA-001490,Frozen beef patties,Packaging issue,Closure torque control gap,Confirmed,In progress,0.6875
+ABT-CAPA-001519,Chilled chicken breast portions,Packaging issue,Closure torque control gap,Probable,Open,0.6875
+ABT-CAPA-001555,Table grapes,Packaging issue,Closure torque control gap,Hypothesis,Open,0.6875
+ABT-CAPA-000034,Sliced sandwich bread,Packaging issue,Closure torque control gap,Unknown,Awaiting verification,0.6875
+ABT-CAPA-003078,Butter biscuits,Packaging issue,Closure torque control gap,Unknown,In progress,0.6875
+ABT-CAPA-000265,Chicken biryani ready meal,Packaging issue,Closure torque control gap,Probable,Awaiting verification,0.6875
+ABT-CAPA-002845,Chilled whole fish,Packaging issue,Closure torque control gap,Confirmed,In progress,0.6875
+ABT-CAPA-002976,Frozen chicken nuggets,Packaging issue,Closure torque control gap,Hypothesis,Open,0.6875
+ABT-CAPA-000388,Pasteurized toned milk,Packaging issue,Closure torque control gap,Confirmed,Open,0.6875
+ABT-CAPA-000287,Graded table eggs,Packaging issue,Closure torque control gap,Unknown,In progress,0.6875
+ABT-CAPA-000448,Breaded fish fingers,Packaging issue,Closure torque control gap,Hypothesis,Open,0.6875
+ABT-CAPA-001154,Instant soup mix,Packaging issue,Closure torque control gap,Confirmed,In progress,0.6875
+ABT-CAPA-002139,Fresh-cut mixed vegetables,Packaging issue,Closure torque control gap,Hypothesis,Open,0.6875
+ABT-CAPA-001084,Wheat flour,Packaging issue,Closure torque control gap,Confirmed,Awaiting verification,0.6875
+ABT-CAPA-001876,Fresh-cut mixed vegetables,Packaging issue,Closure torque control gap,Hypothesis,In progress,0.6875
+ABT-CAPA-000638,Chilled mutton cubes,Packaging issue,Closure torque control gap,Confirmed,Open,0.6875
+ABT-CAPA-000864,Smoked chicken sausage,Packaging issue,Closure torque control gap,Probable,In progress,0.6875
+ABT-CAPA-002601,Burger buns,Packaging issue,Closure torque control gap,Probable,In progress,0.6875
+ABT-CAPA-002164,Chilled mutton cubes,Packaging issue,Closure torque control gap,Confirmed,In progress,0.6875
+ABT-CAPA-000882,Frozen fish fillets,Packaging issue,Closure torque control gap,Probable,Open,0.6875
+ABT-CAPA-003283,Graded table eggs,Packaging issue,Closure torque control gap,Probable,Closed,0.6875
+ABT-CAPA-001403,Washed baby spinach,Packaging issue,Closure torque control gap,Hypothesis,In progress,0.6875
+ABT-CAPA-001398,Butter biscuits,Packaging issue,Closure torque control gap,Unknown,In progress,0.6875
+ABT-CAPA-003140,Canned baked beans,Packaging issue,Closure torque control gap,Probable,Awaiting verification,0.6875
+ABT-CAPA-003160,Frozen beef patties,Packaging issue,Closure torque control gap,Confirmed,In progress,0.6875
+ABT-CAPA-003218,Fresh-cut mango cubes,Packaging issue,Closure torque control gap,Hypothesis,Open,0.6875
+ABT-CAPA-003203,Fresh pineapple slices,Packaging issue,Closure torque control gap,Probable,Awaiting verification,0.6875
+ABT-CAPA-000178,Rolled oats,Packaging issue,Closure torque control gap,Confirmed,In progress,0.6875
+ABT-CAPA-000233,Mixed vegetable salad,Product quality deviation,Product formulation variation,Probable,In progress,0.6712328767123288
+ABT-CAPA-003229,Fresh onions,Product quality deviation,Product formulation variation,Confirmed,Closed,0.6712328767123288
+ABT-CAPA-003290,Orange juice chilled,Product quality deviation,Product formulation variation,Hypothesis,Closed,0.6712328767123288
+ABT-CAPA-000071,Packaged raw rice,Product quality deviation,Product formulation variation,Hypothesis,Open,0.6712328767123288
+ABT-CAPA-000157,Fresh paneer blocks,Product quality deviation,Product formulation variation,Probable,Open,0.6712328767123288
+ABT-CAPA-000203,Fresh-cut mango cubes,Product quality deviation,Product formulation variation,Hypothesis,Open,0.6712328767123288
+ABT-CAPA-000738,Processed cheese slices,Product quality deviation,Product formulation variation,Unknown,Awaiting verification,0.6712328767123288
+ABT-CAPA-002394,Graded table eggs,Product quality deviation,Product formulation variation,Confirmed,In progress,0.6712328767123288
+ABT-CAPA-002380,Instant soup mix,Product quality deviation,Product formulation variation,Confirmed,In progress,0.6712328767123288
+ABT-CAPA-000050,Sliced sandwich bread,Product quality deviation,Product formulation variation,Probable,Awaiting verification,0.6712328767123288
+ABT-CAPA-000843,Frozen fish fillets,Product quality deviation,Product formulation variation,Probable,Open,0.6712328767123288
+ABT-CAPA-000637,Cooked chicken strips,Product quality deviation,Product formulation variation,Probable,Open,0.6712328767123288
+ABT-CAPA-002615,Fresh carrots,Product quality deviation,Product formulation variation,Confirmed,Awaiting verification,0.6712328767123288
+ABT-CAPA-002228,Burger buns,Product quality deviation,Product formulation variation,Hypothesis,Awaiting verification,0.6712328767123288
+ABT-CAPA-001623,Fresh-cut mango cubes,Product quality deviation,Product formulation variation,Hypothesis,In progress,0.6712328767123288
+ABT-CAPA-003019,Chocolate cake slices,Product quality deviation,Product formulation variation,Hypothesis,Open,0.6712328767123288
+ABT-CAPA-000292,Chilled chicken breast portions,Product quality deviation,Product formulation variation,Unknown,In progress,0.6712328767123288
+ABT-CAPA-003257,Burger buns,Product quality deviation,Product formulation variation,Unknown,Closed,0.6712328767123288
+ABT-CAPA-001722,Potato chips salted,Product quality deviation,Product formulation variation,Probable,Awaiting verification,0.6712328767123288
+ABT-CAPA-001235,Fresh pineapple slices,Product quality deviation,Product formulation variation,Probable,Open,0.6712328767123288
+ABT-CAPA-001698,Pasteurized toned milk,Product quality deviation,Product formulation variation,Hypothesis,Awaiting verification,0.6712328767123288
+ABT-CAPA-001648,Processed cheese slices,Product quality deviation,Product formulation variation,Confirmed,In progress,0.6712328767123288
+ABT-CAPA-001695,Mixed vegetable salad,Product quality deviation,Product formulation variation,Hypothesis,Awaiting verification,0.6712328767123288
+ABT-CAPA-000487,Roasted mixed nuts,Product quality deviation,Product formulation variation,Hypothesis,Open,0.6712328767123288
+ABT-CAPA-002808,Chilled whole fish,Product quality deviation,Product formulation variation,Confirmed,Open,0.6712328767123288
+ABT-CAPA-000376,Butter biscuits,Product quality deviation,Product formulation variation,Confirmed,Awaiting verification,0.6712328767123288
+ABT-CAPA-001284,Pasteurized toned milk,Product quality deviation,Product formulation variation,Hypothesis,Open,0.6712328767123288
+ABT-CAPA-001591,Fresh-cut mango cubes,Product quality deviation,Product formulation variation,Hypothesis,Awaiting verification,0.6712328767123288
+ABT-CAPA-001452,Mixed curry spice blend,Product quality deviation,Product formulation variation,Confirmed,In progress,0.6712328767123288
+ABT-CAPA-000549,Rolled oats,Product quality deviation,Product formulation variation,Hypothesis,Awaiting verification,0.6712328767123288
+ABT-CAPA-001882,Wheat flour,Product quality deviation,Product formulation variation,Hypothesis,In progress,0.6712328767123288
+ABT-CAPA-000519,Paneer curry ready meal,Product quality deviation,Product formulation variation,Probable,In progress,0.6712328767123288
+ABT-CAPA-001109,Tomato ketchup pouch,Product quality deviation,Product formulation variation,Probable,Awaiting verification,0.6712328767123288
+ABT-CAPA-002103,Fresh paneer blocks,Product quality deviation,Product formulation variation,Probable,Open,0.6712328767123288
+ABT-CAPA-000470,Chilled whole fish,Packaging issue,Heat-seal parameter drift,Probable,Awaiting verification,0.6666666666666666
+ABT-CAPA-000492,Frozen beef patties,Packaging issue,Heat-seal parameter drift,Hypothesis,In progress,0.6666666666666666
+ABT-CAPA-002686,Mixed vegetable salad,Packaging issue,Heat-seal parameter drift,Hypothesis,Awaiting verification,0.6666666666666666
+ABT-CAPA-002638,Smoked chicken sausage,Packaging issue,Heat-seal parameter drift,Confirmed,Awaiting verification,0.6666666666666666
+ABT-CAPA-000555,Mango yoghurt cup,Packaging issue,Heat-seal parameter drift,Hypothesis,Open,0.6666666666666666
+ABT-CAPA-000561,Butter biscuits,Packaging issue,Heat-seal parameter drift,Hypothesis,Awaiting verification,0.6666666666666666
+ABT-CAPA-000603,Mango fruit beverage,Packaging issue,Heat-seal parameter drift,Probable,Open,0.6666666666666666
+ABT-CAPA-001802,Burger buns,Packaging issue,Heat-seal parameter drift,Probable,In progress,0.6666666666666666
+ABT-CAPA-000630,Table grapes,Packaging issue,Heat-seal parameter drift,Confirmed,Awaiting verification,0.6666666666666666
+ABT-CAPA-002490,Mixed vegetable salad,Packaging issue,Heat-seal parameter drift,Confirmed,Awaiting verification,0.6666666666666666
+ABT-CAPA-001931,Table grapes,Packaging issue,Heat-seal parameter drift,Unknown,In progress,0.6666666666666666
+ABT-CAPA-001703,Butter biscuits,Packaging issue,Heat-seal parameter drift,Probable,In progress,0.6666666666666666
+ABT-CAPA-001409,Frozen chicken nuggets,Packaging issue,Heat-seal parameter drift,Hypothesis,Open,0.6666666666666666
+ABT-CAPA-003155,Fresh onions,Packaging issue,Heat-seal parameter drift,Confirmed,Open,0.6666666666666666
+ABT-CAPA-003232,Chocolate cake slices,Packaging issue,Heat-seal parameter drift,Hypothesis,Closed,0.6666666666666666
+ABT-CAPA-000206,Roasted mixed nuts,Packaging issue,Heat-seal parameter drift,Unknown,In progress,0.6666666666666666
+ABT-CAPA-000109,Mango yoghurt cup,Packaging issue,Heat-seal parameter drift,Hypothesis,Open,0.6666666666666666
+ABT-CAPA-001416,Fresh carrots,Packaging issue,Heat-seal parameter drift,Confirmed,In progress,0.6666666666666666
+ABT-CAPA-002470,Paneer curry ready meal,Packaging issue,Heat-seal parameter drift,Hypothesis,Open,0.6666666666666666
+ABT-CAPA-000811,Fresh-cut mixed vegetables,Packaging issue,Heat-seal parameter drift,Confirmed,In progress,0.6666666666666666
+ABT-CAPA-002211,Rolled oats,Packaging issue,Heat-seal parameter drift,Unknown,In progress,0.6666666666666666
+ABT-CAPA-000911,Pasteurized toned milk,Packaging issue,Heat-seal parameter drift,Confirmed,Open,0.6666666666666666
+ABT-CAPA-000838,Packaged raw rice,Packaging issue,Heat-seal parameter drift,Hypothesis,In progress,0.6666666666666666
+ABT-CAPA-002396,Salted table butter,Packaging issue,Heat-seal parameter drift,Hypothesis,In progress,0.6666666666666666
+ABT-CAPA-000415,Fresh onions,Packaging issue,Heat-seal parameter drift,Probable,Awaiting verification,0.6666666666666666
+ABT-CAPA-001291,Smoked chicken sausage,Packaging issue,Heat-seal parameter drift,Probable,In progress,0.6666666666666666
+ABT-CAPA-003014,Fresh tomatoes,Packaging issue,Heat-seal parameter drift,Confirmed,Awaiting verification,0.6666666666666666
+ABT-CAPA-002832,Chilled chicken breast portions,Product quality deviation,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-002880,Chicken sandwich,Process-related defect,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-002860,Vegetable pulao ready meal,Process-related defect,Process parameter drift,Confirmed,Open,0.6496350364963503
+ABT-CAPA-001677,Chilled mutton cubes,Product quality deviation,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-002755,Vegetable pulao ready meal,Product quality deviation,Process parameter drift,Probable,Open,0.6496350364963503
+ABT-CAPA-003259,Butter biscuits,Process-related defect,Process parameter drift,Probable,Closed,0.6496350364963503
+ABT-CAPA-002342,Salted table butter,Process-related defect,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-000748,Salted table butter,Process-related defect,Process parameter drift,Hypothesis,Open,0.6496350364963503
+ABT-CAPA-002398,Sliced sandwich bread,Process-related defect,Process parameter drift,Hypothesis,Awaiting verification,0.6496350364963503
+ABT-CAPA-002584,Frozen prawns,Product quality deviation,Process parameter drift,Unknown,Open,0.6496350364963503
+ABT-CAPA-000672,Fresh onions,Product quality deviation,Process parameter drift,Probable,Awaiting verification,0.6496350364963503
+ABT-CAPA-002617,Corn flakes,Process-related defect,Process parameter drift,Probable,In progress,0.6496350364963503
+ABT-CAPA-002611,Tomato ketchup pouch,Process-related defect,Process parameter drift,Probable,Open,0.6496350364963503
+ABT-CAPA-000021,Orange juice chilled,Process-related defect,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-002460,Paneer curry ready meal,Product quality deviation,Process parameter drift,Probable,Open,0.6496350364963503
+ABT-CAPA-000015,Smoked chicken sausage,Process-related defect,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-000500,Breaded fish fingers,Product quality deviation,Process parameter drift,Probable,In progress,0.6496350364963503
+ABT-CAPA-001827,Pasteurized liquid whole egg,Process-related defect,Process parameter drift,Unknown,In progress,0.6496350364963503
+ABT-CAPA-000592,Frozen fish fillets,Process-related defect,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-001918,Roasted mixed nuts,Product quality deviation,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-001912,Frozen prawns,Product quality deviation,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-002439,Frozen fish fillets,Product quality deviation,Process parameter drift,Probable,In progress,0.6496350364963503
+ABT-CAPA-002452,Mango yoghurt cup,Process-related defect,Process parameter drift,Probable,Awaiting verification,0.6496350364963503
+ABT-CAPA-003061,Chocolate cake slices,Process-related defect,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-003087,Rolled oats,Product quality deviation,Process parameter drift,Confirmed,Open,0.6496350364963503
+ABT-CAPA-000447,Wheat flour,Product quality deviation,Process parameter drift,Confirmed,In progress,0.6496350364963503
+ABT-CAPA-003038,Rolled oats,Process-related defect,Process parameter drift,Confirmed,Open,0.6496350364963503
+ABT-CAPA-003062,Fresh paneer blocks,Process-related defect,Process parameter drift,Probable,Open,0.6496350364963503
+ABT-CAPA-001294,Wheat flour,Process-related defect,Process parameter drift,Confirmed,In progress,0.6496350364963503
+ABT-CAPA-000087,Chocolate cake slices,Product quality deviation,Process parameter drift,Probable,Open,0.6496350364963503
+ABT-CAPA-000795,Chilled mutton cubes,Process-related defect,Process parameter drift,Probable,In progress,0.6496350364963503
+ABT-CAPA-000218,Vegetable pulao ready meal,Process-related defect,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-003249,Frozen prawns,Product quality deviation,Process parameter drift,Probable,Closed,0.6496350364963503
+ABT-CAPA-002264,Washed baby spinach,Product quality deviation,Process parameter drift,Probable,Awaiting verification,0.6496350364963503
+ABT-CAPA-002242,Smoked chicken sausage,Process-related defect,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-002254,Fresh paneer blocks,Product quality deviation,Process parameter drift,Probable,In progress,0.6496350364963503
+ABT-CAPA-000909,Butter biscuits,Process-related defect,Process parameter drift,Hypothesis,Open,0.6496350364963503
+ABT-CAPA-000038,Pasteurized toned milk,Product quality deviation,Process parameter drift,Confirmed,In progress,0.6496350364963503
+ABT-CAPA-001593,Frozen fish fillets,Product quality deviation,Process parameter drift,Hypothesis,In progress,0.6496350364963503
+ABT-CAPA-001288,Vegetable pulao ready meal,Process-related defect,Process parameter drift,Probable,Open,0.6496350364963503
+ABT-CAPA-001330,Table grapes,Process-related defect,Process parameter drift,Probable,Open,0.6496350364963503
+ABT-CAPA-000303,Graded table eggs,Product quality deviation,Process parameter drift,Hypothesis,Awaiting verification,0.6496350364963503
+ABT-CAPA-002773,Cooked chicken strips,Product quality deviation,Process parameter drift,Confirmed,Open,0.6496350364963503
+ABT-CAPA-001160,Flavoured malt beverage,Product quality deviation,Process parameter drift,Confirmed,In progress,0.6496350364963503
+ABT-CAPA-002520,Plain set yoghurt,Product quality deviation,Process parameter drift,Hypothesis,Awaiting verification,0.6496350364963503
+ABT-CAPA-002136,Wheat flour,Process-related defect,Process parameter drift,Hypothesis,Awaiting verification,0.6496350364963503
+ABT-CAPA-001081,Chilled whole fish,Process-related defect,Process parameter drift,Probable,Open,0.6496350364963503
+ABT-CAPA-002005,Burger buns,Process-related defect,Process parameter drift,Probable,In progress,0.6496350364963503
+ABT-CAPA-001949,Sliced sandwich bread,Process-related defect,Process parameter drift,Hypothesis,Awaiting verification,0.6496350364963503
+ABT-CAPA-001048,Paneer curry ready meal,Process-related defect,Process parameter drift,Unknown,In progress,0.6496350364963503
+ABT-CAPA-002581,Smoked chicken sausage,Process-related defect,Process parameter drift,Confirmed,In progress,0.6496350364963503
+ABT-CAPA-002662,Roasted mixed nuts,Product quality deviation,Process parameter drift,Confirmed,Awaiting verification,0.6496350364963503
+ABT-CAPA-001785,Pasteurized liquid whole egg,Product quality deviation,Process parameter drift,Hypothesis,Awaiting verification,0.6496350364963503
+ABT-CAPA-002149,Fresh tomatoes,Process-related defect,Process parameter drift,Probable,Awaiting verification,0.6496350364963503
+ABT-CAPA-002714,Tomato ketchup pouch,Product quality deviation,Process parameter drift,Probable,Awaiting verification,0.6496350364963503
+ABT-CAPA-001824,Orange juice chilled,Packaging issue,Line alignment / changeover issue,Hypothesis,Awaiting verification,0.6376811594202898
+ABT-CAPA-001142,Sliced sandwich bread,Packaging issue,Line alignment / changeover issue,Probable,In progress,0.6376811594202898
+ABT-CAPA-001995,Sliced sandwich bread,Packaging issue,Line alignment / changeover issue,Hypothesis,Awaiting verification,0.6376811594202898
+ABT-CAPA-001884,Packaged raw rice,Packaging issue,Line alignment / changeover issue,Hypothesis,Open,0.6376811594202898
+ABT-CAPA-001118,Rolled oats,Packaging issue,Line alignment / changeover issue,Confirmed,In progress,0.6376811594202898
+ABT-CAPA-001302,Mango yoghurt cup,Packaging issue,Line alignment / changeover issue,Confirmed,Open,0.6376811594202898
+ABT-CAPA-002951,Rolled oats,Packaging issue,Line alignment / changeover issue,Probable,Open,0.6376811594202898
+ABT-CAPA-001682,Frozen prawns,Packaging issue,Line alignment / changeover issue,Probable,Awaiting verification,0.6376811594202898
+ABT-CAPA-001917,Mixed curry spice blend,Packaging issue,Line alignment / changeover issue,Probable,Open,0.6376811594202898
+ABT-CAPA-001853,Corn flakes,Packaging issue,Line alignment / changeover issue,Hypothesis,Awaiting verification,0.6376811594202898
+ABT-CAPA-000534,Plain set yoghurt,Packaging issue,Line alignment / changeover issue,Hypothesis,Open,0.6376811594202898
+ABT-CAPA-002203,Pasteurized liquid whole egg,Packaging issue,Line alignment / changeover issue,Probable,Open,0.6376811594202898
+ABT-CAPA-002208,Corn flakes,Packaging issue,Line alignment / changeover issue,Confirmed,In progress,0.6376811594202898
+ABT-CAPA-002830,Paneer curry ready meal,Packaging issue,Line alignment / changeover issue,Probable,In progress,0.6376811594202898
+ABT-CAPA-003295,Fresh-cut mixed vegetables,Packaging issue,Line alignment / changeover issue,Probable,In progress,0.6376811594202898
+ABT-CAPA-002299,Canned baked beans,Packaging issue,Line alignment / changeover issue,Hypothesis,In progress,0.6376811594202898
+ABT-CAPA-002614,Mango fruit beverage,Packaging issue,Line alignment / changeover issue,Probable,Open,0.6376811594202898
+ABT-CAPA-000617,Burger buns,Packaging issue,Line alignment / changeover issue,Probable,In progress,0.6376811594202898
+ABT-CAPA-000732,Chocolate cake slices,Packaging issue,Line alignment / changeover issue,Unknown,Awaiting verification,0.6376811594202898
+ABT-CAPA-003191,Flavoured malt beverage,Packaging issue,Line alignment / changeover issue,Hypothesis,Awaiting verification,0.6376811594202898
+ABT-CAPA-000107,Fresh pineapple slices,Packaging issue,Line alignment / changeover issue,Unknown,In progress,0.6376811594202898
+ABT-CAPA-000070,Frozen chicken nuggets,Packaging issue,Line alignment / changeover issue,Confirmed,Awaiting verification,0.6376811594202898
+ABT-CAPA-002337,Smoked chicken sausage,Packaging issue,Line alignment / changeover issue,Probable,Awaiting verification,0.6376811594202898
+ABT-CAPA-002405,Instant soup mix,Packaging issue,Line alignment / changeover issue,Confirmed,Awaiting verification,0.6376811594202898
+ABT-CAPA-002455,Chicken sandwich,Packaging issue,Line alignment / changeover issue,Hypothesis,Open,0.6376811594202898
+ABT-CAPA-000737,Corn flakes,Packaging issue,Line alignment / changeover issue,Confirmed,In progress,0.6376811594202898
+ABT-CAPA-003284,Potato chips salted,Packaging issue,Line alignment / changeover issue,Unknown,Awaiting verification,0.6376811594202898
+ABT-CAPA-000207,Tomato ketchup pouch,Packaging issue,Line alignment / changeover issue,Unknown,Open,0.6376811594202898
+ABT-CAPA-003149,Butter biscuits,Packaging issue,Line alignment / changeover issue,Hypothesis,Open,0.6376811594202898
+ABT-CAPA-000257,Fresh onions,Packaging issue,Line alignment / changeover issue,Probable,Awaiting verification,0.6376811594202898
+ABT-CAPA-000813,Fresh tomatoes,Packaging issue,Line alignment / changeover issue,Probable,Open,0.6376811594202898
+ABT-CAPA-001079,Mango yoghurt cup,Packaging issue,Line alignment / changeover issue,Hypothesis,In progress,0.6376811594202898
+ABT-CAPA-002041,Butter biscuits,Packaging issue,Line alignment / changeover issue,Hypothesis,In progress,0.6376811594202898
+ABT-CAPA-000105,Mango fruit beverage,Sensory characteristic,Ingredient lot variation,Probable,In progress,0.6290322580645161
+ABT-CAPA-000211,Mixed curry spice blend,Sensory characteristic,Ingredient lot variation,Probable,Open,0.6290322580645161
+ABT-CAPA-003122,Fresh paneer blocks,Sensory characteristic,Ingredient lot variation,Probable,Open,0.6290322580645161
+ABT-CAPA-000194,Wheat flour,Sensory characteristic,Ingredient lot variation,Probable,Open,0.6290322580645161
+ABT-CAPA-002539,Table grapes,Sensory characteristic,Ingredient lot variation,Probable,In progress,0.6290322580645161
+ABT-CAPA-002007,Graded table eggs,Sensory characteristic,Ingredient lot variation,Confirmed,In progress,0.6290322580645161
+ABT-CAPA-000629,Sliced sandwich bread,Sensory characteristic,Ingredient lot variation,Probable,Open,0.6290322580645161
+ABT-CAPA-001701,Chicken biryani ready meal,Sensory characteristic,Ingredient lot variation,Unknown,In progress,0.6290322580645161
+ABT-CAPA-001688,Cooked chicken strips,Sensory characteristic,Ingredient lot variation,Unknown,Open,0.6290322580645161
+ABT-CAPA-000868,Fresh pineapple slices,Sensory characteristic,Ingredient lot variation,Probable,In progress,0.6290322580645161
+ABT-CAPA-002399,Paneer curry ready meal,Sensory characteristic,Ingredient lot variation,Unknown,Awaiting verification,0.6290322580645161
+ABT-CAPA-000669,Fresh paneer blocks,Sensory characteristic,Ingredient lot variation,Unknown,In progress,0.6290322580645161
+ABT-CAPA-000141,Fresh carrots,Sensory characteristic,Ingredient lot variation,Hypothesis,Open,0.6290322580645161
+ABT-CAPA-001636,Chocolate cake slices,Sensory characteristic,Ingredient lot variation,Probable,In progress,0.6290322580645161
+ABT-CAPA-001469,Pasteurized toned milk,Sensory characteristic,Ingredient lot variation,Probable,Open,0.6290322580645161
+ABT-CAPA-000595,Fresh pineapple slices,Sensory characteristic,Ingredient lot variation,Probable,Open,0.6290322580645161
+ABT-CAPA-002974,Graded table eggs,Product quality deviation,Raw-material variability,Confirmed,In progress,0.6265060240963856
+ABT-CAPA-000040,Breaded fish fingers,Product quality deviation,Raw-material variability,Hypothesis,Open,0.6265060240963856
+ABT-CAPA-001259,Sliced sandwich bread,Product quality deviation,Raw-material variability,Probable,In progress,0.6265060240963856
+ABT-CAPA-003063,Cooked chicken strips,Product quality deviation,Raw-material variability,Hypothesis,In progress,0.6265060240963856
+ABT-CAPA-000349,Orange juice chilled,Product quality deviation,Raw-material variability,Hypothesis,Awaiting verification,0.6265060240963856
+ABT-CAPA-001130,Sliced sandwich bread,Product quality deviation,Raw-material variability,Probable,In progress,0.6265060240963856
+ABT-CAPA-002199,Mango fruit beverage,Product quality deviation,Raw-material variability,Probable,Awaiting verification,0.6265060240963856
+ABT-CAPA-000981,Mixed vegetable salad,Product quality deviation,Raw-material variability,Hypothesis,In progress,0.6265060240963856
+ABT-CAPA-002070,Frozen beef patties,Product quality deviation,Raw-material variability,Hypothesis,Open,0.6265060240963856
+ABT-CAPA-001787,Plain set yoghurt,Product quality deviation,Raw-material variability,Hypothesis,In progress,0.6265060240963856
+ABT-CAPA-001733,Breaded fish fingers,Product quality deviation,Raw-material variability,Confirmed,Awaiting verification,0.6265060240963856
+ABT-CAPA-000370,Salted table butter,Product quality deviation,Raw-material variability,Confirmed,In progress,0.6265060240963856
+ABT-CAPA-002335,Packaged raw rice,Product quality deviation,Raw-material variability,Confirmed,Awaiting verification,0.6265060240963856
+ABT-CAPA-002327,Smoked chicken sausage,Product quality deviation,Raw-material variability,Confirmed,Awaiting verification,0.6265060240963856
+ABT-CAPA-002393,Burger buns,Product quality deviation,Raw-material variability,Unknown,In progress,0.6265060240963856
+ABT-CAPA-000023,Corn flakes,Product quality deviation,Raw-material variability,Hypothesis,In progress,0.6265060240963856
+ABT-CAPA-000730,Chocolate cake slices,Product quality deviation,Raw-material variability,Confirmed,In progress,0.6265060240963856
+ABT-CAPA-002219,Corn flakes,Product quality deviation,Raw-material variability,Confirmed,Awaiting verification,0.6265060240963856
+ABT-CAPA-000888,Mango fruit beverage,Product quality deviation,Raw-material variability,Hypothesis,In progress,0.6265060240963856
+ABT-CAPA-002220,Mango yoghurt cup,Product quality deviation,Raw-material variability,Probable,Open,0.6265060240963856
+ABT-CAPA-002233,Cooked chicken strips,Product quality deviation,Raw-material variability,Hypothesis,Awaiting verification,0.6265060240963856
+ABT-CAPA-001429,Smoked chicken sausage,Product quality deviation,Raw-material variability,Unknown,Open,0.6265060240963856
+ABT-CAPA-003189,Chilled mutton cubes,Product quality deviation,Raw-material variability,Probable,Awaiting verification,0.6265060240963856
+ABT-CAPA-003114,Processed cheese slices,Product quality deviation,Raw-material variability,Hypothesis,In progress,0.6265060240963856
+ABT-CAPA-002588,Pasteurized toned milk,Product quality deviation,Raw-material variability,Probable,Awaiting verification,0.6265060240963856
+ABT-CAPA-001064,Chocolate cake slices,Product quality deviation,Raw-material variability,Probable,Awaiting verification,0.6265060240963856
+ABT-CAPA-000898,Fresh paneer blocks,Product quality deviation,Raw-material variability,Unknown,Open,0.6265060240963856
+ABT-CAPA-000664,Burger buns,Product quality deviation,Raw-material variability,Confirmed,Awaiting verification,0.6265060240963856
+ABT-CAPA-002679,Salted table butter,Product quality deviation,Raw-material variability,Confirmed,In progress,0.6265060240963856
+ABT-CAPA-002920,Washed baby spinach,Product quality deviation,Raw-material variability,Confirmed,In progress,0.6265060240963856
+ABT-CAPA-001813,Fresh tomatoes,Product quality deviation,Raw-material variability,Confirmed,Awaiting verification,0.6265060240963856
+ABT-CAPA-000422,Potato chips salted,Product quality deviation,Raw-material variability,Probable,Awaiting verification,0.6265060240963856
+ABT-CAPA-000834,Plain set yoghurt,Product quality deviation,Inadequate in-process verification,Unknown,Awaiting verification,0.6081081081081081
+ABT-CAPA-000774,Roasted mixed nuts,Product quality deviation,Inadequate in-process verification,Confirmed,Awaiting verification,0.6081081081081081
+ABT-CAPA-002263,Frozen chicken nuggets,Product quality deviation,Inadequate in-process verification,Probable,In progress,0.6081081081081081
+ABT-CAPA-000076,Packaged drinking water,Product quality deviation,Inadequate in-process verification,Hypothesis,In progress,0.6081081081081081
+ABT-CAPA-000077,Processed cheese slices,Product quality deviation,Inadequate in-process verification,Probable,Awaiting verification,0.6081081081081081
+ABT-CAPA-003164,Flavoured malt beverage,Product quality deviation,Inadequate in-process verification,Probable,In progress,0.6081081081081081
+ABT-CAPA-001428,Plain set yoghurt,Product quality deviation,Inadequate in-process verification,Probable,Awaiting verification,0.6081081081081081
+ABT-CAPA-003289,Fresh pineapple slices,Product quality deviation,Inadequate in-process verification,Unknown,Closed,0.6081081081081081
+ABT-CAPA-003261,Roasted mixed nuts,Product quality deviation,Inadequate in-process verification,Confirmed,Closed,0.6081081081081081
+ABT-CAPA-000117,Fresh tomatoes,Product quality deviation,Inadequate in-process verification,Confirmed,Awaiting verification,0.6081081081081081
+ABT-CAPA-000808,Potato chips salted,Product quality deviation,Inadequate in-process verification,Probable,Open,0.6081081081081081
+ABT-CAPA-000787,Rolled oats,Product quality deviation,Inadequate in-process verification,Probable,In progress,0.6081081081081081
+ABT-CAPA-002371,Roasted mixed nuts,Product quality deviation,Inadequate in-process verification,Hypothesis,In progress,0.6081081081081081
+ABT-CAPA-002632,Chicken sandwich,Product quality deviation,Inadequate in-process verification,Hypothesis,Awaiting verification,0.6081081081081081
+ABT-CAPA-000497,Mango yoghurt cup,Product quality deviation,Inadequate in-process verification,Unknown,Open,0.6081081081081081
+ABT-CAPA-000538,Packaged raw rice,Product quality deviation,Inadequate in-process verification,Hypothesis,In progress,0.6081081081081081
+ABT-CAPA-000593,Chilled mutton cubes,Product quality deviation,Inadequate in-process verification,Confirmed,In progress,0.6081081081081081
+ABT-CAPA-000590,Chilled whole fish,Product quality deviation,Inadequate in-process verification,Confirmed,In progress,0.6081081081081081
+ABT-CAPA-001015,Frozen beef patties,Product quality deviation,Inadequate in-process verification,Confirmed,Awaiting verification,0.6081081081081081
+ABT-CAPA-002008,Cooked chicken strips,Product quality deviation,Inadequate in-process verification,Confirmed,In progress,0.6081081081081081
+ABT-CAPA-002082,Butter biscuits,Product quality deviation,Inadequate in-process verification,Confirmed,Awaiting verification,0.6081081081081081
+ABT-CAPA-002797,Wheat flour,Product quality deviation,Inadequate in-process verification,Probable,Awaiting verification,0.6081081081081081
+ABT-CAPA-001717,Flavoured malt beverage,Product quality deviation,Inadequate in-process verification,Confirmed,In progress,0.6081081081081081
+ABT-CAPA-001699,Cooked chicken strips,Product quality deviation,Inadequate in-process verification,Confirmed,In progress,0.6081081081081081
+ABT-CAPA-003047,Tomato ketchup pouch,Product quality deviation,Inadequate in-process verification,Unknown,Awaiting verification,0.6081081081081081
+ABT-CAPA-003016,Pasteurized liquid whole egg,Product quality deviation,Inadequate in-process verification,Hypothesis,In progress,0.6081081081081081
+ABT-CAPA-001440,Chilled mutton cubes,Product quality deviation,Inadequate in-process verification,Probable,Open,0.6081081081081081
+ABT-CAPA-001485,Pasteurized liquid whole egg,Product quality deviation,Inadequate in-process verification,Probable,In progress,0.6081081081081081
+ABT-CAPA-001505,Chilled whole fish,Product quality deviation,Inadequate in-process verification,Hypothesis,Awaiting verification,0.6081081081081081
+ABT-CAPA-003277,Flavoured malt beverage,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,Closed,0.581081081081081
+ABT-CAPA-000166,Packaged drinking water,Physical defect / foreign matter,Screening / sieving control gap,Unknown,Open,0.581081081081081
+ABT-CAPA-002589,Chicken sandwich,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,In progress,0.581081081081081
+ABT-CAPA-000684,Table grapes,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,Awaiting verification,0.581081081081081
+ABT-CAPA-001283,Washed baby spinach,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Open,0.581081081081081
+ABT-CAPA-002400,Roasted mixed nuts,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,In progress,0.581081081081081
+ABT-CAPA-001534,Instant soup mix,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Open,0.581081081081081
+ABT-CAPA-001566,Wheat flour,Physical defect / foreign matter,Screening / sieving control gap,Probable,Open,0.581081081081081
+ABT-CAPA-000495,Fresh-cut mixed vegetables,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Awaiting verification,0.581081081081081
+ABT-CAPA-000498,Salted table butter,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,In progress,0.581081081081081
+ABT-CAPA-001314,Pasteurized toned milk,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Awaiting verification,0.581081081081081
+ABT-CAPA-003017,Pasteurized liquid whole egg,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,In progress,0.581081081081081
+ABT-CAPA-003034,Orange juice chilled,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,Open,0.581081081081081
+ABT-CAPA-003103,Fresh-cut mixed vegetables,Physical defect / foreign matter,Screening / sieving control gap,Unknown,Open,0.581081081081081
+ABT-CAPA-002743,Fresh-cut mango cubes,Physical defect / foreign matter,Screening / sieving control gap,Unknown,In progress,0.581081081081081
+ABT-CAPA-002745,Smoked chicken sausage,Physical defect / foreign matter,Screening / sieving control gap,Unknown,Open,0.581081081081081
+ABT-CAPA-002104,Fresh pineapple slices,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Open,0.581081081081081
+ABT-CAPA-002122,Butter biscuits,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,Open,0.581081081081081
+ABT-CAPA-000828,Mixed vegetable salad,Physical defect / foreign matter,Screening / sieving control gap,Probable,In progress,0.581081081081081
+ABT-CAPA-003239,Frozen fish fillets,Physical defect / foreign matter,Screening / sieving control gap,Unknown,Closed,0.581081081081081
+ABT-CAPA-000723,Salted table butter,Physical defect / foreign matter,Screening / sieving control gap,Unknown,Awaiting verification,0.581081081081081
+ABT-CAPA-000725,Mixed curry spice blend,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Awaiting verification,0.581081081081081
+ABT-CAPA-003236,Fresh tomatoes,Physical defect / foreign matter,Screening / sieving control gap,Unknown,Closed,0.581081081081081
+ABT-CAPA-002528,Chocolate cake slices,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Open,0.581081081081081
+ABT-CAPA-003142,Paneer curry ready meal,Physical defect / foreign matter,Screening / sieving control gap,Probable,In progress,0.581081081081081
+ABT-CAPA-003265,Fresh onions,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,Closed,0.581081081081081
+ABT-CAPA-000114,Fresh-cut mango cubes,Physical defect / foreign matter,Screening / sieving control gap,Probable,Awaiting verification,0.581081081081081
+ABT-CAPA-003247,Fresh paneer blocks,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Closed,0.581081081081081
+ABT-CAPA-001746,Chilled mutton cubes,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Open,0.581081081081081
+ABT-CAPA-002868,Pasteurized liquid whole egg,Physical defect / foreign matter,Screening / sieving control gap,Hypothesis,Awaiting verification,0.581081081081081
+ABT-CAPA-000977,Salted table butter,Physical defect / foreign matter,Screening / sieving control gap,Unknown,In progress,0.581081081081081
+ABT-CAPA-000955,Cooked chicken strips,Physical defect / foreign matter,Screening / sieving control gap,Unknown,Awaiting verification,0.581081081081081
+ABT-CAPA-000235,Chicken sandwich,Physical defect / foreign matter,Screening / sieving control gap,Unknown,Awaiting verification,0.581081081081081
+ABT-CAPA-002947,Mixed curry spice blend,Physical defect / foreign matter,Screening / sieving control gap,Confirmed,Open,0.581081081081081
+ABT-CAPA-000979,Graded table eggs,Process-related defect,Equipment calibration gap,Unknown,Open,0.5641025641025641
+ABT-CAPA-003195,Paneer curry ready meal,Process-related defect,Equipment calibration gap,Hypothesis,Open,0.5641025641025641
+ABT-CAPA-000090,Fresh-cut mixed vegetables,Process-related defect,Equipment calibration gap,Confirmed,Awaiting verification,0.5641025641025641
+ABT-CAPA-003254,Wheat flour,Process-related defect,Equipment calibration gap,Probable,Closed,0.5641025641025641
+ABT-CAPA-002057,Plain set yoghurt,Process-related defect,Equipment calibration gap,Hypothesis,In progress,0.5641025641025641
+ABT-CAPA-001943,Fresh tomatoes,Process-related defect,Equipment calibration gap,Hypothesis,In progress,0.5641025641025641
+ABT-CAPA-002028,Fresh-cut mixed vegetables,Process-related defect,Equipment calibration gap,Probable,In progress,0.5641025641025641
+ABT-CAPA-001034,Chocolate cake slices,Process-related defect,Equipment calibration gap,Probable,Open,0.5641025641025641
+ABT-CAPA-001177,Instant soup mix,Process-related defect,Equipment calibration gap,Confirmed,Open,0.5641025641025641
+ABT-CAPA-000138,Fresh carrots,Process-related defect,Equipment calibration gap,Probable,Awaiting verification,0.5641025641025641
+ABT-CAPA-000739,Graded table eggs,Process-related defect,Equipment calibration gap,Probable,In progress,0.5641025641025641
+ABT-CAPA-000783,Mango yoghurt cup,Process-related defect,Equipment calibration gap,Confirmed,Open,0.5641025641025641
+ABT-CAPA-000779,Frozen chicken nuggets,Process-related defect,Equipment calibration gap,Hypothesis,Awaiting verification,0.5641025641025641
+ABT-CAPA-000728,Rolled oats,Process-related defect,Equipment calibration gap,Unknown,Open,0.5641025641025641
+ABT-CAPA-001939,Frozen fish fillets,Process-related defect,Equipment calibration gap,Unknown,Awaiting verification,0.5641025641025641
+ABT-CAPA-001676,Processed cheese slices,Process-related defect,Equipment calibration gap,Hypothesis,Awaiting verification,0.5641025641025641
+ABT-CAPA-002248,Orange juice chilled,Process-related defect,Equipment calibration gap,Probable,Open,0.5641025641025641
+ABT-CAPA-001547,Chilled whole fish,Process-related defect,Equipment calibration gap,Probable,Open,0.5641025641025641
+ABT-CAPA-000906,Pasteurized toned milk,Process-related defect,Equipment calibration gap,Probable,Open,0.5641025641025641
+ABT-CAPA-001379,Corn flakes,Process-related defect,Equipment calibration gap,Hypothesis,Open,0.5641025641025641
+ABT-CAPA-001685,Mixed vegetable salad,Process-related defect,Equipment calibration gap,Confirmed,Open,0.5641025641025641
+ABT-CAPA-001532,Chilled mutton cubes,Process-related defect,Equipment calibration gap,Confirmed,In progress,0.5641025641025641
+ABT-CAPA-002418,Wheat flour,Process-related defect,Equipment calibration gap,Hypothesis,Open,0.5641025641025641
+ABT-CAPA-002417,Burger buns,Process-related defect,Equipment calibration gap,Hypothesis,Open,0.5641025641025641
+ABT-CAPA-000865,Roasted mixed nuts,Process-related defect,Equipment calibration gap,Probable,Open,0.5641025641025641
+ABT-CAPA-000853,Chicken sandwich,Process-related defect,Equipment calibration gap,Unknown,In progress,0.5641025641025641
+ABT-CAPA-002582,Mixed curry spice blend,Process-related defect,Equipment calibration gap,Probable,Open,0.5641025641025641
+ABT-CAPA-000692,Fresh tomatoes,Process-related defect,Equipment calibration gap,Hypothesis,Awaiting verification,0.5641025641025641
+ABT-CAPA-001396,Cooked chicken strips,Process-related defect,Equipment calibration gap,Unknown,In progress,0.5641025641025641
+ABT-CAPA-003278,Frozen fish fillets,Process-related defect,Equipment calibration gap,Probable,In progress,0.5641025641025641
+ABT-CAPA-002972,Corn flakes,Process-related defect,Insufficient process time,Hypothesis,In progress,0.5625
+ABT-CAPA-001748,Potato chips salted,Process-related defect,Insufficient process time,Unknown,Awaiting verification,0.5625
+ABT-CAPA-002855,Orange juice chilled,Process-related defect,Insufficient process time,Hypothesis,In progress,0.5625
+ABT-CAPA-000412,Chocolate cake slices,Process-related defect,Insufficient process time,Hypothesis,In progress,0.5625
+ABT-CAPA-000410,Breaded fish fingers,Process-related defect,Insufficient process time,Hypothesis,In progress,0.5625
+ABT-CAPA-000395,Mango fruit beverage,Process-related defect,Insufficient process time,Probable,Open,0.5625
+ABT-CAPA-003001,Pasteurized liquid whole egg,Process-related defect,Insufficient process time,Probable,In progress,0.5625
+ABT-CAPA-003238,Frozen beef patties,Process-related defect,Insufficient process time,Confirmed,Closed,0.5625
+ABT-CAPA-003177,Rolled oats,Process-related defect,Insufficient process time,Hypothesis,Awaiting verification,0.5625
+ABT-CAPA-000160,Chicken biryani ready meal,Process-related defect,Insufficient process time,Hypothesis,In progress,0.5625
+ABT-CAPA-000780,Pasteurized liquid whole egg,Process-related defect,Insufficient process time,Probable,Open,0.5625
+ABT-CAPA-000797,Frozen fish fillets,Process-related defect,Insufficient process time,Probable,Awaiting verification,0.5625
+ABT-CAPA-000816,Processed cheese slices,Process-related defect,Insufficient process time,Probable,In progress,0.5625
+ABT-CAPA-001123,Salted table butter,Process-related defect,Insufficient process time,Unknown,In progress,0.5625
+ABT-CAPA-001198,Plain set yoghurt,Process-related defect,Insufficient process time,Probable,In progress,0.5625
+ABT-CAPA-001063,Graded table eggs,Process-related defect,Insufficient process time,Probable,Open,0.5625
+ABT-CAPA-002707,Fresh-cut mango cubes,Process-related defect,Insufficient process time,Confirmed,Open,0.5625
+ABT-CAPA-001558,Fresh pineapple slices,Process-related defect,Insufficient process time,Probable,In progress,0.5625
+ABT-CAPA-003085,Fresh pineapple slices,Process-related defect,Insufficient process time,Hypothesis,In progress,0.5625
+ABT-CAPA-000503,Frozen chicken nuggets,Process-related defect,Insufficient process time,Probable,Open,0.5625
+ABT-CAPA-002241,Frozen prawns,Process-related defect,Insufficient process time,Confirmed,Awaiting verification,0.5625
+ABT-CAPA-002556,Burger buns,Process-related defect,Insufficient process time,Unknown,Awaiting verification,0.5625
+ABT-CAPA-001630,Chilled whole fish,Process-related defect,Insufficient process time,Unknown,In progress,0.5625
+ABT-CAPA-000662,Corn flakes,Process-related defect,Insufficient process time,Probable,Open,0.5625
+ABT-CAPA-002723,Cooked chicken strips,Process-related defect,Insufficient process time,Confirmed,In progress,0.5625
+ABT-CAPA-002715,Vegetable pulao ready meal,Process-related defect,Insufficient process time,Probable,In progress,0.5625
+ABT-CAPA-003275,Table grapes,Physical defect / foreign matter,Incoming material contamination,Unknown,Closed,0.5443037974683544
+ABT-CAPA-002549,Flavoured malt beverage,Physical defect / foreign matter,Incoming material contamination,Hypothesis,Open,0.5443037974683544
+ABT-CAPA-002339,Potato chips salted,Physical defect / foreign matter,Incoming material contamination,Probable,In progress,0.5443037974683544
+ABT-CAPA-001162,Mixed curry spice blend,Physical defect / foreign matter,Incoming material contamination,Confirmed,Open,0.5443037974683544
+ABT-CAPA-000339,Rolled oats,Physical defect / foreign matter,Incoming material contamination,Confirmed,Open,0.5443037974683544
+ABT-CAPA-002694,Burger buns,Physical defect / foreign matter,Incoming material contamination,Probable,Awaiting verification,0.5443037974683544
+ABT-CAPA-000523,Corn flakes,Physical defect / foreign matter,Incoming material contamination,Unknown,In progress,0.5443037974683544
+ABT-CAPA-000925,Plain set yoghurt,Physical defect / foreign matter,Incoming material contamination,Probable,Open,0.5443037974683544
+ABT-CAPA-002128,Fresh carrots,Physical defect / foreign matter,Incoming material contamination,Probable,In progress,0.5443037974683544
+ABT-CAPA-002269,Chicken sandwich,Physical defect / foreign matter,Incoming material contamination,Hypothesis,In progress,0.5443037974683544
+ABT-CAPA-001358,Roasted mixed nuts,Physical defect / foreign matter,Incoming material contamination,Probable,In progress,0.5443037974683544
+ABT-CAPA-001680,Frozen fish fillets,Physical defect / foreign matter,Incoming material contamination,Probable,Awaiting verification,0.5443037974683544
+ABT-CAPA-002230,Corn flakes,Physical defect / foreign matter,Incoming material contamination,Confirmed,Awaiting verification,0.5443037974683544
+ABT-CAPA-002301,Pasteurized toned milk,Physical defect / foreign matter,Incoming material contamination,Probable,Awaiting verification,0.5443037974683544
+ABT-CAPA-001011,Butter biscuits,Physical defect / foreign matter,Incoming material contamination,Hypothesis,In progress,0.5443037974683544
+ABT-CAPA-002719,Orange juice chilled,Physical defect / foreign matter,Incoming material contamination,Confirmed,Awaiting verification,0.5443037974683544
+ABT-CAPA-000490,Roasted mixed nuts,Physical defect / foreign matter,Incoming material contamination,Probable,Open,0.5443037974683544
+ABT-CAPA-001625,Graded table eggs,Physical defect / foreign matter,Incoming material contamination,Confirmed,Awaiting verification,0.5443037974683544
+ABT-CAPA-002024,Mango yoghurt cup,Physical defect / foreign matter,Incoming material contamination,Probable,Open,0.5443037974683544
+ABT-CAPA-002048,Sliced sandwich bread,Physical defect / foreign matter,Incoming material contamination,Unknown,Open,0.5443037974683544
+ABT-CAPA-001947,Pasteurized liquid whole egg,Physical defect / foreign matter,Incoming material contamination,Confirmed,In progress,0.5443037974683544
+ABT-CAPA-001962,Chicken sandwich,Physical defect / foreign matter,Incoming material contamination,Hypothesis,In progress,0.5443037974683544
+ABT-CAPA-002912,Roasted mixed nuts,Physical defect / foreign matter,Incoming material contamination,Confirmed,In progress,0.5443037974683544
+ABT-CAPA-002977,Chicken sandwich,Physical defect / foreign matter,Incoming material contamination,Confirmed,Open,0.5443037974683544
+ABT-CAPA-002965,Salted table butter,Physical defect / foreign matter,Incoming material contamination,Confirmed,Open,0.5443037974683544
+ABT-CAPA-001760,Frozen prawns,Physical defect / foreign matter,Incoming material contamination,Probable,Open,0.5443037974683544
+ABT-CAPA-001738,Fresh-cut mango cubes,Physical defect / foreign matter,Incoming material contamination,Unknown,Open,0.5443037974683544
+ABT-CAPA-001233,Fresh paneer blocks,Physical defect / foreign matter,Incoming material contamination,Confirmed,In progress,0.5443037974683544
+ABT-CAPA-000957,Chicken sandwich,Physical defect / foreign matter,Incoming material contamination,Confirmed,Open,0.5443037974683544
+ABT-CAPA-002186,Wheat flour,Physical defect / foreign matter,Incoming material contamination,Probable,Awaiting verification,0.5443037974683544
+ABT-CAPA-001105,Paneer curry ready meal,Physical defect / foreign matter,Incoming material contamination,Unknown,Awaiting verification,0.5443037974683544
+ABT-CAPA-001103,Graded table eggs,Physical defect / foreign matter,Incoming material contamination,Probable,Awaiting verification,0.5443037974683544
+ABT-CAPA-002789,Cooked chicken strips,Physical defect / foreign matter,Incoming material contamination,Confirmed,In progress,0.5443037974683544
+ABT-CAPA-002794,Packaged raw rice,Physical defect / foreign matter,Incoming material contamination,Probable,In progress,0.5443037974683544
+ABT-CAPA-002476,Fresh-cut mixed vegetables,Physical defect / foreign matter,Incoming material contamination,Confirmed,Open,0.5443037974683544
+ABT-CAPA-000217,Fresh tomatoes,Physical defect / foreign matter,Incoming material contamination,Unknown,Closed,0.5443037974683544
+ABT-CAPA-000799,Paneer curry ready meal,Physical defect / foreign matter,Incoming material contamination,Hypothesis,In progress,0.5443037974683544
+ABT-CAPA-003157,Packaged raw rice,Physical defect / foreign matter,Incoming material contamination,Hypothesis,Open,0.5443037974683544
+ABT-CAPA-000324,Chicken sandwich,Process-related defect,Inadequate operator verification,Confirmed,Closed,0.527027027027027
+ABT-CAPA-002510,Potato chips salted,Process-related defect,Inadequate operator verification,Probable,In progress,0.527027027027027
+ABT-CAPA-003173,Potato chips salted,Process-related defect,Inadequate operator verification,Hypothesis,Open,0.527027027027027
+ABT-CAPA-003216,Chilled mutton cubes,Process-related defect,Inadequate operator verification,Hypothesis,Open,0.527027027027027
+ABT-CAPA-000404,Tomato ketchup pouch,Process-related defect,Inadequate operator verification,Confirmed,In progress,0.527027027027027
+ABT-CAPA-002929,Fresh onions,Process-related defect,Inadequate operator verification,Confirmed,Open,0.527027027027027
+ABT-CAPA-000242,Sliced sandwich bread,Process-related defect,Inadequate operator verification,Probable,Awaiting verification,0.527027027027027
+ABT-CAPA-001794,Packaged drinking water,Process-related defect,Inadequate operator verification,Unknown,In progress,0.527027027027027
+ABT-CAPA-001801,Fresh tomatoes,Process-related defect,Inadequate operator verification,Probable,In progress,0.527027027027027
+ABT-CAPA-001822,Tomato ketchup pouch,Process-related defect,Inadequate operator verification,Unknown,Open,0.527027027027027
+ABT-CAPA-001758,Butter biscuits,Process-related defect,Inadequate operator verification,Probable,In progress,0.527027027027027
+ABT-CAPA-001042,Tomato ketchup pouch,Process-related defect,Inadequate operator verification,Probable,Awaiting verification,0.527027027027027
+ABT-CAPA-002037,Pasteurized toned milk,Process-related defect,Inadequate operator verification,Probable,Open,0.527027027027027
+ABT-CAPA-001149,Wheat flour,Process-related defect,Inadequate operator verification,Hypothesis,Awaiting verification,0.527027027027027
+ABT-CAPA-001072,Processed cheese slices,Process-related defect,Inadequate operator verification,Hypothesis,In progress,0.527027027027027
+ABT-CAPA-001879,Chilled whole fish,Process-related defect,Inadequate operator verification,Confirmed,Open,0.527027027027027
+ABT-CAPA-000393,Chilled mutton cubes,Process-related defect,Inadequate operator verification,Unknown,Open,0.527027027027027
+ABT-CAPA-003008,Graded table eggs,Process-related defect,Inadequate operator verification,Probable,In progress,0.527027027027027
+ABT-CAPA-001024,Chilled chicken breast portions,Process-related defect,Inadequate operator verification,Probable,In progress,0.527027027027027
+ABT-CAPA-000999,Chilled mutton cubes,Process-related defect,Inadequate operator verification,Hypothesis,Open,0.527027027027027
+ABT-CAPA-000445,Processed cheese slices,Process-related defect,Inadequate operator verification,Probable,In progress,0.527027027027027
+ABT-CAPA-002663,Breaded fish fingers,Process-related defect,Inadequate operator verification,Hypothesis,Awaiting verification,0.527027027027027
+ABT-CAPA-000962,Salted table butter,Process-related defect,Inadequate operator verification,Hypothesis,Awaiting verification,0.527027027027027
+ABT-CAPA-000914,Corn flakes,Process-related defect,Inadequate operator verification,Probable,Awaiting verification,0.527027027027027
+ABT-CAPA-001509,Potato chips salted,Process-related defect,Inadequate operator verification,Probable,In progress,0.527027027027027
+ABT-CAPA-000884,Frozen prawns,Process-related defect,Inadequate operator verification,Probable,Open,0.527027027027027
+ABT-CAPA-001629,Corn flakes,Process-related defect,Inadequate operator verification,Hypothesis,Open,0.527027027027027
+ABT-CAPA-001690,Chilled chicken breast portions,Process-related defect,Inadequate operator verification,Probable,Awaiting verification,0.527027027027027
+ABT-CAPA-003271,Cooked chicken strips,Process-related defect,Inadequate operator verification,Confirmed,Closed,0.527027027027027
+ABT-CAPA-003250,Frozen beef patties,Physical defect / foreign matter,Equipment wear,Probable,Closed,0.5
+ABT-CAPA-001146,Fresh-cut mixed vegetables,Physical defect / foreign matter,Equipment wear,Probable,In progress,0.5
+ABT-CAPA-002079,Mixed curry spice blend,Physical defect / foreign matter,Equipment wear,Hypothesis,In progress,0.5
+ABT-CAPA-002080,Washed baby spinach,Physical defect / foreign matter,Equipment wear,Probable,Open,0.5
+ABT-CAPA-001041,Potato chips salted,Physical defect / foreign matter,Equipment wear,Probable,Awaiting verification,0.5
+ABT-CAPA-001387,Fresh-cut mango cubes,Physical defect / foreign matter,Equipment wear,Confirmed,In progress,0.5
+ABT-CAPA-001447,Processed cheese slices,Physical defect / foreign matter,Equipment wear,Probable,Awaiting verification,0.5
+ABT-CAPA-002358,Fresh onions,Physical defect / foreign matter,Equipment wear,Probable,Awaiting verification,0.5
+ABT-CAPA-002665,Fresh tomatoes,Physical defect / foreign matter,Equipment wear,Unknown,Open,0.5
+ABT-CAPA-002680,Chicken biryani ready meal,Physical defect / foreign matter,Equipment wear,Hypothesis,Awaiting verification,0.5
+ABT-CAPA-002687,Packaged drinking water,Physical defect / foreign matter,Equipment wear,Hypothesis,Awaiting verification,0.5
+ABT-CAPA-002154,Potato chips salted,Physical defect / foreign matter,Equipment wear,Confirmed,Awaiting verification,0.5
+ABT-CAPA-002157,Flavoured malt beverage,Physical defect / foreign matter,Equipment wear,Probable,In progress,0.5
+ABT-CAPA-000288,Tomato ketchup pouch,Physical defect / foreign matter,Equipment wear,Hypothesis,In progress,0.5
+ABT-CAPA-000285,Paneer curry ready meal,Physical defect / foreign matter,Equipment wear,Confirmed,Open,0.5
+ABT-CAPA-000273,Packaged raw rice,Physical defect / foreign matter,Equipment wear,Unknown,In progress,0.5
+ABT-CAPA-000162,Chicken biryani ready meal,Physical defect / foreign matter,Equipment wear,Confirmed,In progress,0.5
+ABT-CAPA-001595,Fresh carrots,Physical defect / foreign matter,Equipment wear,Unknown,Open,0.5
+ABT-CAPA-002372,Pasteurized liquid whole egg,Physical defect / foreign matter,Equipment wear,Hypothesis,In progress,0.5
+ABT-CAPA-001161,Chilled chicken breast portions,Physical defect / foreign matter,Equipment wear,Probable,Awaiting verification,0.5
+ABT-CAPA-001659,Burger buns,Physical defect / foreign matter,Equipment wear,Hypothesis,Awaiting verification,0.5
+ABT-CAPA-003288,Tomato ketchup pouch,Physical defect / foreign matter,Equipment wear,Probable,Closed,0.5
+ABT-CAPA-001435,Tomato ketchup pouch,Physical defect / foreign matter,Equipment wear,Unknown,Awaiting verification,0.5
+ABT-CAPA-002572,Chilled chicken breast portions,Physical defect / foreign matter,Equipment wear,Hypothesis,Open,0.5
+ABT-CAPA-000614,Fresh tomatoes,Physical defect / foreign matter,Equipment wear,Probable,In progress,0.5
+ABT-CAPA-000636,Breaded fish fingers,Physical defect / foreign matter,Equipment wear,Probable,In progress,0.5
+ABT-CAPA-001569,Fresh tomatoes,Physical defect / foreign matter,Equipment wear,Hypothesis,Awaiting verification,0.5
+ABT-CAPA-002710,Roasted mixed nuts,Physical defect / foreign matter,Equipment wear,Unknown,In progress,0.5
+ABT-CAPA-002130,Instant soup mix,Physical defect / foreign matter,Equipment wear,Hypothesis,Awaiting verification,0.5
+ABT-CAPA-001373,Mixed vegetable salad,Physical defect / foreign matter,Equipment wear,Confirmed,Awaiting verification,0.5
+ABT-CAPA-001615,Chicken sandwich,Physical defect / foreign matter,Equipment wear,Probable,Open,0.5
+ABT-CAPA-001016,Vegetable pulao ready meal,Physical defect / foreign matter,Equipment wear,Probable,Awaiting verification,0.5
+ABT-CAPA-001550,Chilled whole fish,Physical defect / foreign matter,Equipment wear,Probable,Awaiting verification,0.5
+ABT-CAPA-003128,Frozen prawns,Physical defect / foreign matter,Equipment wear,Hypothesis,Open,0.5
+ABT-CAPA-000363,Frozen prawns,Physical defect / foreign matter,Equipment wear,Hypothesis,Open,0.5
+ABT-CAPA-003267,Pasteurized toned milk,Physical defect / foreign matter,Equipment wear,Hypothesis,In progress,0.5
+ABT-CAPA-000137,Table grapes,Physical defect / foreign matter,Equipment wear,Probable,In progress,0.5
+ABT-CAPA-000325,Vegetable pulao ready meal,Physical defect / foreign matter,Equipment wear,Hypothesis,In progress,0.5
+ABT-CAPA-003201,Instant soup mix,Physical defect / foreign matter,Equipment wear,Confirmed,Open,0.5
+ABT-CAPA-002950,Mango fruit beverage,Contamination / microbiological,Temperature control deviation,Hypothesis,In progress,0.47297297297297297
+ABT-CAPA-000229,Mango fruit beverage,Contamination / microbiological,Temperature control deviation,Confirmed,In progress,0.47297297297297297
+ABT-CAPA-002094,Frozen beef patties,Contamination / microbiological,Temperature control deviation,Hypothesis,Awaiting verification,0.47297297297297297
+ABT-CAPA-001857,Pasteurized liquid whole egg,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-002036,Mango yoghurt cup,Contamination / microbiological,Temperature control deviation,Probable,In progress,0.47297297297297297
+ABT-CAPA-002806,Sliced sandwich bread,Contamination / microbiological,Temperature control deviation,Hypothesis,Awaiting verification,0.47297297297297297
+ABT-CAPA-001775,Chicken sandwich,Contamination / microbiological,Temperature control deviation,Probable,Awaiting verification,0.47297297297297297
+ABT-CAPA-000249,Cooked chicken strips,Contamination / microbiological,Temperature control deviation,Probable,In progress,0.47297297297297297
+ABT-CAPA-003242,Frozen fish fillets,Contamination / microbiological,Temperature control deviation,Confirmed,Closed,0.47297297297297297
+ABT-CAPA-001049,Instant soup mix,Contamination / microbiological,Temperature control deviation,Hypothesis,Awaiting verification,0.47297297297297297
+ABT-CAPA-001887,Frozen prawns,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-000770,Cooked chicken strips,Contamination / microbiological,Temperature control deviation,Probable,Awaiting verification,0.47297297297297297
+ABT-CAPA-003230,Fresh paneer blocks,Contamination / microbiological,Temperature control deviation,Confirmed,Closed,0.47297297297297297
+ABT-CAPA-003251,Chocolate cake slices,Contamination / microbiological,Temperature control deviation,Hypothesis,Closed,0.47297297297297297
+ABT-CAPA-001782,Wheat flour,Contamination / microbiological,Temperature control deviation,Confirmed,In progress,0.47297297297297297
+ABT-CAPA-000759,Pasteurized liquid whole egg,Contamination / microbiological,Temperature control deviation,Hypothesis,Open,0.47297297297297297
+ABT-CAPA-000338,Vegetable pulao ready meal,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-001190,Frozen chicken nuggets,Contamination / microbiological,Temperature control deviation,Probable,Open,0.47297297297297297
+ABT-CAPA-002042,Packaged raw rice,Contamination / microbiological,Temperature control deviation,Probable,Open,0.47297297297297297
+ABT-CAPA-000430,Cooked chicken strips,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-000825,Chilled chicken breast portions,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-001594,Packaged raw rice,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-001601,Cooked chicken strips,Contamination / microbiological,Temperature control deviation,Confirmed,Open,0.47297297297297297
+ABT-CAPA-001163,Pasteurized liquid whole egg,Contamination / microbiological,Temperature control deviation,Hypothesis,Open,0.47297297297297297
+ABT-CAPA-000317,Chicken biryani ready meal,Contamination / microbiological,Temperature control deviation,Hypothesis,In progress,0.47297297297297297
+ABT-CAPA-003246,Paneer curry ready meal,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-002390,Butter biscuits,Contamination / microbiological,Temperature control deviation,Probable,Awaiting verification,0.47297297297297297
+ABT-CAPA-001275,Chicken sandwich,Contamination / microbiological,Temperature control deviation,Confirmed,In progress,0.47297297297297297
+ABT-CAPA-000056,Chilled mutton cubes,Contamination / microbiological,Temperature control deviation,Hypothesis,Awaiting verification,0.47297297297297297
+ABT-CAPA-000644,Paneer curry ready meal,Contamination / microbiological,Temperature control deviation,Probable,In progress,0.47297297297297297
+ABT-CAPA-000671,Breaded fish fingers,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-002654,Mango yoghurt cup,Contamination / microbiological,Temperature control deviation,Confirmed,Open,0.47297297297297297
+ABT-CAPA-000210,Smoked chicken sausage,Contamination / microbiological,Temperature control deviation,Confirmed,Open,0.47297297297297297
+ABT-CAPA-001696,Canned baked beans,Contamination / microbiological,Temperature control deviation,Probable,In progress,0.47297297297297297
+ABT-CAPA-002650,Cooked chicken strips,Contamination / microbiological,Temperature control deviation,Probable,In progress,0.47297297297297297
+ABT-CAPA-002621,Chicken sandwich,Contamination / microbiological,Temperature control deviation,Probable,Awaiting verification,0.47297297297297297
+ABT-CAPA-002768,Cooked chicken strips,Contamination / microbiological,Temperature control deviation,Confirmed,Open,0.47297297297297297
+ABT-CAPA-003055,Washed baby spinach,Contamination / microbiological,Temperature control deviation,Confirmed,Awaiting verification,0.47297297297297297
+ABT-CAPA-000258,Mixed vegetable salad,Contamination / microbiological,Temperature control deviation,Confirmed,Open,0.47297297297297297
+ABT-CAPA-002105,Table grapes,Contamination / microbiological,Temperature control deviation,Confirmed,Open,0.47297297297297297
+ABT-CAPA-001510,Mango fruit beverage,Contamination / microbiological,Cross-contamination during handling,Hypothesis,Awaiting verification,0.4727272727272727
+ABT-CAPA-001431,Frozen chicken nuggets,Contamination / microbiological,Cross-contamination during handling,Probable,In progress,0.4727272727272727
+ABT-CAPA-000356,Packaged raw rice,Contamination / microbiological,Cross-contamination during handling,Confirmed,Open,0.4727272727272727
+ABT-CAPA-000912,Frozen chicken nuggets,Contamination / microbiological,Cross-contamination during handling,Hypothesis,Awaiting verification,0.4727272727272727
+ABT-CAPA-003298,Chilled mutton cubes,Contamination / microbiological,Cross-contamination during handling,Confirmed,In progress,0.4727272727272727
+ABT-CAPA-001231,Packaged raw rice,Contamination / microbiological,Cross-contamination during handling,Probable,In progress,0.4727272727272727
+ABT-CAPA-001762,Graded table eggs,Contamination / microbiological,Cross-contamination during handling,Probable,In progress,0.4727272727272727
+ABT-CAPA-002842,Chilled mutton cubes,Contamination / microbiological,Cross-contamination during handling,Probable,In progress,0.4727272727272727
+ABT-CAPA-001899,Chilled whole fish,Contamination / microbiological,Cross-contamination during handling,Probable,Awaiting verification,0.4727272727272727
+ABT-CAPA-002926,Chicken biryani ready meal,Contamination / microbiological,Cross-contamination during handling,Confirmed,In progress,0.4727272727272727
+ABT-CAPA-003248,Flavoured malt beverage,Contamination / microbiological,Cross-contamination during handling,Hypothesis,Closed,0.4727272727272727
+ABT-CAPA-002033,Chilled mutton cubes,Contamination / microbiological,Cross-contamination during handling,Hypothesis,In progress,0.4727272727272727
+ABT-CAPA-003143,Wheat flour,Contamination / microbiological,Cross-contamination during handling,Confirmed,Awaiting verification,0.4727272727272727
+ABT-CAPA-000063,Table grapes,Contamination / microbiological,Cross-contamination during handling,Confirmed,Awaiting verification,0.4727272727272727
+ABT-CAPA-000098,Butter biscuits,Contamination / microbiological,Cross-contamination during handling,Probable,In progress,0.4727272727272727
+ABT-CAPA-000123,Washed baby spinach,Contamination / microbiological,Cross-contamination during handling,Hypothesis,In progress,0.4727272727272727
+ABT-CAPA-003260,Pasteurized toned milk,Contamination / microbiological,Cross-contamination during handling,Probable,Closed,0.4727272727272727
+ABT-CAPA-002570,Butter biscuits,Contamination / microbiological,Cross-contamination during handling,Confirmed,In progress,0.4727272727272727
+ABT-CAPA-003263,Canned baked beans,Contamination / microbiological,Cross-contamination during handling,Probable,Closed,0.4727272727272727
+ABT-CAPA-003282,Chicken sandwich,Contamination / microbiological,Cross-contamination during handling,Hypothesis,Closed,0.4727272727272727
+ABT-CAPA-002296,Paneer curry ready meal,Contamination / microbiological,Cross-contamination during handling,Probable,In progress,0.4727272727272727
+ABT-CAPA-002127,Butter biscuits,Contamination / microbiological,Cross-contamination during handling,Probable,Awaiting verification,0.4727272727272727
+ABT-CAPA-000451,Mixed vegetable salad,Contamination / microbiological,Cross-contamination during handling,Confirmed,Closed,0.4727272727272727
+ABT-CAPA-003024,Table grapes,Contamination / microbiological,Cross-contamination during handling,Unknown,Awaiting verification,0.4727272727272727
+ABT-CAPA-002688,Table grapes,Contamination / microbiological,Cross-contamination during handling,Probable,Awaiting verification,0.4727272727272727
+ABT-CAPA-002693,Potato chips salted,Contamination / microbiological,Cross-contamination during handling,Hypothesis,Awaiting verification,0.4727272727272727
+ABT-CAPA-003029,Mixed vegetable salad,Contamination / microbiological,Cross-contamination during handling,Confirmed,Awaiting verification,0.4727272727272727
+ABT-CAPA-000905,Frozen beef patties,Contamination / microbiological,Cross-contamination during handling,Probable,Awaiting verification,0.4727272727272727
+ABT-CAPA-001200,Chilled chicken breast portions,Contamination / microbiological,Cross-contamination during handling,Probable,In progress,0.4727272727272727
+ABT-CAPA-000968,Processed cheese slices,Contamination / microbiological,Cross-contamination during handling,Probable,Open,0.4727272727272727
+ABT-CAPA-002282,Graded table eggs,Contamination / microbiological,Cross-contamination during handling,Confirmed,Open,0.4727272727272727
+ABT-CAPA-002107,Instant soup mix,Contamination / microbiological,Cross-contamination during handling,Probable,Open,0.4727272727272727
+ABT-CAPA-002183,Frozen chicken nuggets,Contamination / microbiological,Cross-contamination during handling,Confirmed,Awaiting verification,0.4727272727272727
+ABT-CAPA-002143,Mixed vegetable salad,Contamination / microbiological,Cross-contamination during handling,Hypothesis,In progress,0.4727272727272727
+ABT-CAPA-000506,Washed baby spinach,Contamination / microbiological,Cross-contamination during handling,Probable,In progress,0.4727272727272727
+ABT-CAPA-001179,Chilled whole fish,Contamination / microbiological,Cross-contamination during handling,Confirmed,Open,0.4727272727272727
+ABT-CAPA-001619,Frozen beef patties,Contamination / microbiological,Cross-contamination during handling,Unknown,In progress,0.4727272727272727
+ABT-CAPA-002605,Burger buns,Storage / transportation issue,Cold-chain excursion,Confirmed,Awaiting verification,0.4426229508196721
+ABT-CAPA-003206,Sliced sandwich bread,Storage / transportation issue,Cold-chain excursion,Probable,Open,0.4426229508196721
+ABT-CAPA-002328,Tomato ketchup pouch,Storage / transportation issue,Cold-chain excursion,Confirmed,In progress,0.4426229508196721
+ABT-CAPA-001763,Paneer curry ready meal,Storage / transportation issue,Cold-chain excursion,Hypothesis,Awaiting verification,0.4426229508196721
+ABT-CAPA-001187,Cooked chicken strips,Storage / transportation issue,Cold-chain excursion,Probable,Open,0.4426229508196721
+ABT-CAPA-002940,Canned baked beans,Storage / transportation issue,Cold-chain excursion,Hypothesis,In progress,0.4426229508196721
+ABT-CAPA-000067,Mixed vegetable salad,Storage / transportation issue,Cold-chain excursion,Unknown,Awaiting verification,0.4426229508196721
+ABT-CAPA-002600,Paneer curry ready meal,Storage / transportation issue,Cold-chain excursion,Probable,Awaiting verification,0.4426229508196721
+ABT-CAPA-001465,Graded table eggs,Storage / transportation issue,Cold-chain excursion,Probable,Open,0.4426229508196721
+ABT-CAPA-003113,Mixed vegetable salad,Storage / transportation issue,Cold-chain excursion,Confirmed,Awaiting verification,0.4426229508196721
+ABT-CAPA-002692,Vegetable pulao ready meal,Storage / transportation issue,Cold-chain excursion,Confirmed,Awaiting verification,0.4426229508196721
+ABT-CAPA-000589,Burger buns,Storage / transportation issue,Cold-chain excursion,Confirmed,Awaiting verification,0.4426229508196721
+ABT-CAPA-000918,Frozen beef patties,Storage / transportation issue,Cold-chain excursion,Unknown,In progress,0.4426229508196721
+ABT-CAPA-002273,Chicken biryani ready meal,Storage / transportation issue,Cold-chain excursion,Confirmed,Awaiting verification,0.4426229508196721
+ABT-CAPA-002786,Chicken sandwich,Storage / transportation issue,Cold-chain excursion,Hypothesis,Open,0.4426229508196721
+ABT-CAPA-001463,Packaged raw rice,Weight / quantity issue,Checkweigher verification gap,Hypothesis,Open,0.425531914893617
+ABT-CAPA-000608,Chocolate cake slices,Weight / quantity issue,Checkweigher verification gap,Probable,Awaiting verification,0.425531914893617
+ABT-CAPA-000836,Paneer curry ready meal,Weight / quantity issue,Checkweigher verification gap,Unknown,Open,0.425531914893617
+ABT-CAPA-002259,Sliced sandwich bread,Weight / quantity issue,Checkweigher verification gap,Hypothesis,In progress,0.425531914893617
+ABT-CAPA-001180,Burger buns,Weight / quantity issue,Checkweigher verification gap,Confirmed,Open,0.425531914893617
+ABT-CAPA-003269,Pasteurized toned milk,Weight / quantity issue,Checkweigher verification gap,Unknown,Closed,0.425531914893617
+ABT-CAPA-000785,Fresh tomatoes,Weight / quantity issue,Checkweigher verification gap,Confirmed,Open,0.425531914893617
+ABT-CAPA-001819,Fresh paneer blocks,Weight / quantity issue,Checkweigher verification gap,Confirmed,In progress,0.425531914893617
+ABT-CAPA-002526,Flavoured malt beverage,Weight / quantity issue,Checkweigher verification gap,Confirmed,Open,0.425531914893617
+ABT-CAPA-000156,Processed cheese slices,Weight / quantity issue,Checkweigher verification gap,Probable,Awaiting verification,0.425531914893617
+ABT-CAPA-001386,Chilled whole fish,Weight / quantity issue,Checkweigher verification gap,Confirmed,Awaiting verification,0.425531914893617
+ABT-CAPA-002431,Pasteurized toned milk,Weight / quantity issue,Checkweigher verification gap,Probable,Awaiting verification,0.425531914893617
+ABT-CAPA-001471,Mixed curry spice blend,Weight / quantity issue,Checkweigher verification gap,Confirmed,Awaiting verification,0.425531914893617
+ABT-CAPA-001559,Flavoured malt beverage,Weight / quantity issue,Checkweigher verification gap,Probable,Awaiting verification,0.425531914893617
+ABT-CAPA-000342,Chicken sandwich,Weight / quantity issue,Checkweigher verification gap,Confirmed,Closed,0.425531914893617
+ABT-CAPA-001607,Vegetable pulao ready meal,Weight / quantity issue,Checkweigher verification gap,Hypothesis,In progress,0.425531914893617
+ABT-CAPA-003089,Mango yoghurt cup,Weight / quantity issue,Checkweigher verification gap,Probable,In progress,0.425531914893617
+ABT-CAPA-003043,Burger buns,Weight / quantity issue,Checkweigher verification gap,Hypothesis,In progress,0.425531914893617
+ABT-CAPA-000432,Mango fruit beverage,Weight / quantity issue,Checkweigher verification gap,Probable,Awaiting verification,0.425531914893617
+ABT-CAPA-000275,Packaged drinking water,Weight / quantity issue,Checkweigher verification gap,Probable,In progress,0.425531914893617
+ABT-CAPA-001778,Paneer curry ready meal,Contamination / microbiological,Sanitation verification gap,Probable,In progress,0.4225352112676056
+ABT-CAPA-003243,Washed baby spinach,Contamination / microbiological,Sanitation verification gap,Hypothesis,Closed,0.4225352112676056
+ABT-CAPA-003258,Burger buns,Contamination / microbiological,Sanitation verification gap,Confirmed,Closed,0.4225352112676056
+ABT-CAPA-003193,Rolled oats,Contamination / microbiological,Sanitation verification gap,Confirmed,Awaiting verification,0.4225352112676056
+ABT-CAPA-001121,Frozen prawns,Contamination / microbiological,Sanitation verification gap,Confirmed,Open,0.4225352112676056
+ABT-CAPA-001929,Chocolate cake slices,Contamination / microbiological,Sanitation verification gap,Unknown,In progress,0.4225352112676056
+ABT-CAPA-002090,Frozen fish fillets,Contamination / microbiological,Sanitation verification gap,Confirmed,Awaiting verification,0.4225352112676056
+ABT-CAPA-001236,Tomato ketchup pouch,Contamination / microbiological,Sanitation verification gap,Confirmed,In progress,0.4225352112676056
+ABT-CAPA-002946,Frozen beef patties,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-002970,Fresh onions,Contamination / microbiological,Sanitation verification gap,Probable,In progress,0.4225352112676056
+ABT-CAPA-002938,Chocolate cake slices,Contamination / microbiological,Sanitation verification gap,Probable,In progress,0.4225352112676056
+ABT-CAPA-002930,Butter biscuits,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-000932,Tomato ketchup pouch,Contamination / microbiological,Sanitation verification gap,Probable,Open,0.4225352112676056
+ABT-CAPA-002146,Washed baby spinach,Contamination / microbiological,Sanitation verification gap,Probable,Open,0.4225352112676056
+ABT-CAPA-000520,Chicken biryani ready meal,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-002138,Breaded fish fingers,Contamination / microbiological,Sanitation verification gap,Hypothesis,Awaiting verification,0.4225352112676056
+ABT-CAPA-002272,Mixed curry spice blend,Contamination / microbiological,Sanitation verification gap,Confirmed,Awaiting verification,0.4225352112676056
+ABT-CAPA-002285,Processed cheese slices,Contamination / microbiological,Sanitation verification gap,Hypothesis,Awaiting verification,0.4225352112676056
+ABT-CAPA-001033,Graded table eggs,Contamination / microbiological,Sanitation verification gap,Confirmed,In progress,0.4225352112676056
+ABT-CAPA-000270,Mango fruit beverage,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-000708,Chicken sandwich,Contamination / microbiological,Sanitation verification gap,Unknown,Open,0.4225352112676056
+ABT-CAPA-001004,Fresh pineapple slices,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-000475,Potato chips salted,Contamination / microbiological,Sanitation verification gap,Hypothesis,In progress,0.4225352112676056
+ABT-CAPA-002625,Tomato ketchup pouch,Contamination / microbiological,Sanitation verification gap,Hypothesis,In progress,0.4225352112676056
+ABT-CAPA-001269,Chocolate cake slices,Contamination / microbiological,Sanitation verification gap,Probable,In progress,0.4225352112676056
+ABT-CAPA-001530,Wheat flour,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-001551,Pasteurized liquid whole egg,Contamination / microbiological,Sanitation verification gap,Confirmed,Open,0.4225352112676056
+ABT-CAPA-001478,Frozen fish fillets,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-000193,Chilled whole fish,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-002538,Packaged raw rice,Contamination / microbiological,Sanitation verification gap,Hypothesis,Open,0.4225352112676056
+ABT-CAPA-000660,Frozen beef patties,Contamination / microbiological,Sanitation verification gap,Probable,Open,0.4225352112676056
+ABT-CAPA-000607,Frozen prawns,Contamination / microbiological,Sanitation verification gap,Confirmed,Awaiting verification,0.4225352112676056
+ABT-CAPA-001384,Chicken biryani ready meal,Contamination / microbiological,Sanitation verification gap,Hypothesis,In progress,0.4225352112676056
+ABT-CAPA-001401,Corn flakes,Contamination / microbiological,Sanitation verification gap,Hypothesis,In progress,0.4225352112676056
+ABT-CAPA-000054,Processed cheese slices,Contamination / microbiological,Sanitation verification gap,Hypothesis,In progress,0.4225352112676056
+ABT-CAPA-000011,Chilled whole fish,Contamination / microbiological,Sanitation verification gap,Probable,Awaiting verification,0.4225352112676056
+ABT-CAPA-000171,Chilled whole fish,Infestation / pest,Warehouse pest-proofing gap,Confirmed,In progress,0.40816326530612246
+ABT-CAPA-003285,Mango fruit beverage,Infestation / pest,Warehouse pest-proofing gap,Probable,Closed,0.40816326530612246
+ABT-CAPA-003233,Processed cheese slices,Infestation / pest,Warehouse pest-proofing gap,Probable,In progress,0.40816326530612246
+ABT-CAPA-000901,Graded table eggs,Infestation / pest,Warehouse pest-proofing gap,Probable,Open,0.40816326530612246
+ABT-CAPA-002599,Smoked chicken sausage,Infestation / pest,Warehouse pest-proofing gap,Confirmed,In progress,0.40816326530612246
+ABT-CAPA-000643,Graded table eggs,Infestation / pest,Warehouse pest-proofing gap,Hypothesis,In progress,0.40816326530612246
+ABT-CAPA-000972,Pasteurized liquid whole egg,Infestation / pest,Warehouse pest-proofing gap,Unknown,Open,0.40816326530612246
+ABT-CAPA-003104,Mango fruit beverage,Infestation / pest,Warehouse pest-proofing gap,Hypothesis,Open,0.40816326530612246
+ABT-CAPA-001282,Chilled mutton cubes,Infestation / pest,Warehouse pest-proofing gap,Probable,Open,0.40816326530612246
+ABT-CAPA-001375,Mango yoghurt cup,Infestation / pest,Warehouse pest-proofing gap,Hypothesis,Awaiting verification,0.40816326530612246
+ABT-CAPA-003270,Tomato ketchup pouch,Infestation / pest,Warehouse pest-proofing gap,Unknown,Closed,0.40816326530612246
+ABT-CAPA-003268,Sliced sandwich bread,Infestation / pest,Warehouse pest-proofing gap,Hypothesis,Closed,0.40816326530612246
+ABT-CAPA-001529,Fresh-cut mixed vegetables,Infestation / pest,Warehouse pest-proofing gap,Confirmed,Open,0.40816326530612246
+ABT-CAPA-003296,Paneer curry ready meal,Infestation / pest,Warehouse pest-proofing gap,Hypothesis,Closed,0.40816326530612246
+ABT-CAPA-002911,Washed baby spinach,Infestation / pest,Warehouse pest-proofing gap,Confirmed,Open,0.40816326530612246
+ABT-CAPA-000417,Frozen beef patties,Infestation / pest,Warehouse pest-proofing gap,Unknown,Open,0.40816326530612246
+ABT-CAPA-000423,Mango yoghurt cup,Infestation / pest,Warehouse pest-proofing gap,Hypothesis,In progress,0.40816326530612246
+ABT-CAPA-001985,Chocolate cake slices,Infestation / pest,Warehouse pest-proofing gap,Probable,Awaiting verification,0.40816326530612246
+ABT-CAPA-002051,Packaged drinking water,Infestation / pest,Warehouse pest-proofing gap,Confirmed,Awaiting verification,0.40816326530612246
+ABT-CAPA-002829,Mango yoghurt cup,Infestation / pest,Warehouse pest-proofing gap,Confirmed,Awaiting verification,0.40816326530612246
+ABT-CAPA-002869,Frozen prawns,Infestation / pest,Warehouse pest-proofing gap,Hypothesis,In progress,0.40816326530612246
+ABT-CAPA-000602,Paneer curry ready meal,Infestation / pest,Warehouse pest-proofing gap,Confirmed,In progress,0.40816326530612246
+ABT-CAPA-001238,Corn flakes,Storage / transportation issue,Inadequate pre-cooling,Probable,In progress,0.37142857142857144
+ABT-CAPA-002540,Salted table butter,Storage / transportation issue,Inadequate pre-cooling,Probable,Open,0.37142857142857144
+ABT-CAPA-002236,Sliced sandwich bread,Storage / transportation issue,Inadequate pre-cooling,Probable,Open,0.37142857142857144
+ABT-CAPA-002397,Fresh-cut mango cubes,Storage / transportation issue,Inadequate pre-cooling,Hypothesis,Open,0.37142857142857144
+ABT-CAPA-002480,Frozen prawns,Storage / transportation issue,Inadequate pre-cooling,Confirmed,Open,0.37142857142857144
+ABT-CAPA-002288,Frozen fish fillets,Storage / transportation issue,Inadequate pre-cooling,Confirmed,Awaiting verification,0.37142857142857144
+ABT-CAPA-002238,Wheat flour,Storage / transportation issue,Inadequate pre-cooling,Hypothesis,Awaiting verification,0.37142857142857144
+ABT-CAPA-002733,Frozen prawns,Storage / transportation issue,Inadequate pre-cooling,Probable,Awaiting verification,0.37142857142857144
+ABT-CAPA-000665,Table grapes,Storage / transportation issue,Inadequate pre-cooling,Unknown,Open,0.37142857142857144
+ABT-CAPA-002738,Orange juice chilled,Storage / transportation issue,Inadequate pre-cooling,Confirmed,In progress,0.37142857142857144
+ABT-CAPA-003272,Fresh carrots,Storage / transportation issue,Inadequate pre-cooling,Confirmed,Awaiting verification,0.37142857142857144
+ABT-CAPA-003279,Chilled whole fish,Storage / transportation issue,Inadequate pre-cooling,Probable,Closed,0.37142857142857144
+ABT-CAPA-001460,Packaged drinking water,Storage / transportation issue,Inadequate pre-cooling,Confirmed,In progress,0.37142857142857144
+ABT-CAPA-002014,Frozen fish fillets,Storage / transportation issue,Inadequate pre-cooling,Unknown,Awaiting verification,0.37142857142857144
+ABT-CAPA-002871,Washed baby spinach,Storage / transportation issue,Inadequate pre-cooling,Probable,In progress,0.37142857142857144
+ABT-CAPA-000441,Roasted mixed nuts,Storage / transportation issue,Inadequate pre-cooling,Probable,In progress,0.37142857142857144
+ABT-CAPA-001298,Butter biscuits,Storage / transportation issue,Inadequate pre-cooling,Hypothesis,In progress,0.37142857142857144
+ABT-CAPA-001240,Packaged drinking water,Storage / transportation issue,Inadequate pre-cooling,Hypothesis,Awaiting verification,0.37142857142857144
+ABT-CAPA-001273,Mango yoghurt cup,Storage / transportation issue,Inadequate pre-cooling,Hypothesis,Open,0.37142857142857144
+ABT-CAPA-003291,Fresh pineapple slices,Weight / quantity issue,Filling / dosing variation,Probable,Closed,0.36
+ABT-CAPA-002691,Corn flakes,Weight / quantity issue,Filling / dosing variation,Probable,Open,0.36
+ABT-CAPA-002991,Orange juice chilled,Weight / quantity issue,Filling / dosing variation,Confirmed,In progress,0.36
+ABT-CAPA-002819,Chicken biryani ready meal,Weight / quantity issue,Filling / dosing variation,Confirmed,Awaiting verification,0.36
+ABT-CAPA-001218,Pasteurized toned milk,Weight / quantity issue,Filling / dosing variation,Unknown,Awaiting verification,0.36
+ABT-CAPA-001826,Canned baked beans,Weight / quantity issue,Filling / dosing variation,Confirmed,In progress,0.36
+ABT-CAPA-003039,Sliced sandwich bread,Weight / quantity issue,Filling / dosing variation,Confirmed,Awaiting verification,0.36
+ABT-CAPA-002580,Table grapes,Weight / quantity issue,Filling / dosing variation,Confirmed,In progress,0.36
+ABT-CAPA-002770,Mixed curry spice blend,Weight / quantity issue,Filling / dosing variation,Probable,Awaiting verification,0.36
+ABT-CAPA-000556,Burger buns,Weight / quantity issue,Filling / dosing variation,Probable,Awaiting verification,0.36
+ABT-CAPA-002489,Pasteurized liquid whole egg,Weight / quantity issue,Filling / dosing variation,Hypothesis,Open,0.36
+ABT-CAPA-000756,Breaded fish fingers,Weight / quantity issue,Filling / dosing variation,Hypothesis,Open,0.36
+ABT-CAPA-003273,Orange juice chilled,Weight / quantity issue,Filling / dosing variation,Hypothesis,Awaiting verification,0.36
+ABT-CAPA-002898,Paneer curry ready meal,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,Awaiting verification,0.35185185185185186
+ABT-CAPA-002887,Tomato ketchup pouch,Contamination / microbiological,Supplier microbiological quality issue,Hypothesis,In progress,0.35185185185185186
+ABT-CAPA-000425,Burger buns,Contamination / microbiological,Supplier microbiological quality issue,Hypothesis,In progress,0.35185185185185186
+ABT-CAPA-001553,Chilled whole fish,Contamination / microbiological,Supplier microbiological quality issue,Hypothesis,Open,0.35185185185185186
+ABT-CAPA-003129,Pasteurized toned milk,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,Awaiting verification,0.35185185185185186
+ABT-CAPA-000094,Frozen fish fillets,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,In progress,0.35185185185185186
+ABT-CAPA-003127,Orange juice chilled,Contamination / microbiological,Supplier microbiological quality issue,Hypothesis,Open,0.35185185185185186
+ABT-CAPA-000330,Smoked chicken sausage,Contamination / microbiological,Supplier microbiological quality issue,Unknown,Open,0.35185185185185186
+ABT-CAPA-001886,Chilled chicken breast portions,Contamination / microbiological,Supplier microbiological quality issue,Probable,Open,0.35185185185185186
+ABT-CAPA-002087,Chicken biryani ready meal,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,In progress,0.35185185185185186
+ABT-CAPA-002095,Chocolate cake slices,Contamination / microbiological,Supplier microbiological quality issue,Probable,In progress,0.35185185185185186
+ABT-CAPA-001085,Sliced sandwich bread,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,In progress,0.35185185185185186
+ABT-CAPA-001568,Processed cheese slices,Contamination / microbiological,Supplier microbiological quality issue,Hypothesis,In progress,0.35185185185185186
+ABT-CAPA-001586,Mango yoghurt cup,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,Awaiting verification,0.35185185185185186
+ABT-CAPA-000274,Fresh pineapple slices,Contamination / microbiological,Supplier microbiological quality issue,Probable,Awaiting verification,0.35185185185185186
+ABT-CAPA-001287,Fresh-cut mango cubes,Contamination / microbiological,Supplier microbiological quality issue,Probable,In progress,0.35185185185185186
+ABT-CAPA-002148,Canned baked beans,Contamination / microbiological,Supplier microbiological quality issue,Probable,Awaiting verification,0.35185185185185186
+ABT-CAPA-000147,Orange juice chilled,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,Awaiting verification,0.35185185185185186
+ABT-CAPA-003116,Chilled chicken breast portions,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,Awaiting verification,0.35185185185185186
+ABT-CAPA-002376,Corn flakes,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,Open,0.35185185185185186
+ABT-CAPA-000902,Pasteurized toned milk,Contamination / microbiological,Supplier microbiological quality issue,Probable,Open,0.35185185185185186
+ABT-CAPA-000861,Roasted mixed nuts,Contamination / microbiological,Supplier microbiological quality issue,Probable,Open,0.35185185185185186
+ABT-CAPA-003281,Plain set yoghurt,Contamination / microbiological,Supplier microbiological quality issue,Hypothesis,Closed,0.35185185185185186
+ABT-CAPA-002511,Frozen beef patties,Contamination / microbiological,Supplier microbiological quality issue,Probable,Awaiting verification,0.35185185185185186
+ABT-CAPA-000989,Chilled whole fish,Contamination / microbiological,Supplier microbiological quality issue,Confirmed,Open,0.35185185185185186
+ABT-CAPA-001578,Processed cheese slices,Storage / transportation issue,Delayed dispatch / extended transit,Hypothesis,Open,0.3333333333333333
+ABT-CAPA-000446,Chicken biryani ready meal,Storage / transportation issue,Delayed dispatch / extended transit,Confirmed,Open,0.3333333333333333
+ABT-CAPA-003125,Orange juice chilled,Storage / transportation issue,Delayed dispatch / extended transit,Confirmed,In progress,0.3333333333333333
+ABT-CAPA-001224,Packaged raw rice,Storage / transportation issue,Delayed dispatch / extended transit,Probable,In progress,0.3333333333333333
+ABT-CAPA-001054,Mixed curry spice blend,Storage / transportation issue,Delayed dispatch / extended transit,Probable,Awaiting verification,0.3333333333333333
+ABT-CAPA-001101,Frozen prawns,Storage / transportation issue,Delayed dispatch / extended transit,Unknown,Awaiting verification,0.3333333333333333
+ABT-CAPA-003012,Salted table butter,Storage / transportation issue,Delayed dispatch / extended transit,Probable,Awaiting verification,0.3333333333333333
+ABT-CAPA-000899,Fresh-cut mixed vegetables,Storage / transportation issue,Delayed dispatch / extended transit,Probable,Open,0.3333333333333333
+ABT-CAPA-000840,Cooked chicken strips,Storage / transportation issue,Delayed dispatch / extended transit,Unknown,In progress,0.3333333333333333
+ABT-CAPA-000170,Flavoured malt beverage,Storage / transportation issue,Delayed dispatch / extended transit,Hypothesis,In progress,0.3333333333333333
+ABT-CAPA-003245,Wheat flour,Storage / transportation issue,Delayed dispatch / extended transit,Unknown,In progress,0.3333333333333333
+ABT-CAPA-000247,Sliced sandwich bread,Storage / transportation issue,Delayed dispatch / extended transit,Unknown,In progress,0.3333333333333333
+ABT-CAPA-003287,Plain set yoghurt,Storage / transportation issue,Warehouse temperature-control deviation,Confirmed,Closed,0.3023255813953488
+ABT-CAPA-002158,Fresh-cut mango cubes,Storage / transportation issue,Warehouse temperature-control deviation,Unknown,In progress,0.3023255813953488
+ABT-CAPA-002913,Butter biscuits,Storage / transportation issue,Warehouse temperature-control deviation,Unknown,In progress,0.3023255813953488
+ABT-CAPA-000484,Rolled oats,Storage / transportation issue,Warehouse temperature-control deviation,Confirmed,Open,0.3023255813953488
+ABT-CAPA-001711,Salted table butter,Storage / transportation issue,Warehouse temperature-control deviation,Hypothesis,In progress,0.3023255813953488
+ABT-CAPA-002471,Frozen beef patties,Storage / transportation issue,Warehouse temperature-control deviation,Probable,Open,0.3023255813953488
+ABT-CAPA-003252,Chilled mutton cubes,Storage / transportation issue,Warehouse temperature-control deviation,Confirmed,Closed,0.3023255813953488
+ABT-CAPA-002591,Sliced sandwich bread,Storage / transportation issue,Warehouse temperature-control deviation,Probable,Open,0.3023255813953488
+ABT-CAPA-002198,Frozen chicken nuggets,Storage / transportation issue,Warehouse temperature-control deviation,Confirmed,Awaiting verification,0.3023255813953488
+ABT-CAPA-002318,Pasteurized toned milk,Storage / transportation issue,Warehouse temperature-control deviation,Hypothesis,Open,0.3023255813953488
+ABT-CAPA-001426,Table grapes,Storage / transportation issue,Warehouse temperature-control deviation,Probable,Awaiting verification,0.3023255813953488
+ABT-CAPA-001506,Fresh carrots,Storage / transportation issue,Warehouse temperature-control deviation,Confirmed,Open,0.3023255813953488
+ABT-CAPA-003188,Burger buns,Storage / transportation issue,Warehouse temperature-control deviation,Confirmed,Open,0.3023255813953488
+ABT-CAPA-000045,Fresh tomatoes,Weight / quantity issue,Pack-count verification gap,Probable,In progress,0.28888888888888886
+ABT-CAPA-000639,Tomato ketchup pouch,Weight / quantity issue,Pack-count verification gap,Probable,Open,0.28888888888888886
+ABT-CAPA-002752,Washed baby spinach,Weight / quantity issue,Pack-count verification gap,Unknown,In progress,0.28888888888888886
+ABT-CAPA-002664,Roasted mixed nuts,Weight / quantity issue,Pack-count verification gap,Unknown,Open,0.28888888888888886
+ABT-CAPA-002728,Packaged raw rice,Weight / quantity issue,Pack-count verification gap,Probable,Awaiting verification,0.28888888888888886
+ABT-CAPA-002769,Fresh-cut mango cubes,Weight / quantity issue,Pack-count verification gap,Hypothesis,In progress,0.28888888888888886
+ABT-CAPA-001418,Frozen prawns,Weight / quantity issue,Pack-count verification gap,Confirmed,In progress,0.28888888888888886
+ABT-CAPA-003102,Fresh-cut mixed vegetables,Weight / quantity issue,Pack-count verification gap,Hypothesis,In progress,0.28888888888888886
+ABT-CAPA-001357,Fresh pineapple slices,Weight / quantity issue,Pack-count verification gap,Confirmed,Awaiting verification,0.28888888888888886
+ABT-CAPA-001903,Frozen chicken nuggets,Weight / quantity issue,Pack-count verification gap,Probable,In progress,0.28888888888888886
+ABT-CAPA-001961,Mango yoghurt cup,Weight / quantity issue,Pack-count verification gap,Hypothesis,In progress,0.28888888888888886
+ABT-CAPA-001045,Graded table eggs,Weight / quantity issue,Pack-count verification gap,Confirmed,In progress,0.28888888888888886
+ABT-CAPA-002772,Mixed vegetable salad,Weight / quantity issue,Pack-count verification gap,Hypothesis,Awaiting verification,0.28888888888888886
+ABT-CAPA-002888,Fresh paneer blocks,Weight / quantity issue,Pack-count verification gap,Confirmed,Awaiting verification,0.28888888888888886
+ABT-CAPA-000789,Chicken biryani ready meal,Weight / quantity issue,Pack-count verification gap,Probable,In progress,0.28888888888888886
+ABT-CAPA-002003,Chocolate cake slices,Labelling / allergen issue,Artwork / date-code verification gap,Hypothesis,Awaiting verification,0.28846153846153844
+ABT-CAPA-000568,Cooked chicken strips,Labelling / allergen issue,Artwork / date-code verification gap,Hypothesis,In progress,0.28846153846153844
+ABT-CAPA-001768,Paneer curry ready meal,Labelling / allergen issue,Artwork / date-code verification gap,Probable,Awaiting verification,0.28846153846153844
+ABT-CAPA-000340,Fresh-cut mango cubes,Labelling / allergen issue,Artwork / date-code verification gap,Confirmed,Awaiting verification,0.28846153846153844
+ABT-CAPA-003126,Processed cheese slices,Labelling / allergen issue,Artwork / date-code verification gap,Hypothesis,Open,0.28846153846153844
+ABT-CAPA-001713,Mango yoghurt cup,Labelling / allergen issue,Artwork / date-code verification gap,Probable,In progress,0.28846153846153844
+ABT-CAPA-003299,Orange juice chilled,Labelling / allergen issue,Artwork / date-code verification gap,Confirmed,Closed,0.28846153846153844
+ABT-CAPA-000550,Mango yoghurt cup,Labelling / allergen issue,Artwork / date-code verification gap,Confirmed,Open,0.28846153846153844
+ABT-CAPA-001035,Breaded fish fingers,Labelling / allergen issue,Artwork / date-code verification gap,Confirmed,In progress,0.28846153846153844
+ABT-CAPA-001051,Cooked chicken strips,Labelling / allergen issue,Artwork / date-code verification gap,Hypothesis,Awaiting verification,0.28846153846153844
+ABT-CAPA-001946,Processed cheese slices,Labelling / allergen issue,Artwork / date-code verification gap,Probable,Awaiting verification,0.28846153846153844
+ABT-CAPA-001178,Cooked chicken strips,Labelling / allergen issue,Artwork / date-code verification gap,Probable,In progress,0.28846153846153844
+ABT-CAPA-001212,Frozen beef patties,Labelling / allergen issue,Artwork / date-code verification gap,Probable,In progress,0.28846153846153844
+ABT-CAPA-001334,Chicken biryani ready meal,Labelling / allergen issue,Artwork / date-code verification gap,Hypothesis,Awaiting verification,0.28846153846153844
+ABT-CAPA-000562,Fresh onions,Labelling / allergen issue,Artwork / date-code verification gap,Hypothesis,In progress,0.28846153846153844
+ABT-CAPA-003244,Rolled oats,Labelling / allergen issue,Artwork / date-code verification gap,Confirmed,Closed,0.28846153846153844
+ABT-CAPA-001425,Washed baby spinach,Labelling / allergen issue,Artwork / date-code verification gap,Probable,Awaiting verification,0.28846153846153844
+ABT-CAPA-002010,Chicken biryani ready meal,Labelling / allergen issue,Artwork / date-code verification gap,Confirmed,Open,0.28846153846153844
+ABT-CAPA-003241,Corn flakes,Labelling / allergen issue,Artwork / date-code verification gap,Hypothesis,In progress,0.28846153846153844
+ABT-CAPA-003286,Canned baked beans,Labelling / allergen issue,Artwork / date-code verification gap,Probable,Closed,0.28846153846153844
+ABT-CAPA-000202,Chilled whole fish,Labelling / allergen issue,Artwork / date-code verification gap,Unknown,Open,0.28846153846153844
+ABT-CAPA-000642,Fresh-cut mango cubes,Labelling / allergen issue,Artwork / date-code verification gap,Probable,Open,0.28846153846153844
+ABT-CAPA-002657,Potato chips salted,Labelling / allergen issue,Artwork / date-code verification gap,Hypothesis,In progress,0.28846153846153844
+ABT-CAPA-000951,Butter biscuits,Labelling / allergen issue,Artwork / date-code verification gap,Confirmed,Open,0.28846153846153844
+ABT-CAPA-002170,Canned baked beans,Labelling / allergen issue,Artwork / date-code verification gap,Probable,Awaiting verification,0.28846153846153844
+ABT-CAPA-002647,Rolled oats,Infestation / pest,Storage housekeeping gap,Probable,Awaiting verification,0.25396825396825395
+ABT-CAPA-002402,Cooked chicken strips,Infestation / pest,Storage housekeeping gap,Probable,Open,0.25396825396825395
+ABT-CAPA-002682,Pasteurized liquid whole egg,Infestation / pest,Storage housekeeping gap,Hypothesis,Awaiting verification,0.25396825396825395
+ABT-CAPA-000663,Chilled whole fish,Infestation / pest,Storage housekeeping gap,Hypothesis,Open,0.25396825396825395
+ABT-CAPA-003292,Cooked chicken strips,Infestation / pest,Storage housekeeping gap,Probable,In progress,0.25396825396825395
+ABT-CAPA-003280,Fresh paneer blocks,Infestation / pest,Storage housekeeping gap,Confirmed,Closed,0.25396825396825395
+ABT-CAPA-002477,Fresh-cut mango cubes,Infestation / pest,Storage housekeeping gap,Confirmed,Awaiting verification,0.25396825396825395
+ABT-CAPA-003221,Fresh-cut mango cubes,Infestation / pest,Storage housekeeping gap,Probable,Open,0.25396825396825395
+ABT-CAPA-000221,Tomato ketchup pouch,Infestation / pest,Storage housekeeping gap,Hypothesis,In progress,0.25396825396825395
+ABT-CAPA-002791,Graded table eggs,Infestation / pest,Storage housekeeping gap,Probable,Open,0.25396825396825395
+ABT-CAPA-001742,Butter biscuits,Infestation / pest,Storage housekeeping gap,Confirmed,Awaiting verification,0.25396825396825395
+ABT-CAPA-003032,Salted table butter,Infestation / pest,Storage housekeeping gap,Confirmed,Open,0.25396825396825395
+ABT-CAPA-001208,Instant soup mix,Infestation / pest,Storage housekeeping gap,Probable,Awaiting verification,0.25396825396825395
+ABT-CAPA-003262,Fresh onions,Infestation / pest,Storage housekeeping gap,Confirmed,Closed,0.25396825396825395
+ABT-CAPA-000371,Pasteurized liquid whole egg,Infestation / pest,Storage housekeeping gap,Probable,Awaiting verification,0.25396825396825395
+ABT-CAPA-002381,Table grapes,Infestation / pest,Storage housekeeping gap,Probable,Open,0.25396825396825395
+ABT-CAPA-002509,Fresh onions,Labelling / allergen issue,Allergen segregation failure,Hypothesis,Awaiting verification,0.25
+ABT-CAPA-000975,Vegetable pulao ready meal,Labelling / allergen issue,Allergen segregation failure,Probable,In progress,0.25
+ABT-CAPA-000209,Instant soup mix,Labelling / allergen issue,Allergen segregation failure,Probable,Awaiting verification,0.25
+ABT-CAPA-000216,Fresh tomatoes,Labelling / allergen issue,Allergen segregation failure,Confirmed,Closed,0.25
+ABT-CAPA-000715,Mixed vegetable salad,Labelling / allergen issue,Allergen segregation failure,Probable,In progress,0.25
+ABT-CAPA-003274,Frozen beef patties,Labelling / allergen issue,Allergen segregation failure,Confirmed,In progress,0.25
+ABT-CAPA-003253,Frozen fish fillets,Labelling / allergen issue,Allergen segregation failure,Confirmed,Closed,0.25
+ABT-CAPA-000298,Pasteurized liquid whole egg,Labelling / allergen issue,Allergen segregation failure,Hypothesis,In progress,0.25
+ABT-CAPA-001319,Butter biscuits,Labelling / allergen issue,Allergen segregation failure,Confirmed,In progress,0.25
+ABT-CAPA-001731,Cooked chicken strips,Labelling / allergen issue,Allergen segregation failure,Hypothesis,In progress,0.25
+ABT-CAPA-001609,Pasteurized liquid whole egg,Labelling / allergen issue,Allergen segregation failure,Probable,In progress,0.25
+ABT-CAPA-001756,Plain set yoghurt,Labelling / allergen issue,Allergen segregation failure,Hypothesis,In progress,0.25
+ABT-CAPA-001166,Flavoured malt beverage,Labelling / allergen issue,Allergen segregation failure,Probable,Open,0.25
+ABT-CAPA-001724,Instant soup mix,Labelling / allergen issue,Allergen segregation failure,Confirmed,In progress,0.25
+ABT-CAPA-002689,Graded table eggs,Labelling / allergen issue,Allergen segregation failure,Hypothesis,Open,0.25
+ABT-CAPA-002901,Burger buns,Labelling / allergen issue,Allergen segregation failure,Confirmed,Awaiting verification,0.25
+ABT-CAPA-002844,Salted table butter,Labelling / allergen issue,Allergen segregation failure,Confirmed,Open,0.25
+ABT-CAPA-002000,Table grapes,Labelling / allergen issue,Allergen segregation failure,Probable,Open,0.25
+ABT-CAPA-001124,Fresh tomatoes,Labelling / allergen issue,Allergen segregation failure,Hypothesis,Awaiting verification,0.25
+ABT-CAPA-001056,Tomato ketchup pouch,Labelling / allergen issue,Allergen segregation failure,Unknown,In progress,0.25
+ABT-CAPA-001193,Mango yoghurt cup,Labelling / allergen issue,Allergen segregation failure,Probable,In progress,0.25
+ABT-CAPA-001841,Butter biscuits,Labelling / allergen issue,Allergen segregation failure,Hypothesis,In progress,0.25
+ABT-CAPA-000623,Chilled mutton cubes,Labelling / allergen issue,Allergen segregation failure,Hypothesis,In progress,0.25
+ABT-CAPA-000679,Corn flakes,Labelling / allergen issue,Allergen segregation failure,Hypothesis,In progress,0.25
+ABT-CAPA-000875,Flavoured malt beverage,Labelling / allergen issue,Allergen segregation failure,Confirmed,In progress,0.25
+ABT-CAPA-000850,Breaded fish fingers,Labelling / allergen issue,Allergen segregation failure,Hypothesis,In progress,0.25
+ABT-CAPA-000897,Mixed vegetable salad,Infestation / pest,Incoming material pest control gap,Confirmed,In progress,0.22857142857142856
+ABT-CAPA-002350,Packaged drinking water,Infestation / pest,Incoming material pest control gap,Unknown,Open,0.22857142857142856
+ABT-CAPA-000701,Smoked chicken sausage,Infestation / pest,Incoming material pest control gap,Probable,Awaiting verification,0.22857142857142856
+ABT-CAPA-003294,Chicken sandwich,Infestation / pest,Incoming material pest control gap,Confirmed,Closed,0.22857142857142856
+ABT-CAPA-002056,Frozen prawns,Infestation / pest,Incoming material pest control gap,Hypothesis,Awaiting verification,0.22857142857142856
+ABT-CAPA-002706,Roasted mixed nuts,Infestation / pest,Incoming material pest control gap,Hypothesis,In progress,0.22857142857142856
+ABT-CAPA-002630,Table grapes,Infestation / pest,Incoming material pest control gap,Probable,In progress,0.22857142857142856
+ABT-CAPA-002655,Instant soup mix,Infestation / pest,Incoming material pest control gap,Unknown,Awaiting verification,0.22857142857142856
+ABT-CAPA-002720,Corn flakes,Infestation / pest,Incoming material pest control gap,Hypothesis,In progress,0.22857142857142856
+ABT-CAPA-002210,Fresh onions,Infestation / pest,Incoming material pest control gap,Probable,Awaiting verification,0.22857142857142856
+ABT-CAPA-002218,Chocolate cake slices,Infestation / pest,Incoming material pest control gap,Hypothesis,In progress,0.22857142857142856
+ABT-CAPA-000980,Chilled whole fish,Infestation / pest,Incoming material pest control gap,Confirmed,Awaiting verification,0.22857142857142856
+ABT-CAPA-003255,Frozen fish fillets,Infestation / pest,Incoming material pest control gap,Probable,In progress,0.22857142857142856
+ABT-CAPA-001277,Frozen prawns,Infestation / pest,Incoming material pest control gap,Hypothesis,In progress,0.22857142857142856
+ABT-CAPA-001971,Frozen prawns,Infestation / pest,Incoming material pest control gap,Hypothesis,In progress,0.22857142857142856
+ABT-CAPA-003264,Washed baby spinach,Infestation / pest,Incoming material pest control gap,Probable,Closed,0.22857142857142856
+ABT-CAPA-000029,Graded table eggs,Infestation / pest,Incoming material pest control gap,Probable,In progress,0.22857142857142856
+ABT-CAPA-000262,Cooked chicken strips,Infestation / pest,Incoming material pest control gap,Probable,In progress,0.22857142857142856
+ABT-CAPA-001243,Table grapes,Infestation / pest,Incoming material pest control gap,Probable,Awaiting verification,0.22857142857142856
+ABT-CAPA-001889,Butter biscuits,Infestation / pest,Incoming material pest control gap,Probable,Awaiting verification,0.22857142857142856
+ABT-CAPA-002838,Breaded fish fingers,Infestation / pest,Incoming material pest control gap,Unknown,Open,0.22857142857142856
+ABT-CAPA-002623,Fresh paneer blocks,Labelling / allergen issue,Label changeover verification gap,Probable,Open,0.13953488372093023
+ABT-CAPA-002275,Chilled whole fish,Labelling / allergen issue,Label changeover verification gap,Hypothesis,Awaiting verification,0.13953488372093023
+ABT-CAPA-000823,Roasted mixed nuts,Labelling / allergen issue,Label changeover verification gap,Probable,Open,0.13953488372093023
+ABT-CAPA-002753,Table grapes,Labelling / allergen issue,Label changeover verification gap,Confirmed,Open,0.13953488372093023
+ABT-CAPA-000612,Breaded fish fingers,Labelling / allergen issue,Label changeover verification gap,Unknown,Awaiting verification,0.13953488372093023
+ABT-CAPA-002378,Plain set yoghurt,Labelling / allergen issue,Label changeover verification gap,Hypothesis,In progress,0.13953488372093023
+ABT-CAPA-002438,Chicken biryani ready meal,Labelling / allergen issue,Label changeover verification gap,Probable,In progress,0.13953488372093023
+ABT-CAPA-000942,Pasteurized liquid whole egg,Labelling / allergen issue,Label changeover verification gap,Confirmed,In progress,0.13953488372093023
+ABT-CAPA-002244,Table grapes,Labelling / allergen issue,Label changeover verification gap,Hypothesis,In progress,0.13953488372093023
+ABT-CAPA-000414,Processed cheese slices,Labelling / allergen issue,Label changeover verification gap,Confirmed,Open,0.13953488372093023
+ABT-CAPA-002996,Fresh carrots,Labelling / allergen issue,Label changeover verification gap,Probable,Awaiting verification,0.13953488372093023
+ABT-CAPA-000515,Corn flakes,Labelling / allergen issue,Label changeover verification gap,Probable,Open,0.13953488372093023
+ABT-CAPA-002775,Frozen beef patties,Labelling / allergen issue,Label changeover verification gap,Probable,Open,0.13953488372093023
+ABT-CAPA-000577,Flavoured malt beverage,Labelling / allergen issue,Label changeover verification gap,Confirmed,In progress,0.13953488372093023
+ABT-CAPA-000426,Vegetable pulao ready meal,Labelling / allergen issue,Label changeover verification gap,Probable,Open,0.13953488372093023
+ABT-CAPA-003006,Pasteurized liquid whole egg,Labelling / allergen issue,Label changeover verification gap,Probable,Awaiting verification,0.13953488372093023
+ABT-CAPA-001641,Wheat flour,Labelling / allergen issue,Label changeover verification gap,Probable,Open,0.13953488372093023
+ABT-CAPA-001329,Cooked chicken strips,Labelling / allergen issue,Label changeover verification gap,Unknown,Awaiting verification,0.13953488372093023
+ABT-CAPA-001335,Fresh pineapple slices,Labelling / allergen issue,Label changeover verification gap,Hypothesis,Awaiting verification,0.13953488372093023
+ABT-CAPA-001242,Fresh-cut mango cubes,Labelling / allergen issue,Label changeover verification gap,Hypothesis,In progress,0.13953488372093023
+ABT-CAPA-001678,Fresh carrots,Labelling / allergen issue,Label changeover verification gap,Hypothesis,Awaiting verification,0.13953488372093023
+ABT-CAPA-001600,Fresh-cut mixed vegetables,Labelling / allergen issue,Label changeover verification gap,Confirmed,In progress,0.13953488372093023
+ABT-CAPA-003132,Cooked chicken strips,Labelling / allergen issue,Label changeover verification gap,Hypothesis,Open,0.13953488372093023

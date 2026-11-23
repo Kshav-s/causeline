@@ -1,0 +1,75 @@
+defect_subcategory,value,pct,cum_pct,vital_few
+A pouch seam had separated during handling,769,4.272222222222222,4.272222222222222,True
+The consistency varied between packs from the same delivery,748,4.155555555555556,8.427777777777777,True
+The outer carton was crushed and several inner packs were exposed,737,4.094444444444444,12.522222222222222,True
+A measured product-quality attribute was outside the approved acceptance range,730,4.055555555555555,16.577777777777776,True
+The closure did not remain secure during transport,729,4.05,20.627777777777776,True
+The product did not meet the agreed quality specification,726,4.033333333333333,24.66111111111111,True
+An unexpected sour note was noticed after opening,715,3.9722222222222223,28.633333333333333,True
+The colour was noticeably different from the reference sample,700,3.888888888888889,32.52222222222222,True
+The top seal was partially open on several packs,698,3.8777777777777778,36.4,True
+The product appearance differed from the approved reference sample,678,3.7666666666666666,40.166666666666664,True
+The product had an unusual bitter aftertaste,676,3.7555555555555555,43.92222222222222,True
+The aroma was weaker than the approved product profile,672,3.7333333333333334,47.65555555555555,True
+A metal-like fragment was suspected by the customer,528,2.933333333333333,50.58888888888888,True
+A dark particle was visible in the product,523,2.9055555555555554,53.49444444444444,True
+A small transparent plastic fragment was identified,477,2.65,56.14444444444444,True
+A hard fragment was found inside one retail pack,476,2.6444444444444444,58.788888888888884,True
+The product had signs consistent with possible microbial spoilage,366,2.033333333333333,60.822222222222216,True
+Visible spoilage was reported before the stated use-by date,335,1.8611111111111112,62.68333333333333,True
+A customer reported illness after consuming the product; causation is unconfirmed,332,1.8444444444444446,64.52777777777777,True
+Several packs in the delivery were underweight,330,1.8333333333333333,66.3611111111111,True
+A sample was referred for microbiological investigation,326,1.8111111111111111,68.17222222222222,True
+The chilled product arrived warmer than the specified receiving range,319,1.7722222222222221,69.94444444444444,True
+The net quantity was below the declared pack weight,302,1.6777777777777778,71.62222222222222,True
+The delivered case count did not match the order,292,1.6222222222222222,73.24444444444444,True
+The temperature logger indicated a possible excursion during transit,290,1.6111111111111112,74.85555555555555,True
+The pack contained fewer pieces than specified,278,1.5444444444444445,76.4,True
+A frozen case showed signs of partial thawing,276,1.5333333333333334,77.93333333333334,True
+The delivery arrived later than scheduled and storage conditions were questioned,259,1.4388888888888889,79.37222222222222,True
+A small insect was found inside the secondary packaging,228,1.2666666666666666,80.63888888888889,True
+Pest traces were visible on the outer case,210,1.1666666666666667,81.80555555555556,False
+The warehouse team observed possible pest contamination,205,1.1388888888888888,82.94444444444444,False
+The date code was unreadable on some packs,202,1.1222222222222222,84.06666666666666,False
+Insect activity was found in or around the packaging,201,1.1166666666666667,85.18333333333332,False
+The allergen statement appeared inconsistent with the product specification,193,1.0722222222222222,86.25555555555555,False
+The ingredient declaration did not match the approved artwork,187,1.038888888888889,87.29444444444444,False
+The product label showed an incorrect batch or best-before code,169,0.9388888888888889,88.23333333333332,False
+The surface showed excessive browning in part of the batch,127,0.7055555555555556,88.93888888888887,False
+The blend was not uniform between packs,115,0.6388888888888888,89.57777777777775,False
+The cutting and trimming finish varied between product units,84,0.4666666666666667,90.04444444444442,False
+The product was unevenly cooked across the pack,80,0.4444444444444444,90.48888888888887,False
+Some pieces appeared under-processed,77,0.42777777777777776,90.91666666666664,False
+The prepared produce showed uneven surface condition after handling,77,0.42777777777777776,91.34444444444442,False
+Cut pieces varied in size from the approved preparation standard,74,0.4111111111111111,91.75555555555553,False
+Sorting and grading were inconsistent across cases,73,0.40555555555555556,92.16111111111108,False
+Particle sizes varied from the approved blend specification,72,0.4,92.56111111111109,False
+Some units showed incomplete processing,66,0.36666666666666664,92.92777777777775,False
+Product consistency varied between containers,63,0.35,93.27777777777774,False
+Processing resulted in visible variation between units,62,0.34444444444444444,93.62222222222219,False
+The mixture showed separation not seen in the approved reference,60,0.3333333333333333,93.95555555555552,False
+The finished product showed inconsistent texture,60,0.3333333333333333,94.28888888888885,False
+Piece size and processing finish varied across the batch,60,0.3333333333333333,94.62222222222218,False
+Product consistency varied following processing,58,0.32222222222222224,94.9444444444444,False
+The portion assembly differed from the approved specification,56,0.3111111111111111,95.25555555555552,False
+Moisture condition varied from the approved process range,54,0.3,95.55555555555551,False
+Some pieces appeared under-baked,53,0.29444444444444445,95.84999999999997,False
+The product texture differed between filling runs,52,0.28888888888888886,96.13888888888886,False
+The portions varied in size and processing finish,52,0.28888888888888886,96.42777777777775,False
+The crumb texture varied between production runs,44,0.24444444444444444,96.67222222222219,False
+Some components were not evenly cooled before assembly,43,0.2388888888888889,96.91111111111108,False
+Particle size varied from the milling specification,43,0.2388888888888889,97.14999999999998,False
+The prepared product showed inconsistent cooking between portions,41,0.22777777777777777,97.37777777777775,False
+The screened product contained inconsistent particle sizes,41,0.22777777777777777,97.60555555555553,False
+The product showed inconsistent texture after thawing,40,0.2222222222222222,97.82777777777775,False
+The product was unevenly baked across the batch,40,0.2222222222222222,98.04999999999998,False
+The surface condition differed from the reference after freezing,40,0.2222222222222222,98.27222222222221,False
+The fill volume varied across bottles,39,0.21666666666666667,98.48888888888888,False
+The pieces appeared unevenly prepared,39,0.21666666666666667,98.70555555555555,False
+The processed egg product differed from the approved coagulation profile,39,0.21666666666666667,98.92222222222222,False
+Shell grading was inconsistent across the lot,38,0.2111111111111111,99.13333333333333,False
+The product was not uniform after blending,35,0.19444444444444445,99.32777777777777,False
+Filling volume varied across containers,33,0.18333333333333332,99.5111111111111,False
+The blended product showed concentration variation between containers,32,0.17777777777777778,99.68888888888888,False
+The processed egg product showed uneven consistency between containers,32,0.17777777777777778,99.86666666666666,False
+The beverage appearance varied from the approved reference,24,0.13333333333333333,100.0,False

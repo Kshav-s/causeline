@@ -1,0 +1,38 @@
+complaint_category,root_cause_category,n,mean_conf,confirmed,share_within_category
+Contamination / microbiological,Temperature control deviation,118,0.8254237288135594,71,0.2935323383084577
+Contamination / microbiological,Sanitation verification gap,110,0.8023636363636364,52,0.2736318407960199
+Contamination / microbiological,Cross-contamination during handling,89,0.8155056179775281,52,0.22139303482587064
+Contamination / microbiological,Supplier microbiological quality issue,85,0.8180000000000001,49,0.21144278606965175
+Infestation / pest,Storage housekeeping gap,85,0.8018823529411764,40,0.3744493392070485
+Infestation / pest,Warehouse pest-proofing gap,78,0.8066666666666666,45,0.3436123348017621
+Infestation / pest,Incoming material pest control gap,64,0.76015625,21,0.28193832599118945
+Labelling / allergen issue,Artwork / date-code verification gap,85,0.8174117647058824,50,0.3881278538812785
+Labelling / allergen issue,Allergen segregation failure,75,0.8241333333333334,42,0.3424657534246575
+Labelling / allergen issue,Label changeover verification gap,59,0.799322033898305,24,0.2694063926940639
+Packaging issue,Packaging material integrity issue,143,0.8193006993006993,80,0.27552986512524086
+Packaging issue,Closure torque control gap,128,0.807109375,62,0.2466281310211946
+Packaging issue,Line alignment / changeover issue,125,0.79464,60,0.24084778420038536
+Packaging issue,Heat-seal parameter drift,123,0.8008943089430894,61,0.23699421965317918
+Physical defect / foreign matter,Incoming material contamination,109,0.7861467889908257,42,0.2620192307692308
+Physical defect / foreign matter,Equipment wear,104,0.7846153846153846,40,0.25
+Physical defect / foreign matter,Metal detection verification gap,102,0.7757843137254902,36,0.24519230769230768
+Physical defect / foreign matter,Screening / sieving control gap,101,0.7902970297029702,47,0.24278846153846154
+Process-related defect,Equipment calibration gap,110,0.779909090909091,44,0.2716049382716049
+Process-related defect,Process parameter drift,104,0.7905769230769231,50,0.25679012345679014
+Process-related defect,Inadequate operator verification,103,0.770388349514563,38,0.254320987654321
+Process-related defect,Insufficient process time,88,0.7989772727272727,43,0.21728395061728395
+Product quality deviation,Raw-material variability,124,0.8028225806451613,60,0.27312775330396477
+Product quality deviation,Process parameter drift,117,0.7881196581196581,50,0.2577092511013216
+Product quality deviation,Inadequate in-process verification,113,0.8079646017699115,56,0.2488986784140969
+Product quality deviation,Product formulation variation,100,0.8112,55,0.22026431718061673
+Sensory characteristic,Inadequate sensory release check,129,0.8052713178294574,64,0.2841409691629956
+Sensory characteristic,Oxidation / storage exposure,120,0.7950833333333333,51,0.2643171806167401
+Sensory characteristic,Processing time / temperature variation,106,0.824433962264151,64,0.23348017621145375
+Sensory characteristic,Ingredient lot variation,99,0.7976767676767677,45,0.21806167400881057
+Storage / transportation issue,Cold-chain excursion,81,0.7881481481481482,39,0.30566037735849055
+Storage / transportation issue,Warehouse temperature-control deviation,66,0.7995454545454544,30,0.2490566037735849
+Storage / transportation issue,Delayed dispatch / extended transit,64,0.79765625,28,0.24150943396226415
+Storage / transportation issue,Inadequate pre-cooling,54,0.8096296296296296,29,0.2037735849056604
+Weight / quantity issue,Checkweigher verification gap,97,0.8209278350515463,56,0.3553113553113553
+Weight / quantity issue,Filling / dosing variation,88,0.8177272727272726,48,0.32234432234432236
+Weight / quantity issue,Pack-count verification gap,88,0.7877272727272726,41,0.32234432234432236

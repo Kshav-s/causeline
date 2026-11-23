@@ -1,0 +1,12 @@
+# Lightweight INFERENCE-ONLY requirements - no torch / sentence-transformers.
+# Use on memory-constrained hosts (e.g. Render free tier, 512 MB).
+# Result: /health /categories /classify /pareto /trends fully functional;
+#         /similar and the "similar" block of /analyze return HTTP 503.
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.4
+numpy==2.5.5
+pandas==3.1.1
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0

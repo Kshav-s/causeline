@@ -1,0 +1,80 @@
+                                                                                   precision    recall  f1-score   support
+
+A customer reported illness after consuming the product; causation is unconfirmed       1.00      1.00      1.00        66
+                                       A dark particle was visible in the product       1.00      1.00      1.00       105
+                                    A frozen case showed signs of partial thawing       1.00      1.00      1.00        55
+                                 A hard fragment was found inside one retail pack       1.00      1.00      1.00        95
+   A measured product-quality attribute was outside the approved acceptance range       1.00      1.00      1.00       146
+                              A metal-like fragment was suspected by the customer       1.00      1.00      1.00       106
+                                       A pouch seam had separated during handling       1.00      1.00      1.00       154
+                          A sample was referred for microbiological investigation       1.00      1.00      1.00        65
+                          A small insect was found inside the secondary packaging       1.00      1.00      1.00        46
+                              A small transparent plastic fragment was identified       1.00      1.00      1.00        95
+                                An unexpected sour note was noticed after opening       1.00      1.00      1.00       143
+                 Cut pieces varied in size from the approved preparation standard       1.00      1.00      1.00        15
+                                          Filling volume varied across containers       1.00      1.00      1.00         7
+                             Insect activity was found in or around the packaging       1.00      1.00      1.00        40
+                        Moisture condition varied from the approved process range       1.00      1.00      1.00        11
+                              Particle size varied from the milling specification       1.00      1.00      1.00         9
+                      Particle sizes varied from the approved blend specification       1.00      1.00      1.00        14
+                                       Pest traces were visible on the outer case       1.00      1.00      1.00        42
+                         Piece size and processing finish varied across the batch       1.00      1.00      1.00        12
+                           Processing resulted in visible variation between units       1.00      1.00      1.00        12
+                                    Product consistency varied between containers       1.00      1.00      1.00        13
+                                  Product consistency varied following processing       1.00      1.00      1.00        12
+                                   Several packs in the delivery were underweight       1.00      1.00      1.00        66
+                                    Shell grading was inconsistent across the lot       1.00      1.00      1.00         8
+                           Some components were not evenly cooled before assembly       1.00      1.00      1.00         9
+                                                 Some pieces appeared under-baked       1.00      1.00      1.00        11
+                                             Some pieces appeared under-processed       1.00      1.00      1.00        15
+                                          Some units showed incomplete processing       1.00      1.00      1.00        13
+                               Sorting and grading were inconsistent across cases       1.00      1.00      1.00        15
+      The allergen statement appeared inconsistent with the product specification       1.00      1.00      1.00        39
+                           The aroma was weaker than the approved product profile       1.00      1.00      1.00       134
+                       The beverage appearance varied from the approved reference       1.00      1.00      1.00         5
+                                          The blend was not uniform between packs       1.00      1.00      1.00        23
+            The blended product showed concentration variation between containers       1.00      1.00      1.00         6
+            The chilled product arrived warmer than the specified receiving range       1.00      1.00      1.00        64
+                               The closure did not remain secure during transport       1.00      1.00      1.00       146
+                    The colour was noticeably different from the reference sample       1.00      1.00      1.00       140
+                      The consistency varied between packs from the same delivery       1.00      1.00      1.00       150
+                                 The crumb texture varied between production runs       1.00      1.00      1.00         9
+                     The cutting and trimming finish varied between product units       1.00      1.00      1.00        17
+                                       The date code was unreadable on some packs       1.00      1.00      1.00        40
+                                 The delivered case count did not match the order       1.00      1.00      1.00        58
+ The delivery arrived later than scheduled and storage conditions were questioned       1.00      1.00      1.00        52
+                                            The fill volume varied across bottles       1.00      1.00      1.00         8
+                                 The finished product showed inconsistent texture       1.00      1.00      1.00        12
+                    The ingredient declaration did not match the approved artwork       1.00      1.00      1.00        37
+                 The mixture showed separation not seen in the approved reference       1.00      1.00      1.00        12
+                              The net quantity was below the declared pack weight       1.00      1.00      1.00        60
+                The outer carton was crushed and several inner packs were exposed       1.00      1.00      1.00       147
+                                   The pack contained fewer pieces than specified       1.00      1.00      1.00        56
+                                            The pieces appeared unevenly prepared       1.00      1.00      1.00         8
+                    The portion assembly differed from the approved specification       1.00      1.00      1.00        11
+                                The portions varied in size and processing finish       1.00      1.00      1.00        10
+              The prepared produce showed uneven surface condition after handling       1.00      1.00      1.00        15
+                The prepared product showed inconsistent cooking between portions       1.00      1.00      1.00         8
+         The processed egg product differed from the approved coagulation profile       1.00      1.00      1.00         8
+           The processed egg product showed uneven consistency between containers       1.00      1.00      1.00         6
+               The product appearance differed from the approved reference sample       1.00      1.00      1.00       136
+                        The product did not meet the agreed quality specification       1.00      1.00      1.00       145
+                                     The product had an unusual bitter aftertaste       1.00      1.00      1.00       135
+                The product had signs consistent with possible microbial spoilage       1.00      1.00      1.00        73
+                  The product label showed an incorrect batch or best-before code       1.00      1.00      1.00        34
+                            The product showed inconsistent texture after thawing       1.00      1.00      1.00         8
+                                The product texture differed between filling runs       1.00      1.00      1.00        10
+                                       The product was not uniform after blending       1.00      1.00      1.00         7
+                                  The product was unevenly baked across the batch       1.00      1.00      1.00         8
+                                  The product was unevenly cooked across the pack       1.00      1.00      1.00        16
+                       The screened product contained inconsistent particle sizes       1.00      1.00      1.00         8
+                 The surface condition differed from the reference after freezing       1.00      1.00      1.00         8
+                       The surface showed excessive browning in part of the batch       1.00      1.00      1.00        25
+             The temperature logger indicated a possible excursion during transit       1.00      1.00      1.00        58
+                                 The top seal was partially open on several packs       1.00      1.00      1.00       140
+                          The warehouse team observed possible pest contamination       1.00      1.00      1.00        41
+                      Visible spoilage was reported before the stated use-by date       1.00      1.00      1.00        67
+
+                                                                         accuracy                           1.00      3600
+                                                                        macro avg       1.00      1.00      1.00      3600
+                                                                     weighted avg       1.00      1.00      1.00      3600
