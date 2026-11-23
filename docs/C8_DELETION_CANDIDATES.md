@@ -1,4 +1,6 @@
-# C8 - Test complaint deletion candidates (NOT DELETED)
+# C8 - Test complaint deletion candidates
+
+> **EXECUTED 2026-11-23** after the project owner's conditional approval: the 46 listed complaints were deleted with `scripts/c8_execute_cleanup.py`; `CL-2026-000029` preserved permanently. Results: `docs/TECHNICAL_VERIFICATION_REPORT.md` section 12. Pre-delete snapshot `backups/pre-C8-exec-20261123-235641/`; verified backup below kept unchanged.
 
 Prepared 2026-11-23 by `scripts/c8_prepare_cleanup.py`. **No record has been deleted.** Deletion requires the project owner's explicit approval of this exact list.
 

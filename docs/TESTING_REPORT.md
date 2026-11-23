@@ -50,3 +50,11 @@ Defects found and fixed in this round: mobile register cards lacked the category
 
 ## Re-verification after approved changes C1/C2/C5/C7 (2026-11-23)
 Backend 67 passed (0 warnings) · Vitest 10 passed · type-check + build pass · Playwright 6 passed (desktop + mobile) · 56 screenshots clean. New tests: tunnel URL guard (C1), synthetic labelling at read time without rewriting stored outputs (C2), late status persistence (C5), GPS/EXIF/PNG-text stripping with restricted original (C7), "new in last 30 days" KPI regression. Defect fixed: "New (last 30 days)" counted import time instead of received date.
+
+## Isolated E2E runs (since C8, 2026-11-23)
+E2E tests submit real complaints, so they must not run against the live database. Procedure:
+1. Copy the database (SQLite backup API) and `storage/attachments` to a scratch folder.
+2. `DATABASE_URL=sqlite:///<scratch>/causeline.db ATTACHMENT_DIR=<scratch>/attachments PUBLIC_SUBMIT_PER_HOUR=500 uvicorn app.main:app --port 8001`
+3. `CL_API_TARGET=http://127.0.0.1:8001 CL_PORT=5174 npx vite --strictPort`
+4. `CL_BASE=http://localhost:5174 CL_EMAIL=... CL_PASSWORD=... npx playwright test`
+After C8: backend 68 passed, Vitest 10 passed, Playwright 6 passed; live complaint count unchanged by the run.

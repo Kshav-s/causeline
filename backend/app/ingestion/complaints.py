@@ -243,8 +243,15 @@ def validate(df: pd.DataFrame, mapping: dict[str, str | None], db: Session, toda
 
 
 def next_manual_id(db: Session, year: int) -> str:
+    """Next CL-YYYY-NNNNNN reference. References are never reused: IDs of deleted complaints survive in the append-only
+    audit log, so the high-water mark is taken over both tables (fixed-width ids sort correctly as strings)."""
+    from app.models import AuditLog
+
     prefix = f"CL-{year}-"
-    last = db.scalar(select(Complaint.complaint_id).where(Complaint.complaint_id.like(f"{prefix}%")).order_by(Complaint.complaint_id.desc()).limit(1))
+    last_c = db.scalar(select(Complaint.complaint_id).where(Complaint.complaint_id.like(f"{prefix}%")).order_by(Complaint.complaint_id.desc()).limit(1))
+    last_a = db.scalar(select(AuditLog.entity_id).where(AuditLog.entity_type == "complaint", AuditLog.entity_id.like(f"{prefix}______"))
+                       .order_by(AuditLog.entity_id.desc()).limit(1))
+    last = max(filter(None, (last_c, last_a)), default=None)
     n = int(last.rsplit("-", 1)[1]) + 1 if last else 1
     return f"{prefix}{n:06d}"
 

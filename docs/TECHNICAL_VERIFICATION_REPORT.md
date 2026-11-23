@@ -142,3 +142,36 @@ Approval received for C1, C2, C4, C5, C7; C3 and C6 deferred; C8 to be prepared 
 
 ### C8 status - prepared, NOT executed
 Backup `backups/pre-C8-20261123-181036/` (database + all photo files); restore test PASS. Candidate list in `docs/C8_DELETION_CANDIDATES.md`: 46 test complaints proposed, **0 synthetic historical records**, **0 non-local submissions**; `CL-2026-000029` ("karuna") held back because it was not created by a test script. Awaiting explicit approval of the final list.
+
+---
+
+## 12. C8 cleanup - executed (2026-11-23, approved with conditions)
+
+Conditions: preserve `CL-2026-000029` permanently; delete only individually verified test complaints and their linked test predictions, photos and notes; keep the 18,000 synthetic historical records, audit logs and the verified backup; no database reset.
+
+**Method.** `scripts/c8_execute_cleanup.py` - the 46 IDs are hard-coded (not pattern-selected) and each one must also match a known test fixture (submitter, description text, local IP, creating account) or the script aborts without deleting anything. A fresh snapshot of the exact pre-delete state was taken first (`backups/pre-C8-exec-20261123-235641/`); the verified backup `backups/pre-C8-20261123-181036/` was hashed before and after (unchanged). One transaction; the deletion itself is recorded in the audit log (`data.c8_cleanup`).
+
+| Fixture evidence | Complaints |
+|---|---|
+| `frontend/e2e/workflow.spec.ts:17-21` - "E2E Visitor", "E2E <ts>: hard plastic fragment..." | 28 |
+| `frontend/e2e/screenshots.mjs:24-25` - "Screenshot Check", mould on sliced bread | 7 |
+| baseline `4b75af4` staff-flow spec - analyst test account, "E2E <ts>: customer found live insects..." | 3 |
+| verification script - "VERIFICATION RUN - delete" | 2 |
+| **Total deleted** | **46** |
+
+| Records | Deleted | Retained |
+|---|---|---|
+| Complaints | 46 | 18,001 (18,000 synthetic historical + `CL-2026-000029`) |
+| Predictions | 231 | 76 |
+| Prediction reviews | 4 | 1 |
+| Photo rows / files | 77 rows / 106 files (77 display copies + 29 restricted originals) | 1 row / 1 file (`CL-2026-000029`) |
+| Investigation notes | 9 | 0 |
+| In-app notifications linking to deleted complaints | 86 | 8 |
+| Audit log entries | 0 | 179 (178 + the cleanup entry) |
+| Historical hypotheses / batch scores / CAPA watchlist | 0 | unchanged |
+
+**Post-checks (all pass):** `integrity_check` ok; 0 foreign-key violations; 0 predictions pointing at a missing complaint; 0 photo rows without a file and 0 files without a row; 18,000 historical records unchanged; `CL-2026-000029` row digest identical before/after, its photo still served (200, image/webp); deleted references return the same 404 as unknown ones (public and staff); verified backup unchanged.
+
+**Defect found and fixed during cleanup:** reference allocation took `max(existing id) + 1`, so after the deletion the next complaint would have been issued `CL-2026-000030` - a reference already named in the audit trail for a deleted record. The allocator now takes the high-water mark over complaints **and** complaint IDs in the append-only audit log (`app/ingestion/complaints.py::next_manual_id`); format, uniqueness and retry-on-collision unchanged. Next live reference: `CL-2026-000048`. Test: `test_deleted_reference_is_never_reissued`.
+
+**Tests after cleanup:** backend pytest **68 passed**; Vitest **10 passed**; type-check pass; Playwright **6 passed** (desktop + mobile). E2E now runs against an **isolated backend** (port 8001, scratch copy of the database) via `CL_API_TARGET`/`CL_PORT`, so test runs no longer create records in the live database - verified: live complaint count unchanged after the run (18,001), the isolated copy received the 6 test submissions (`CL-2026-000048` onward).

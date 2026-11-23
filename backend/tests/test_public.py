@@ -377,3 +377,14 @@ def test_new_last_30_days_counts_received_date_not_import_time(admin, db):
     k = admin.get("/api/dashboard").json()["kpis"]
     expected = db.scalar(select(func.count(Complaint.id)).where(Complaint.complaint_received_date >= date.today() - timedelta(days=30)))
     assert k["new_last_30_days"] == expected and k["new_last_30_days"] < k["total_complaints"]
+
+
+def test_deleted_reference_is_never_reissued(client, db):
+    """After a cleanup deletes a complaint, its reference stays retired (it is still named in the audit trail)."""
+    first = submit(client).json()["complaint_id"]
+    c = db.scalar(select(Complaint).where(Complaint.complaint_id == first))
+    db.query(Prediction).filter(Prediction.complaint_pk == c.id).delete()
+    db.delete(c)
+    db.commit()
+    second = submit(client).json()["complaint_id"]
+    assert int(second.rsplit("-", 1)[1]) > int(first.rsplit("-", 1)[1]), (first, second)
