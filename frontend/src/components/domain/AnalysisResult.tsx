@@ -122,7 +122,7 @@ function Unavailable({ p, what }: { p: Prediction; what: string }) {
   return <Banner tone="warn" title={`${what} unavailable`}>{p.message}</Banner>;
 }
 
-export function AnalysisResult({ run, showInput = true }: { run: AnalysisRun; showInput?: boolean }) {
+export function AnalysisResult({ run, showInput = true, readOnly = false }: { run: AnalysisRun; showInput?: boolean; readOnly?: boolean }) {
   const P = run.predictions;
   const cat = P["nlp-category"], sub = P["nlp-subcategory"], safety = P["food-safety-flag"], sim = P["nlp-similarity"], rc = P["root-cause"];
   const escalate = safety?.output?.escalate_for_food_safety_review;
@@ -132,6 +132,7 @@ export function AnalysisResult({ run, showInput = true }: { run: AnalysisRun; sh
     : cat.low_confidence
       ? "The model is uncertain. Classify this complaint manually, using the shortlist and similar cases as evidence, then record your decision below."
       : "Compare against the similar historical complaints, then confirm or correct the category below.";
+  const nextStep = readOnly ? "The CauseLine quality team reviews every complaint. AI results are suggestions only - the confirmed category and root cause will appear here once an investigator records them." : next;
   return (
     <div className="space-y-4">
       {showInput && cat && (
@@ -174,7 +175,7 @@ export function AnalysisResult({ run, showInput = true }: { run: AnalysisRun; sh
                   <span className="text-muted num"> · score {sub.top_score?.toFixed(2)}</span>
                 </div>
               )}
-              <ReviewActions p={cat} />
+              {!readOnly && <ReviewActions p={cat} />}
               <Limitations items={cat.model.limitations} />
             </>
           )}
@@ -183,7 +184,9 @@ export function AnalysisResult({ run, showInput = true }: { run: AnalysisRun; sh
 
       {rc && (
         <Panel kind="model" title="Possible root causes" p={rc}>
-          {rc.status !== "completed" ? <Unavailable p={rc} what="Root-cause hypotheses" /> : (
+          {rc.status !== "completed" ? (readOnly && rc.status === "insufficient_data"
+            ? <InsufficientData title="Root-cause suggestions not available yet">The root-cause model needs a confirmed complaint category. Suggestions appear here after the quality team confirms the category - we do not build one AI guess on top of another.</InsufficientData>
+            : <Unavailable p={rc} what="Root-cause hypotheses" />) : (
             <>
               <p className="text-[12px] text-muted mb-2">Possible explanations to direct the investigation - <b>not</b> a confirmed root cause.</p>
               {rc.low_confidence && <Banner tone="warn" className="mb-2" title="Low support">The leading hypothesis has a low score; treat all three as equally open.</Banner>}
@@ -193,7 +196,7 @@ export function AnalysisResult({ run, showInput = true }: { run: AnalysisRun; sh
                   <li key={h.cause} className="flex justify-between gap-3 text-[13px]"><span className={i === 0 ? "font-medium" : "text-ink-2"}>{i + 1}. {h.cause}</span><span className="num text-muted">{h.probability.toFixed(2)}</span></li>
                 ))}
               </ol>
-              <ReviewActions p={rc} />
+              {!readOnly && <ReviewActions p={rc} />}
               <Limitations items={rc.model.limitations} />
             </>
           )}
@@ -209,7 +212,7 @@ export function AnalysisResult({ run, showInput = true }: { run: AnalysisRun; sh
                 {sim.output!.results.map((r: { complaint_id: string; complaint_received_date: string; complaint_category: string; product_name: string; complaint_summary: string; similarity: number }) => (
                   <li key={r.complaint_id} className="py-2 flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <Link to={`/app/complaints/${r.complaint_id}`} className="font-mono text-[12px] text-link hover:underline">{r.complaint_id}</Link>
+                      {readOnly ? <span className="font-mono text-[12px] text-ink-2">{r.complaint_id}</span> : <Link to={`/app/complaints/${r.complaint_id}`} className="font-mono text-[12px] text-link hover:underline">{r.complaint_id}</Link>}
                       <span className="text-[12px] text-muted"> · {fmtDate(r.complaint_received_date)} · {r.product_name}</span>
                       <div className="text-[13px] text-ink-2 truncate">{r.complaint_summary}</div>
                       <div className="text-[12px] text-muted">Recorded category: {r.complaint_category}</div>
@@ -226,7 +229,7 @@ export function AnalysisResult({ run, showInput = true }: { run: AnalysisRun; sh
 
       <div className="rounded-[var(--radius-card)] border border-line bg-surface p-4">
         <div className="flex items-center gap-2 mb-1"><ShieldAlert className="size-4 text-link" /><h4 className="font-semibold">Recommended next step</h4></div>
-        <p className="text-[13px] text-ink-2">{next}</p>
+        <p className="text-[13px] text-ink-2">{nextStep}</p>
         {cat?.review_status !== "pending" && cat?.review_status !== "not_applicable" && <p className="text-[12px] text-muted mt-2 flex items-center gap-1"><BadgeCheck className="size-3.5" />Category review recorded.</p>}
       </div>
     </div>

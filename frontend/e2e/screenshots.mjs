@@ -10,14 +10,24 @@ const out = process.argv[2] ?? "screenshots";
 const filter = process.argv[3];
 fs.mkdirSync(out, { recursive: true });
 
-const PUBLIC = [["home", "/"], ["demo", "/demo"], ["login", "/login"]];
+const PUBLIC = [["home", "/"], ["raise", "/raise"], ["register", "/register"], ["track", "/track"], ["staff-login", "/staff"]];
 const APP = [["overview", "/app"], ["complaints", "/app/complaints"], ["complaint-detail", "/app/complaints/ABT-CMP-2007-014934"], ["complaint-new", "/app/complaints/new"],
   ["ai", "/app/ai"], ["ai-queue", "/app/ai?tab=queue"], ["root-cause", "/app/root-cause"], ["capa", "/app/capa"], ["capa-detail", "/app/capa/ABT-CAPA-000001"], ["risk", "/app/risk"],
   ["risk-batches", "/app/risk?tab=history"], ["risk-score", "/app/risk?tab=score"], ["analytics", "/app/analytics"], ["data", "/app/data"], ["data-history", "/app/data?tab=history"],
-  ["reports", "/app/reports"], ["settings", "/app/settings"], ["admin-bookings", "/app/admin/bookings"], ["admin-users", "/app/admin/users"], ["admin-models", "/app/admin/models"], ["admin-audit", "/app/admin/audit"]];
+  ["reports", "/app/reports"], ["settings", "/app/settings"], ["admin-users", "/app/admin/users"], ["admin-models", "/app/admin/models"], ["admin-audit", "/app/admin/audit"]];
 const VIEWPORTS = [["desktop", { width: 1440, height: 900 }], ["mobile", { width: 390, height: 844 }]];
 
 const browser = await chromium.launch();
+// one real public complaint (with a photo) so the visitor result page can be captured
+const setup = await (await browser.newContext()).request;
+const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGM4IScHAAK2AQU0pnWqAAAAAElFTkSuQmCC", "base64");
+const sub = await setup.post(BASE + "/api/public/complaints", { multipart: { customer_name: "Screenshot Check", product_name: "Sliced sandwich bread", complaint_date: new Date().toISOString().slice(0, 10),
+  description: "Green mould spots visible on several slices of a sealed loaf, well before the best-before date.", severity: "Major",
+  images: { name: "loaf.png", mimeType: "image/png", buffer: png } } });
+if (!sub.ok()) throw new Error(`public submit failed ${sub.status()} ${await sub.text()}`);
+const { complaint_id: CID, access_key: KEY } = await sub.json();
+PUBLIC.push(["complaint-result", `/complaint/${CID}?new=1#key=${encodeURIComponent(KEY)}`]);
+APP.push(["staff-public-complaint", `/app/complaints/${CID}`]);
 const report = [];
 for (const [vpName, vp] of VIEWPORTS) {
   const ctx = await browser.newContext({ viewport: vp, deviceScaleFactor: 1 });

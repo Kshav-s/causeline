@@ -23,7 +23,8 @@ const FAQ = [
   ["Is the data in the demo real?", "No. The demonstration environment uses the synthetic ABT CPD dataset supplied with the project. Every screen marks it as demo data, and no figure should be read as real company performance."],
   ["Does the AI decide the root cause?", "No. Model outputs are labelled as predictions or possible explanations. Only a person can confirm a category or a root cause, and that confirmation is stored separately with their name."],
   ["How reliable are the predictions?", "Each model publishes its evaluation and limits inside the product. For example, the complaint classifier was trained on templated synthetic text and is uncertain on free-form wording, and the batch-risk model has weak predictive signal. The interface shows that uncertainty rather than hiding it."],
-  ["Can we import our own complaint files?", "Yes. CSV and Excel files go through a validation wizard: column mapping, row-level errors, duplicate detection and an import summary. Original files are kept unchanged."],
+  ["Do I need an account to raise a complaint?", "No. Anyone can raise a complaint and attach photos. You receive a reference number and a private access key; keep both to view your complaint and its analysis later. Other visitors cannot see your details."],
+  ["Does the AI look at my photos?", "No. Photos are stored as supporting evidence for the quality team. The AI analyses the written description only."],
   ["Is complaint data sent to outside AI services?", "No. All models run inside the CauseLine backend. Nothing is sent to an external AI provider."],
 ];
 
@@ -80,8 +81,8 @@ export default function Home() {
               CauseLine brings complaint records, NLP classification, root-cause evidence and CAPA follow-up into one place, and labels every insight as recorded fact, rule or model output.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/demo" className="h-11 px-5 inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-petrol-500 hover:bg-petrol-600 font-medium">Request a demo <ArrowRight className="size-4" /></Link>
-              <Link to="/login" className="h-11 px-5 inline-flex items-center rounded-[var(--radius-control)] border border-white/20 hover:bg-white/10 font-medium">Sign in</Link>
+              <Link to="/raise" className="h-11 px-5 inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-petrol-500 hover:bg-petrol-600 font-medium">Raise a Complaint <ArrowRight className="size-4" /></Link>
+              <Link to="/register" className="h-11 px-5 inline-flex items-center rounded-[var(--radius-control)] border border-white/20 hover:bg-white/10 font-medium">View complaint register</Link>
             </div>
           </div>
           <Mockup />
@@ -125,7 +126,7 @@ export default function Home() {
           <p className="overline text-link">How it works</p>
           <h2 className="mt-2 text-[32px] leading-10 max-md:text-[26px] font-semibold tracking-[-0.01em]">From a complaint file to a verified fix</h2>
           <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[[Upload, "Upload", "Import CSV or Excel through a validating wizard. Bad rows are shown, never silently accepted."],
+            {[[Upload, "Raise", "Describe the problem and attach photos. The complaint is saved and given a reference number immediately."],
               [BrainCircuit, "Analyse", "Classify complaint text and pull similar historical cases, with the model version recorded."],
               [GitBranch, "Investigate", "Compare recorded causes and model hypotheses. A person confirms the category and cause."],
               [ListChecks, "Verify the CAPA", "Watch for linked recurrences after the action. Effectiveness comes from evidence, not closure."]].map(([Icon, t, d], i) => {
@@ -220,11 +221,11 @@ export default function Home() {
       {/* CTA */}
       <section className="bg-graphite-900 grid-texture text-white py-20">
         <div className="max-w-[760px] mx-auto px-5 text-center">
-          <h2 className="text-[32px] leading-10 max-md:text-[26px] font-semibold tracking-[-0.01em]">See it with your own complaint data</h2>
-          <p className="mt-3 text-graphite-300">Book a walkthrough and we will show the workflow on the demonstration dataset, then discuss importing your files.</p>
+          <h2 className="text-[32px] leading-10 max-md:text-[26px] font-semibold tracking-[-0.01em]">Found a problem with a product?</h2>
+          <p className="mt-3 text-graphite-300">Raise a complaint in a few minutes - no account needed. Attach photos, get a reference number straight away, and see how our AI classifies it.</p>
           <div className="mt-7 flex justify-center flex-wrap gap-3">
-            <Link to="/demo" className="h-11 px-5 inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-petrol-500 hover:bg-petrol-600 font-medium">Request a demo <ArrowRight className="size-4" /></Link>
-            <Link to="/login" className="h-11 px-5 inline-flex items-center gap-2 rounded-[var(--radius-control)] border border-white/20 hover:bg-white/10 font-medium"><Database className="size-4" />Sign in</Link>
+            <Link to="/raise" className="h-11 px-5 inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-petrol-500 hover:bg-petrol-600 font-medium">Raise a Complaint <ArrowRight className="size-4" /></Link>
+            <Link to="/track" className="h-11 px-5 inline-flex items-center gap-2 rounded-[var(--radius-control)] border border-white/20 hover:bg-white/10 font-medium"><Database className="size-4" />Track a complaint</Link>
           </div>
           <p className="mt-4 text-[12px] text-graphite-500 flex items-center justify-center gap-1"><FileBarChart2 className="size-3.5" />No statistics on this page are about real customers.</p>
         </div>

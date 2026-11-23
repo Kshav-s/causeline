@@ -17,7 +17,17 @@
 ## Platform
 11. SQLite by default; PostgreSQL supported by configuration but not yet exercised; no Alembic migrations yet.
 12. Rate limiting is in-process (single instance). Multi-instance deployments need a shared store.
-13. Demo-booking email requires SMTP settings; otherwise admins are notified in-app only.
+13. Staff are notified of new public complaints in-app only (no email/SMS integration).
 14. PDF reports use the browser's print dialog (no server-side PDF).
 15. The design-system spec reserved violet for model output only; colour validation showed no colour-blind-safe 6-hue chart palette without violet, so violet also appears as chart series 3. Model output is always identified by badge text, icon and dashed border, never colour alone.
 16. Development environment contains test records created by verification runs (an E2E demo booking per run, a few `CL-2026-*` complaints, analysis runs on `ABT-CMP-2007-014934`). Re-seed a fresh database before any real use.
+
+## Public complaint workflow (2026-11-23)
+17. **Lost access keys cannot be recovered online** (only a hash is stored, by design). Staff can still see the complaint; there is no self-service recovery.
+18. **Photos are stored, not analysed.** No computer-vision model exists; the UI says so. Photos are kept original (EXIF metadata, which may include location, is not stripped) to preserve evidence integrity.
+19. **Root-cause suggestions for public complaints appear only after staff confirm the category.** The model was trained on recorded categories; CauseLine does not feed it the NLP classifier's guess. Food family is filled from recorded data only when the product name matches a known product exactly.
+20. **The NLP classifier is often wrong on free-form public wording** (e.g. a mould complaint classified as "Labelling / allergen issue" at 0.19). Low scores are flagged "uncertain - manual classification recommended"; staff review is the safeguard.
+21. **NLP service:** by default the handover's NLP models run inside the backend. `NLP_SERVICE_URL` switches to an external service using the handover's `POST /analyze` contract (validated, with in-process fallback). No external URL was supplied, so the remote path is tested with a simulated service only.
+22. Rate limits and spam protection are per-process and IP-based (honeypot + limits). No CAPTCHA; a shared store is needed for multi-instance deployments.
+23. Staff are still invited by an administrator; there is no self-registration for anyone.
+24. CAPA owner, actions and open/close dates remain unavailable until `04_ABT_CPD_CAPA_History.csv` is supplied; staff cannot yet create CAPA records in the UI.

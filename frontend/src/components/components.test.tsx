@@ -65,6 +65,13 @@ describe("AnalysisResult", () => {
     expect(screen.getByText(/rule-based flag/)).toBeInTheDocument();
     expect(screen.getByText(/not a food-safety determination/)).toBeInTheDocument();
   });
+  it("read-only (visitor) mode hides review actions and explains missing root causes", () => {
+    wrap(<AnalysisResult readOnly run={run({
+      "nlp-category": pred("nlp-category", { top_label: "Packaging issue", top_score: 0.8, review_status: "pending", output: { predictions: [{ label: "Packaging issue", probability: 0.8 }] } }),
+      "root-cause": pred("root-cause", { status: "insufficient_data", message: "Required for root-cause hypotheses: complaint_category" }) })} />);
+    expect(screen.queryByRole("button", { name: /Confirm/ })).not.toBeInTheDocument();
+    expect(screen.getByText("Root-cause suggestions not available yet")).toBeInTheDocument();
+  });
   it("reports an unavailable model as unavailable", () => {
     wrap(<AnalysisResult run={run({ "nlp-similarity": pred("nlp-similarity", { status: "error", message: "Model 'nlp-similarity' is not available (degraded)" }) })} />);
     expect(screen.getByText("Similarity search unavailable")).toBeInTheDocument();

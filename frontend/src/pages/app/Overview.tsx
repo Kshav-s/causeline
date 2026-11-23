@@ -14,7 +14,8 @@ import type { Pareto } from "../../types/api";
 
 interface Dash {
   kpis: { total_complaints: number; open_complaints: number; critical_complaints: number; food_safety_related: number; recurred_after_prior_capa: number; capas_total: number;
-    capas_pending: number; capa_ineffective_rate: number | null; capa_assessable: number; synthetic_share: number | null; date_min: string | null; date_max: string | null; pending_reviews: number };
+    capas_pending: number; capa_ineffective_rate: number | null; capa_assessable: number; synthetic_share: number | null; date_min: string | null; date_max: string | null; pending_reviews: number;
+    new_last_30_days: number; public_submissions: number; analysis_incomplete: number; ai_food_safety_escalations: number; ai_food_safety_assessed: number };
   monthly: { month: string; total: number; critical: number; ma3: number }[];
   severity_by_year: Record<string, number>[];
   top_products: { label: string; count: number }[];
@@ -58,6 +59,14 @@ export default function Overview() {
           unavailable={k && k.capa_assessable === 0 ? "No CAPA has an assessed outcome yet" : undefined} hint={k ? `${fmtInt(k.capa_assessable)} assessable CAPAs` : undefined}
           provenanceTitle="Share of assessed CAPAs whose recorded label is Ineffective; pending excluded" />
         <KpiCard label="Awaiting review" value={fmtInt(k?.pending_reviews)} provenance="model" loading={q.isLoading} to="/app/ai?tab=queue" hint="Model outputs without a human decision" />
+      </div>
+
+      <div className="grid gap-4 grid-cols-2 xl:grid-cols-4 mb-5">
+        <KpiCard label="New (last 30 days)" value={fmtInt(k?.new_last_30_days)} provenance="recorded" loading={q.isLoading} hint="Created in CauseLine in the last 30 days (all time, ignores the period filter)" />
+        <KpiCard label="Raised on CauseLine" value={fmtInt(k?.public_submissions)} provenance="recorded" loading={q.isLoading} hint="Submitted on the public form (no account)" />
+        <KpiCard label="AI food-safety escalations" value={fmtInt(k?.ai_food_safety_escalations)} provenance="rule" loading={q.isLoading} to="/app/ai?tab=queue"
+          unavailable={k && k.ai_food_safety_assessed === 0 ? "No complaint has been analysed yet" : undefined} hint={k ? `of ${fmtInt(k.ai_food_safety_assessed)} analysed complaints - keyword rule, needs human review` : undefined} />
+        <KpiCard label="AI analysis incomplete" value={fmtInt(k?.analysis_incomplete)} provenance="recorded" loading={q.isLoading} hint="Pending, partial or failed - complaint saved, analysis can be retried" />
       </div>
 
       <div className="grid gap-4 xl:grid-cols-12 mb-4">

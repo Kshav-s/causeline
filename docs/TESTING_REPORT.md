@@ -34,3 +34,16 @@ All results below were produced in this environment (Windows 11, Python 3.14.7, 
 - SMTP email delivery (no SMTP configured; in-app notification path tested).
 - Screen-reader pass with real assistive technology (semantic roles, labels and focus states were implemented; not audited with NVDA/JAWS).
 - **A passing test proves wiring, not model accuracy** - see ML_MODEL_AUDIT.md for the models' real limitations.
+
+## Re-verification after the public complaint workflow (2026-11-23)
+| Suite | Result |
+|---|---|
+| Backend pytest | **62 passed** (22 new in `test_public.py`) |
+| Frontend Vitest | **9 passed** |
+| Type-check + production build | Pass |
+| Playwright E2E (desktop + Pixel 7) | **6 passed**: visitor raises complaint with photos without login → reference + key → real AI result (model/version/PRD id, food-safety flag, similar complaints, photos, disclaimer) → survives reload → appears in anonymised register; stranger gets "access key needed", API 404/401, `/app` → `/staff`; staff sign in at `/staff`, see photos + complainant, add note |
+| Screenshots | 27 routes × desktop + mobile = 54, **0 overflow, 0 console errors** |
+
+New backend coverage: image validation (wrong extension, renamed HTML, truncated PNG, empty, GIF, >5 MB, >6 files), required/optional fields, future date, bad email, honeypot, rate limit (429), access-key gating for details and photos, key scoped to one complaint, anonymised register (no PII), public cannot reach staff endpoints, **AI failure keeps the complaint + retry works**, staff photos/notes/activity, confirmed root cause attributed and never auto-filled from a hypothesis, dashboard counts equal DB counts, HACCP labelling, root cause runs after category verification and the visitor sees it, external NLP contract / fallback / invalid payload rejection.
+
+Defects found and fixed in this round: mobile register cards lacked the category; staff detail tabs overflowed on mobile (16 px); mobile header button wrapped; the rate limiter (correctly) blocked the 11th test submission - limit made configurable.

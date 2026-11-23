@@ -16,8 +16,13 @@
 | Analytics, Pareto, recurrence hotspots | Done | Rule-based, ported from the supplied analysis code |
 | Reports (print-to-PDF, CSV) | Done | Stamped with filters, snapshot time, provenance |
 | Data upload wizard (CSV/XLSX, mapping, validation, duplicates, history) | Done | Same validator as the seed import |
-| Public site, demo booking, admin bookings, in-app notifications | Done | Booking workflow fully separate from models |
+| Public site with Raise a Complaint (no account), photo evidence, private tracking, anonymised register; in-app staff notifications | Done | Demo booking removed 2026-11-23 (records kept) |
 | Model registry | Done | Versions, SHA-256, schemas, status, limitations |
 
 ## Waiting on
 Seven datasets (`02`–`09` except `06`) named by the ML package were not supplied. See `DATA_READINESS_REPORT.md`.
+
+## Change 2026-11-23: public complaint workflow
+- No sign-in or sign-up on the public site; **Raise a Complaint** is the primary action. Demo booking removed from the product.
+- Visitors: raise (with up to 6 photos) → reference + private key → AI analysis page (category, subcategory, confidence, similar complaints, food-safety flag, root-cause status, disclaimer, timestamps) → track later; anonymised public register.
+- Staff (`/staff`, unlinked): everything above plus photos, complainant details, investigation notes, activity history, confirmed root cause, HACCP signals, new dashboard KPIs.

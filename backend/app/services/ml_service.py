@@ -193,8 +193,29 @@ def review_prediction(db: Session, pred: Prediction, user: User, action: str, co
     audit(db, f"prediction.{action}", user.id, "prediction", pred.reference,
           {"corrected_label": corrected_label, "reason": reason, "model": pred.model_version.model_key}, ip)
     db.commit()
+    if pred.complaint_pk and pred.model_version.model_key == "nlp-category" and action in ("confirmed", "corrected"):
+        c = db.get(Complaint, pred.complaint_pk)
+        if c is not None and c.category_source == "human_verified":
+            run_root_cause(db, c, user, ip)
     db.refresh(pred)
     return pred
+
+
+def run_root_cause(db: Session, complaint: Complaint, user: User | None, ip: str | None = None) -> str | None:
+    """Root-cause hypotheses for a complaint whose category is recorded or human-verified. Stored as a new run so
+    earlier outputs are never overwritten. Failures are recorded, never raised to the caller."""
+    run_id = str(uuid.uuid4())
+    fields = dict(complaint_summary=complaint.complaint_summary, complaint_description=complaint.complaint_description,
+                  defect_subcategory=complaint.defect_subcategory if complaint.category_source == "recorded" else None,
+                  complaint_category=complaint.complaint_category, food_family=complaint.food_family)
+    try:
+        r = engines.root_cause(**fields)
+    except Exception as e:  # noqa: BLE001
+        r = EngineResult("root-cause", "error", message=f"Inference failed: {type(e).__name__}")
+    _persist(db, run_id, r, fields, user, complaint, "complaint")
+    audit(db, "ml.root_cause", user.id if user else None, "complaint", complaint.complaint_id, {"run_id": run_id, "status": r.status}, ip)
+    db.commit()
+    return run_id
 
 
 def _valid_labels(key: str) -> list[str] | None:

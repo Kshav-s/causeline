@@ -21,3 +21,9 @@
 - **Logs:** stdout (uvicorn + `causeline.*` loggers). The audit trail is in the `audit_logs` table.
 - **Model updates:** add a new spec/version in `app/ml/registry.py`; old versions stay in `model_versions` and existing predictions keep their reference.
 - **Security checklist:** HTTPS only, `COOKIE_SECURE=true`, strong `JWT_SECRET`, change seeded passwords, restrict `/api/docs` (auto-disabled in production), keep `backend/.env` out of version control.
+
+## Public complaint workflow settings (2026-11-23)
+- `ATTACHMENT_DIR` (default `backend/storage/attachments`): private photo storage. **Back it up with the database**; serve it only through the API, never from a static web root. For multiple instances use shared storage (e.g. S3-compatible bucket) behind the same access checks.
+- `PUBLIC_SUBMIT_PER_HOUR`, `MAX_IMAGE_MB`, `MAX_IMAGES_PER_COMPLAINT`; behind a reverse proxy make sure the client IP reaches the app (proxy headers) or rate limits apply to the proxy IP.
+- `NLP_SERVICE_URL` (optional) and `NLP_SERVICE_TIMEOUT_S`.
+- Pillow is now required (`pip install pillow`, pinned in requirements).

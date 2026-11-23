@@ -2,6 +2,7 @@
 import io
 
 import httpx
+from app.core.config import get_settings
 import pytest
 from PIL import Image
 from sqlalchemy import func, select
@@ -88,7 +89,7 @@ def test_rate_limit(client):
         codes = [submit(client).status_code for _ in range(3)]
         assert codes == [201, 201, 429]
     finally:
-        submit_limiter.max_calls = 10
+        submit_limiter.max_calls = get_settings().public_submit_per_hour
 
 
 # ---------------------------------------------------------------- privacy
@@ -240,3 +241,31 @@ def test_remote_nlp_invalid_payload_rejected(monkeypatch):
     monkeypatch.setattr(httpx, "post", lambda url, json, timeout: httpx.Response(200, json=bad, request=httpx.Request("POST", url)))
     res = {r.model_key: r for r in ml_service._nlp_results("hard plastic fragment in sealed pack", None)}
     assert res["nlp-category"].top_label != "A"  # invalid remote output never shown; in-process result used instead
+
+
+def test_root_cause_runs_after_staff_verify_category_and_visitor_sees_it(client, first_complaint, db):
+    """Known product -> food family from recorded data; staff confirm category -> root-cause model runs; visitor view shows it."""
+    client.cookies.clear()
+    j = client.post("/api/public/complaints", data=form(product_name=first_complaint.product_name.upper())).json()
+    c = db.scalar(select(Complaint).where(Complaint.complaint_id == j["complaint_id"]))
+    assert c.food_family == first_complaint.food_family and c.product_id == first_complaint.product_id
+    v = client.get(f"/api/public/complaints/{j['complaint_id']}", headers={"X-Access-Key": j["access_key"]}).json()
+    assert v["analysis"]["predictions"]["root-cause"]["status"] == "insufficient_data"  # no guessed category is fed to the model
+    ref = v["analysis"]["predictions"]["nlp-category"]["reference"]
+    from tests.conftest import _login
+    _login(client, "analyst@test.local")
+    assert client.post(f"/api/ml/predictions/{ref}/review", json={"action": "corrected", "corrected_label": "Physical defect / foreign matter",
+                                                                  "reason": "Fragment seen on photo"}).status_code == 200
+    client.cookies.clear()
+    v2 = client.get(f"/api/public/complaints/{j['complaint_id']}", headers={"X-Access-Key": j["access_key"]}).json()
+    rc = v2["analysis"]["predictions"]["root-cause"]
+    assert rc["status"] == "completed" and len(rc["output"]["hypotheses"]) == 3
+    assert v2["analysis"]["predictions"]["nlp-category"]["review_status"] == "corrected"  # NLP output still present
+    assert v2["complaint"]["verified_category"] == "Physical defect / foreign matter"
+    assert v2["complaint"]["confirmed_root_cause"] is None  # a hypothesis is never a confirmed cause
+
+
+def test_public_products_list(client):
+    client.cookies.clear()
+    p = client.get("/api/public/products").json()["products"]
+    assert p and all(isinstance(x, str) for x in p)

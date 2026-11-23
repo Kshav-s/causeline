@@ -6,7 +6,10 @@ import { PublicLayout } from "./layouts/PublicLayout";
 import { Skeleton } from "./components/ui/primitives";
 
 const Home = lazy(() => import("./pages/public/Home"));
-const Demo = lazy(() => import("./pages/public/Demo"));
+const RaiseComplaint = lazy(() => import("./pages/public/RaiseComplaint"));
+const ComplaintStatus = lazy(() => import("./pages/public/ComplaintStatus"));
+const Track = lazy(() => import("./pages/public/Track"));
+const Register = lazy(() => import("./pages/public/Register"));
 const Login = lazy(() => import("./pages/public/Login"));
 const Overview = lazy(() => import("./pages/app/Overview"));
 const Complaints = lazy(() => import("./pages/app/Complaints"));
@@ -21,7 +24,6 @@ const Analytics = lazy(() => import("./pages/app/Analytics"));
 const DataManagement = lazy(() => import("./pages/app/DataManagement"));
 const Reports = lazy(() => import("./pages/app/Reports"));
 const Settings = lazy(() => import("./pages/app/Settings"));
-const Bookings = lazy(() => import("./pages/admin/Bookings"));
 const Users = lazy(() => import("./pages/admin/Users"));
 const Models = lazy(() => import("./pages/admin/Models"));
 const Audit = lazy(() => import("./pages/admin/Audit"));
@@ -35,7 +37,8 @@ function RequireAuth({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
   const loc = useLocation();
   if (loading) return <Loading />;
-  if (!user) return <Navigate to={`/login?next=${encodeURIComponent(loc.pathname + loc.search)}`} replace />;
+  // Staff-only area. Public pages never redirect here; /staff is intentionally not linked from the public site.
+  if (!user) return <Navigate to={`/staff?next=${encodeURIComponent(loc.pathname + loc.search)}`} replace />;
   return <>{children}</>;
 }
 
@@ -51,9 +54,12 @@ export default function App() {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/demo" element={<Demo />} />
+          <Route path="/raise" element={<RaiseComplaint />} />
+          <Route path="/complaint/:id" element={<ComplaintStatus />} />
+          <Route path="/track" element={<Track />} />
+          <Route path="/register" element={<Register />} />
         </Route>
-        <Route path="/login" element={<Login />} />
+        <Route path="/staff" element={<Login />} />
         <Route path="/app" element={<RequireAuth><AppShell /></RequireAuth>}>
           <Route index element={<Overview />} />
           <Route path="complaints" element={<Complaints />} />
@@ -68,7 +74,6 @@ export default function App() {
           <Route path="data" element={<DataManagement />} />
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="admin/bookings" element={<RequireAdmin><Bookings /></RequireAdmin>} />
           <Route path="admin/users" element={<RequireAdmin><Users /></RequireAdmin>} />
           <Route path="admin/models" element={<RequireAdmin><Models /></RequireAdmin>} />
           <Route path="admin/audit" element={<RequireAdmin><Audit /></RequireAdmin>} />

@@ -20,3 +20,10 @@ Defined in `backend/app/models/entities.py` (SQLAlchemy 2). Created with `Base.m
 All mutable tables carry `created_at` / `updated_at` (UTC). CAPAs are not a separate table yet: they are derived from `complaints.capa_id` until `04_CAPA_History` is supplied (then add a `capas` table keyed by `capa_id`).
 
 **Migrations:** none yet (schema created from models). Before production on PostgreSQL, add Alembic and generate an initial migration from these models.
+
+## Changes 2026-11-23 (public complaint workflow)
+- `complaints` + nullable columns: `submitter_name`, `submitter_organisation`, `submitter_email`, `additional_info`, `access_key_hash` (SHA-256 of the visitor's key; the key itself is never stored), `analysis_status` (pending/completed/partial/failed), `analysis_attempts`, `last_analysis_at`, `root_cause_confirmed_by_id` (FK users), `root_cause_confirmed_at`. `source` gains the value `public`.
+- `complaint_attachments`: `complaint_pk` FK (CASCADE), random `stored_name` (unique), original filename, content type, size, width, height, SHA-256, created. Files live in `backend/storage/attachments/` (read-only, outside any web root) - never in the database.
+- `investigation_notes`: `complaint_pk` FK, `author_id` FK, note, created.
+- `demo_bookings` retained with its records; no longer written or exposed.
+- Applied to the existing database by an additive startup step (`ALTER TABLE ... ADD COLUMN` for missing nullable columns only; never drops or rewrites). A full backup was taken first (`backups/`).

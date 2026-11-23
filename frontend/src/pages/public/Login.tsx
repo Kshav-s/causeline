@@ -35,8 +35,8 @@ export default function Login() {
       <div className="flex items-center justify-center p-6">
         <div className="w-full max-w-sm">
           <div className="md:hidden mb-8"><Link to="/"><Logo /></Link></div>
-          <h2 className="text-2xl font-semibold">Sign in</h2>
-          <p className="text-muted mt-1">Use the account provided by your administrator.</p>
+          <h2 className="text-2xl font-semibold">Staff access</h2>
+          <p className="text-muted mt-1">For CauseLine quality staff only. Use the account provided by your administrator.</p>
           <form className="mt-6 space-y-4" noValidate onSubmit={handleSubmit(async (v) => {
             setError(null);
             try { await login(v.email, v.password); nav(safeNext, { replace: true }); }
@@ -54,7 +54,7 @@ export default function Login() {
             </Field>
             <Button type="submit" className="w-full" loading={isSubmitting} icon={<LogIn className="size-4" />}>Sign in</Button>
           </form>
-          <p className="mt-6 text-[13px] text-muted">No account? <Link to="/demo" className="text-link hover:underline">Request a demo</Link></p>
+          <p className="mt-6 text-[13px] text-muted">Customers do not need an account. <Link to="/raise" className="text-link hover:underline">Raise a complaint</Link></p>
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.analytics.complaints import invalidate_cache
 from app.core.audit import audit, notify
+from app.core.config import get_settings
 from app.core.deps import client_ip
 from app.core.ratelimit import RateLimiter
 from app.database.session import get_db
@@ -29,7 +30,7 @@ from app.services.complaint_ids import add_with_unique_id
 
 router = APIRouter(prefix="/api/public", tags=["public"])
 log = logging.getLogger("causeline.public")
-submit_limiter = RateLimiter(max_calls=10, per_seconds=3600)
+submit_limiter = RateLimiter(max_calls=get_settings().public_submit_per_hour, per_seconds=3600)
 retry_limiter = RateLimiter(max_calls=20, per_seconds=3600)
 view_limiter = RateLimiter(max_calls=240, per_seconds=3600)
 SEVERITIES = ["Routine", "Major", "Critical"]
@@ -89,6 +90,10 @@ async def submit(request: Request,
     description = description.strip()
     if len(description) < 20:
         raise HTTPException(422, "Describe the problem in at least 20 characters")
+    product_name = product_name.strip()
+    known = db.execute(select(Complaint.product_id, Complaint.food_family, Complaint.product_category, func.count())
+                       .where(func.lower(Complaint.product_name) == product_name.lower(), Complaint.food_family.is_not(None))
+                       .group_by(Complaint.product_id, Complaint.food_family, Complaint.product_category).order_by(desc(func.count())).limit(1)).first()
     validated = await att.validate_images(images)  # all images checked before anything is written
     stored = att.store(validated)
     key = secrets.token_urlsafe(24)
@@ -96,7 +101,8 @@ async def submit(request: Request,
         c = add_with_unique_id(db, complaint_date.year, lambda cid: Complaint(
             complaint_id=cid, source="public", is_synthetic=False, data_origin="CAUSELINE_PUBLIC_SUBMISSION",
             complaint_received_date=date.today(), event_date=complaint_date, complaint_channel="CauseLine web form",
-            product_name=product_name.strip(), batch_id=(batch_id or "").strip() or None, complaint_description=description,
+            product_name=product_name, batch_id=(batch_id or "").strip() or None, complaint_description=description,
+            product_id=known[0] if known else None, food_family=known[1] if known else None, product_category=known[2] if known else None,
             complaint_summary=description[:120], complaint_severity=severity, complaint_status="Open",
             customer_name=(organisation or "").strip() or None, submitter_name=customer_name.strip(),
             submitter_organisation=(organisation or "").strip() or None, submitter_email=email, additional_info=(additional_info or "").strip() or None,
@@ -126,7 +132,9 @@ def _public_view(db: Session, c: Complaint) -> dict:
                        .order_by(desc(Prediction.created_at), Prediction.id)).all()
     latest_run = preds[0].run_id if preds else None
     from app.api.ml import prediction_out
-    run = {p.model_version.model_key: prediction_out(p, {}) for p in preds if p.run_id == latest_run}
+    run: dict = {}
+    for p in preds:  # newest first -> keep the first (newest) output per model
+        run.setdefault(p.model_version.model_key, prediction_out(p, {}))
     for p in run.values():  # never expose staff identities publicly
         for r in p["reviews"]:
             r["reviewer"] = "CauseLine staff"
@@ -211,6 +219,12 @@ def register(q: str | None = Query(None, max_length=100), category: list[str] = 
                                   .order_by(Complaint.complaint_category)).all()]
     return {"items": items, "total": total, "page": page, "page_size": page_size, "categories": cats,
             "severities": SEVERITIES, "statuses": ["Open", "Under investigation", "Awaiting customer information", "Closed"]}
+
+
+@router.get("/products")
+def products(db: Session = Depends(get_db)):
+    """Known product names (catalogue data, not personal data) for form suggestions."""
+    return {"products": list(db.scalars(select(Complaint.product_name).where(Complaint.source == "import").distinct().order_by(Complaint.product_name)))}
 
 
 @router.get("/meta")

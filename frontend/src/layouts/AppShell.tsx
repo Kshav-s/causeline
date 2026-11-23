@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-do
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
-  Bell, BrainCircuit, CalendarCheck, ChevronsLeft, ChevronsRight, ClipboardList, Cpu, Database, FileBarChart2, FlaskConical, GitBranch,
+  Bell, BrainCircuit, ChevronsLeft, ChevronsRight, ClipboardList, Cpu, Database, FileBarChart2, FlaskConical, GitBranch,
   LayoutDashboard, LineChart, ListChecks, LogOut, Menu, Moon, PlusCircle, ScrollText, Search, Settings, ShieldAlert, Sun, Users, X,
 } from "lucide-react";
 import { useAuth, useCapabilities } from "../hooks/auth";
@@ -39,7 +39,7 @@ function useNav(): Group[] {
       { to: "/app/risk", label: m.risk_level === "batch" ? "Product & batch risk" : "Product risk", icon: ShieldAlert, module: "risk" }] },
     { label: "Insights", items: [{ to: "/app/analytics", label: "Analytics", icon: LineChart, module: "analytics" }, { to: "/app/reports", label: "Reports", icon: FileBarChart2, module: "reports" }] },
     { label: "Data", items: [{ to: "/app/data", label: "Data management", icon: Database, module: "data_management" }] },
-    { label: "Admin", admin: true, items: [{ to: "/app/admin/bookings", label: "Demo bookings", icon: CalendarCheck }, { to: "/app/admin/users", label: "Users & roles", icon: Users },
+    { label: "Admin", admin: true, items: [{ to: "/app/admin/users", label: "Users & roles", icon: Users },
       { to: "/app/admin/models", label: "Model registry", icon: Cpu }, { to: "/app/admin/audit", label: "Audit log", icon: ScrollText }] },
   ];
   // Hide (never grey out) modules the backend reports as unsupported - CLAUDE.md §14.
@@ -221,7 +221,7 @@ export function AppShell() {
                 </div>
                 <DropdownMenu.Item onSelect={() => nav("/app/settings")} className="flex items-center gap-2 px-3 h-9 rounded cursor-pointer outline-none data-[highlighted]:bg-surface-hover"><Settings className="size-4" />Settings</DropdownMenu.Item>
                 <DropdownMenu.Item onSelect={toggleTheme} className="sm:hidden flex items-center gap-2 px-3 h-9 rounded cursor-pointer outline-none data-[highlighted]:bg-surface-hover"><Moon className="size-4" />Toggle theme</DropdownMenu.Item>
-                <DropdownMenu.Item onSelect={async () => { await logout(); nav("/login"); }} className="flex items-center gap-2 px-3 h-9 rounded cursor-pointer outline-none data-[highlighted]:bg-surface-hover"><LogOut className="size-4" />Sign out</DropdownMenu.Item>
+                <DropdownMenu.Item onSelect={async () => { await logout(); nav("/"); }} className="flex items-center gap-2 px-3 h-9 rounded cursor-pointer outline-none data-[highlighted]:bg-surface-hover"><LogOut className="size-4" />Sign out</DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu.Portal>
           </DropdownMenu.Root>

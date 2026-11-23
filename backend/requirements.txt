@@ -15,6 +15,7 @@ SQLAlchemy==2.1.9
 bcrypt==5.0.0
 PyJWT==2.15.1
 openpyxl==3.1.5
+pillow==13.0.0   # server-side image validation for complaint photos
 # add psycopg[binary] when DATABASE_URL points at PostgreSQL / Supabase
 
 # ML (artifact-compatible versions)

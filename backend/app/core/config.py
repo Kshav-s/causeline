@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     attachment_dir: Path = BACKEND_DIR / "storage" / "attachments"
     max_image_mb: int = 5
     max_images_per_complaint: int = 6
+    public_submit_per_hour: int = 10  # per client IP
 
     # Optional external NLP service (same /analyze contract as the NLP handover). Empty = run the identical
     # model artifacts in-process (the verified default). On remote failure CauseLine falls back to in-process.

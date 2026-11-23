@@ -27,6 +27,7 @@ export default function Analytics() {
   const t = useQuery({ queryKey: ["trends", f], queryFn: () => api.get<Trends>("/api/analytics/trends", f) });
   const p = useQuery({ queryKey: ["pareto", dim, weighted, f], queryFn: () => api.get<Pareto>("/api/analytics/pareto", { ...f, dimension: dim, weighted }) });
   const r = useQuery({ queryKey: ["recurrence", f], queryFn: () => api.get<Rec>("/api/analytics/recurrence", f) });
+  const hc = useQuery({ queryKey: ["haccp"], queryFn: () => api.get<{ rows: { process_step: string; complaints: number; potential_gap_flags: number; flag_rate: number; critical: number; food_safety_related: number; controls: number; requires_review: boolean }[]; flagged_total: number; complaints_with_haccp_step: number; basis: string }>("/api/analytics/haccp") });
   const chips = (["product", "category", "severity"] as const).flatMap((k) => getAll(k).map((v) => ({ key: k + v, label: v, onRemove: () => set({ [k]: getAll(k).filter((x) => x !== v) }) })));
   const d = t.data;
   return (
@@ -93,6 +94,19 @@ export default function Analytics() {
           <ColumnChart data={r.data?.post_capa_by_year ?? []} xKey="year" yKey="pct" label="% recurring" />
         </ChartCard>
       </div>
+
+      <Card className="mb-4" title="HACCP signals" subtitle={hc.data ? `${fmtInt(hc.data.flagged_total)} recorded potential-gap flags across ${fmtInt(hc.data.complaints_with_haccp_step)} complaints with a HACCP step. ${hc.data.basis}` : undefined}
+        actions={<ProvenanceBadge kind="recorded" />} bodyClass="p-0">
+        <DataTable caption="HACCP signals" rows={hc.data?.rows.slice(0, 15)} rowKey={(x) => x.process_step} loading={hc.isLoading} error={hc.error} columns={[
+          { key: "s", header: "Process step", cell: (x) => <span className="font-medium">{x.process_step}</span> },
+          { key: "n", header: "Complaints", align: "right", cell: (x) => fmtInt(x.complaints) },
+          { key: "g", header: "Potential gap flags", align: "right", cell: (x) => fmtInt(x.potential_gap_flags) },
+          { key: "r", header: "Flag rate", align: "right", hideBelow: "lg", cell: (x) => `${(x.flag_rate * 100).toFixed(0)}%` },
+          { key: "c", header: "Critical", align: "right", hideBelow: "lg", cell: (x) => fmtInt(x.critical) },
+          { key: "f", header: "Food-safety related", align: "right", hideBelow: "xl", cell: (x) => fmtInt(x.food_safety_related) },
+          { key: "v", header: "", cell: (x) => x.requires_review ? <Pill tone="warn">Needs qualified review</Pill> : null },
+        ]} mobileCard={(x) => <div className="flex justify-between gap-2"><div className="min-w-0"><div className="truncate">{x.process_step}</div><div className="text-[12px] text-muted">{x.potential_gap_flags} flags · {x.complaints} complaints</div></div>{x.requires_review && <Pill tone="warn">Review</Pill>}</div>} />
+      </Card>
 
       <Card title="Recurring product-defect hotspots" subtitle={r.data ? `${fmtInt(r.data.recurring_groups)} recurring and ${fmtInt(r.data.emerging_groups)} emerging of ${fmtInt(r.data.groups)} product × category groups. ${r.data.rule}` : undefined}
         actions={<ProvenanceBadge kind="rule" />} bodyClass="p-0">
