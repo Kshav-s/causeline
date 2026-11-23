@@ -46,6 +46,13 @@ def frame(db: Session) -> pd.DataFrame:
     return df
 
 
+def synthetic_ids(db: Session) -> set[str]:
+    """Complaint IDs flagged synthetic in the database (cached with the frame). C2: used to label similar-complaint
+    results at read time, so stored predictions are labelled without being rewritten."""
+    df = frame(db)
+    return set(df.loc[df.is_synthetic.fillna(False).astype(bool), "complaint_id"])
+
+
 def invalidate_cache() -> None:
     with _lock:
         _cache.update(key=None, df=None)

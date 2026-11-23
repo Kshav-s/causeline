@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { api } from "../../services/api";
+import { SyntheticNotice } from "../../components/domain/SyntheticNotice";
 import { useCapabilities } from "../../hooks/auth";
 import { Banner, Card, Mono, PageHeader } from "../../components/ui/primitives";
 import { KpiCard } from "../../components/ui/KpiCard";
@@ -40,6 +41,7 @@ export default function RootCause() {
   return (
     <>
       <PageHeader title="Root cause intelligence" description="Recorded root causes and the evidence behind them. Model hypotheses are shown separately and never as confirmed causes." />
+      <SyntheticNotice what="Root-cause statistics and hypotheses on this page" />
       <Banner tone="info" className="mb-5" title="How to read this page">
         Causes in the table and Pareto are <b>recorded</b> in the source data with a status (Confirmed, Probable, Hypothesis, Unknown). Hypotheses from the root-cause model appear only in the lower section and on complaint pages, labelled as predictions.
       </Banner>

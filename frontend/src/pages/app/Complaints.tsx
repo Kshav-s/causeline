@@ -43,10 +43,14 @@ export default function Complaints() {
   const onSort = (k: string) => set({ sort: k, order: sort === k && order === "desc" ? "asc" : "desc" });
 
   const cols: Column<ComplaintListItem>[] = [
-    { key: "id", header: "Complaint ID", sortKey: "complaint_id", cell: (r) => <Link to={`/app/complaints/${r.complaint_id}`} className="font-mono text-[12px] text-link hover:underline" onClick={(e) => e.stopPropagation()}>{r.complaint_id}</Link> },
+    { key: "id", header: "Complaint ID", sortKey: "complaint_id", cell: (r) => (
+      <div className="flex flex-col items-start gap-0.5">
+        <Link to={`/app/complaints/${r.complaint_id}`} className="font-mono text-[12px] text-link hover:underline" onClick={(e) => e.stopPropagation()}>{r.complaint_id}</Link>
+        {r.is_synthetic && <ProvenanceBadge kind="demo" className="!h-[18px] !text-[10px]" />}
+      </div>) },
     { key: "date", header: "Received", sortKey: "complaint_received_date", align: "right", cell: (r) => fmtDate(r.complaint_received_date) },
     { key: "product", header: "Product", sortKey: "product_name", cell: (r) => <span className="block max-w-56 truncate" title={r.product_name}>{r.product_name}</span> },
-    { key: "batch", header: "Batch", hideBelow: "xl", cell: (r) => r.batch_id ? <Mono className="text-[12px]">{r.batch_id}</Mono> : <span className="text-faint">Not supplied</span> },
+    { key: "batch", header: "Batch", hideBelow: "2xl", cell: (r) => r.batch_id ? <Mono className="text-[12px] whitespace-nowrap">{r.batch_id}</Mono> : <span className="text-faint">Not supplied</span> },
     { key: "cat", header: "Category", sortKey: "complaint_category", cell: (r) => (
       <div className="max-w-60">
         {r.complaint_category ? <span className="block truncate" title={r.complaint_category}>{r.complaint_category}</span> : <span className="text-faint">Not recorded</span>}
@@ -55,7 +59,7 @@ export default function Complaints() {
       </div>) },
     { key: "sev", header: "Severity", sortKey: "complaint_severity", cell: (r) => <SeverityPill value={r.complaint_severity} /> },
     { key: "status", header: "Status", sortKey: "complaint_status", cell: (r) => <StatusPill value={r.complaint_status} /> },
-    { key: "owner", header: "Owner", hideBelow: "xl", cell: (r) => r.owner ?? <span className="text-faint">—</span> },
+    { key: "owner", header: "Owner", hideBelow: "2xl", cell: (r) => r.owner ?? <span className="text-faint">—</span> },
     { key: "age", header: "Age", align: "right", hideBelow: "lg", cell: (r) => {
       const d = daysBetween(r.complaint_received_date, r.complaint_closed_date);
       const open = r.complaint_status !== "Closed";
@@ -102,6 +106,7 @@ export default function Complaints() {
           mobileCard={(r) => (
             <div className="space-y-1">
               <div className="flex items-center justify-between gap-2"><Mono className="text-[12px] text-link">{r.complaint_id}</Mono><StatusPill value={r.complaint_status} /></div>
+              {r.is_synthetic && <ProvenanceBadge kind="demo" />}
               <div className="text-[13px] text-ink truncate">{r.product_name}</div>
               <div className="flex items-center justify-between text-[12px] text-muted"><SeverityPill value={r.complaint_severity} /><span>{fmtDate(r.complaint_received_date)}</span></div>
             </div>

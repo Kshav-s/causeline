@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.analytics.complaints import OPEN_STATUSES, invalidate_cache
 from app.core.audit import audit
-from app.core.deps import client_ip, get_current_user
+from app.core.deps import client_ip, get_current_user, require_admin
 from app.database.session import get_db
 from app.models import AuditLog, Complaint, ComplaintAttachment, HistoricalRootCauseHypothesis, InvestigationNote, ModelVersion, Prediction, User
 from app.services import attachments as att
@@ -131,7 +131,9 @@ def get_complaint(complaint_id: str, user: User = Depends(get_current_user), db:
             "analysis_status": c.analysis_status,
             "root_cause_confirmation": {"by": names.get(c.root_cause_confirmed_by_id), "at": c.root_cause_confirmed_at.isoformat()} if c.root_cause_confirmed_at else None,
             "attachments": [{"id": f.id, "filename": f.original_filename, "content_type": f.content_type, "size_bytes": f.size_bytes,
-                             "width": f.width, "height": f.height, "sha256": f.sha256, "created_at": f.created_at.isoformat()} for f in files]}
+                             "width": f.width, "height": f.height, "sha256": f.sha256, "created_at": f.created_at.isoformat(),
+                             "sanitized": f.sanitized, "metadata_removed": f.metadata_removed, "has_original": bool(f.original_stored_name),
+                             "original_sha256": f.original_sha256, "original_size_bytes": f.original_size_bytes} for f in files]}
 
 
 @router.get("/{complaint_id}/attachments/{attachment_id}")
@@ -142,6 +144,19 @@ def staff_attachment(complaint_id: str, attachment_id: int, user: User = Depends
         raise HTTPException(404, "Not found")
     return FileResponse(att.path_for(a.stored_name), media_type=a.content_type,
                         headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff", "Content-Disposition": "inline"})
+
+
+@router.get("/{complaint_id}/attachments/{attachment_id}/original")
+def original_attachment(complaint_id: str, attachment_id: int, request: Request, admin: User = Depends(require_admin), db: Session = Depends(get_db)):
+    """C7: the untouched upload (may contain location metadata). Administrators only; every access is audited."""
+    c = _get(db, complaint_id)
+    a = db.scalar(select(ComplaintAttachment).where(ComplaintAttachment.id == attachment_id, ComplaintAttachment.complaint_pk == c.id))
+    if not a or not a.original_stored_name:
+        raise HTTPException(404, "No retained original for this image")
+    audit(db, "attachment.original_download", admin.id, "complaint", c.complaint_id, {"attachment_id": a.id}, client_ip(request))
+    db.commit()
+    return FileResponse(att.original_path_for(a.original_stored_name), media_type=a.content_type, filename=f"ORIGINAL-{a.original_filename}",
+                        headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"})
 
 
 class NoteIn(BaseModel):

@@ -35,7 +35,7 @@ export default function Register() {
   const chips = (["category", "severity", "status"] as const).flatMap((k) => sp.getAll(k).map((v) => ({ key: k + v, label: v, onRemove: () => set({ [k]: sp.getAll(k).filter((x) => x !== v) }) })));
   const open = (row: Row) => { const k = keyFor(row.complaint_id); nav(k ? `/complaint/${row.complaint_id}#key=${encodeURIComponent(k)}` : `/track?id=${encodeURIComponent(row.complaint_id)}`); };
   const cols: Column<Row>[] = [
-    { key: "id", header: "Complaint ID", sortKey: "id", cell: (x) => <span className="inline-flex items-center gap-1.5"><Mono className="text-[12px] text-link">{x.complaint_id}</Mono>{keyFor(x.complaint_id) && <Pill tone="info">Yours</Pill>}</span> },
+    { key: "id", header: "Complaint ID", sortKey: "id", cell: (x) => <span className="inline-flex flex-wrap items-center gap-1.5"><Mono className="text-[12px] text-link">{x.complaint_id}</Mono>{keyFor(x.complaint_id) && <Pill tone="info">Yours</Pill>}{x.is_synthetic && <ProvenanceBadge kind="demo" />}</span> },
     { key: "d", header: "Submitted", sortKey: "date", align: "right", cell: (x) => fmtDate(x.submitted) },
     { key: "p", header: "Product", sortKey: "product", cell: (x) => <span className="block max-w-52 truncate" title={x.product_name}>{x.product_name}</span> },
     { key: "c", header: "Category", cell: (x) => x.category ? <span className="block max-w-56 truncate" title={x.category}>{x.category}{x.category_source === "human_verified" && <ProvenanceBadge kind="human" label="Verified" className="ml-1.5" />}</span>
@@ -73,6 +73,7 @@ export default function Register() {
             mobileCard={(x) => (
               <div className="space-y-1">
                 <div className="flex items-center justify-between gap-2"><Mono className="text-[12px] text-link">{x.complaint_id}</Mono><StatusPill value={x.status} /></div>
+                {x.is_synthetic && <ProvenanceBadge kind="demo" />}
                 <div className="text-[13px] truncate">{x.product_name}</div>
                 <div className="min-w-0">{x.category ? <span className="text-[12px] text-ink-2">{x.category}</span> : x.predicted_category ? <ProvenanceBadge kind="nlp" label={`AI suggestion: ${x.predicted_category}`} className="max-w-full truncate" /> : <span className="text-[12px] text-faint">Not classified</span>}</div>
                 <div className="flex items-center justify-between text-[12px] text-muted"><SeverityPill value={x.severity} /><span>{fmtDate(x.submitted)}</span></div>
@@ -80,7 +81,7 @@ export default function Register() {
             )} />
           {r.data && <Pagination page={page} pageSize={25} total={r.data.total} onPage={(p) => set({ page: String(p) })} />}
         </Card>
-        <p className="mt-4 text-[12px] text-muted flex items-center gap-1.5"><Lock className="size-3.5" />Opening a complaint requires its private access key. Historical records (ABT-CMP-…) are synthetic demonstration data.</p>
+        <p className="mt-4 text-[12px] text-muted flex items-center gap-1.5"><Lock className="size-3.5" />Opening a complaint requires its private access key. Rows marked SYNTHETIC DEMO DATA are demonstration records, not genuine ABT CPD complaints; use "Raised on CauseLine" to see only real submissions.</p>
       </div>
     </div>
   );

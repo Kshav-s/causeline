@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { FileBarChart2, Printer, Download } from "lucide-react";
 import { api, downloadUrl } from "../../services/api";
+import { SyntheticNotice } from "../../components/domain/SyntheticNotice";
 import { Banner, Button, Card, PageHeader } from "../../components/ui/primitives";
 import { Input, MultiSelect } from "../../components/ui/forms";
 import { ProvenanceBadge, PROVENANCE_LEGEND } from "../../components/ui/ProvenanceBadge";
@@ -84,6 +85,7 @@ export default function Reports() {
     <>
       <div className="no-print">
         <PageHeader title="Reports" description="Generate print-ready reports from stored records. Use your browser's print dialog to save as PDF; tables export as CSV." />
+        <SyntheticNotice what="Reports generated here" />
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 mb-4" role="radiogroup" aria-label="Report template">
           {TEMPLATES.map((t) => (
             <button key={t.id} role="radio" aria-checked={tpl === t.id} onClick={() => setTpl(t.id)} className={cx("text-left rounded-[var(--radius-card)] border p-4 bg-surface transition-colors", tpl === t.id ? "border-petrol-500 ring-1 ring-petrol-500" : "border-line hover:border-line-strong")}>

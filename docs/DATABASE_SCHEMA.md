@@ -27,3 +27,4 @@ All mutable tables carry `created_at` / `updated_at` (UTC). CAPAs are not a sepa
 - `investigation_notes`: `complaint_pk` FK, `author_id` FK, note, created.
 - `demo_bookings` retained with its records; no longer written or exposed.
 - Applied to the existing database by an additive startup step (`ALTER TABLE ... ADD COLUMN` for missing nullable columns only; never drops or rewrites). A full backup was taken first (`backups/`).
+- C7: `complaint_attachments` + `sanitized`, `metadata_removed` (JSON), `original_stored_name`, `original_sha256`, `original_size_bytes` (nullable; added by the additive start-up step).

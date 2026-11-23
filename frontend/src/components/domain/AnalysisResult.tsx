@@ -207,13 +207,15 @@ export function AnalysisResult({ run, showInput = true, readOnly = false }: { ru
         <Panel kind="similarity" title="Similar historical complaints" p={sim}>
           {sim.status !== "completed" ? <Unavailable p={sim} what="Similarity search" /> : (
             <>
-              <p className="text-[12px] text-muted mb-2">Cosine similarity of sentence embeddings (0–1). Similar wording is evidence to compare, not proof of the same cause.</p>
+              <p className="text-[12px] text-muted mb-2">Cosine similarity of sentence embeddings (0–1). Similar wording is evidence to compare, not proof of the same cause.
+                {sim.output!.results.some((r: { is_synthetic?: boolean }) => r.is_synthetic) && <> Records marked <b style={{ color: "var(--pv-demo-fg)" }}>SYNTHETIC DEMO DATA</b> are demonstration records, not genuine ABT CPD complaints.</>}</p>
               <ul className="divide-y divide-line">
-                {sim.output!.results.map((r: { complaint_id: string; complaint_received_date: string; complaint_category: string; product_name: string; complaint_summary: string; similarity: number }) => (
+                {sim.output!.results.map((r: { complaint_id: string; complaint_received_date: string; complaint_category: string; product_name: string; complaint_summary: string; similarity: number; is_synthetic?: boolean }) => (
                   <li key={r.complaint_id} className="py-2 flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       {readOnly ? <span className="font-mono text-[12px] text-ink-2">{r.complaint_id}</span> : <Link to={`/app/complaints/${r.complaint_id}`} className="font-mono text-[12px] text-link hover:underline">{r.complaint_id}</Link>}
                       <span className="text-[12px] text-muted"> · {fmtDate(r.complaint_received_date)} · {r.product_name}</span>
+                      {r.is_synthetic && <ProvenanceBadge kind="demo" className="ml-2 align-middle" title="Synthetic demonstration record (SYNTHETIC_ABT_CPD) - not a genuine ABT CPD complaint" />}
                       <div className="text-[13px] text-ink-2 truncate">{r.complaint_summary}</div>
                       <div className="text-[12px] text-muted">Recorded category: {r.complaint_category}</div>
                     </div>

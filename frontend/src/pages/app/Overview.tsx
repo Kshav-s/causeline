@@ -4,7 +4,8 @@ import { Download } from "lucide-react";
 import { api, downloadUrl } from "../../services/api";
 import { useCapabilities } from "../../hooks/auth";
 import { useUrlState } from "../../hooks/useUrlState";
-import { Banner, Card, Mono, PageHeader, StatusPill } from "../../components/ui/primitives";
+import { SyntheticNotice } from "../../components/domain/SyntheticNotice";
+import { Card, Mono, PageHeader, StatusPill } from "../../components/ui/primitives";
 import { KpiCard } from "../../components/ui/KpiCard";
 import { Input } from "../../components/ui/forms";
 import { ProvenanceBadge } from "../../components/ui/ProvenanceBadge";
@@ -47,9 +48,7 @@ export default function Overview() {
           <a href={downloadUrl("/api/complaints/export.csv", { date_from: from, date_to: to })} className="h-9 px-3 inline-flex items-center gap-2 rounded-[var(--radius-control)] border border-line-strong bg-surface text-sm font-medium hover:bg-surface-hover"><Download className="size-4" />Export</a>
         </>}
         meta={<span className="text-[12px] text-muted">Period: <b className="text-ink-2">{range}</b></span>} />
-      {caps?.data.demo_data && (
-        <Banner tone="demo" className="mb-5" title="Demonstration data">All {fmtInt(caps.data.complaints)} complaint records are synthetic (SYNTHETIC_ABT_CPD). Figures show how the platform works; they are not ABT CPD performance.</Banner>
-      )}
+      <SyntheticNotice what="Dashboard figures" />
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 mb-5">
         <KpiCard label="Complaints" value={fmtInt(k?.total_complaints)} provenance="recorded" loading={q.isLoading} to="/app/complaints" hint="Records in period" />
         <KpiCard label="Open / in progress" value={fmtInt(k?.open_complaints)} provenance="recorded" loading={q.isLoading} to="/app/complaints?tab=active" hint="Not yet closed" />
@@ -62,7 +61,7 @@ export default function Overview() {
       </div>
 
       <div className="grid gap-4 grid-cols-2 xl:grid-cols-4 mb-5">
-        <KpiCard label="New (last 30 days)" value={fmtInt(k?.new_last_30_days)} provenance="recorded" loading={q.isLoading} hint="Created in CauseLine in the last 30 days (all time, ignores the period filter)" />
+        <KpiCard label="New (last 30 days)" value={fmtInt(k?.new_last_30_days)} provenance="recorded" loading={q.isLoading} hint="Received in the last 30 days (ignores the period filter)" />
         <KpiCard label="Raised on CauseLine" value={fmtInt(k?.public_submissions)} provenance="recorded" loading={q.isLoading} hint="Submitted on the public form (no account)" />
         <KpiCard label="AI food-safety escalations" value={fmtInt(k?.ai_food_safety_escalations)} provenance="rule" loading={q.isLoading} to="/app/ai?tab=queue"
           unavailable={k && k.ai_food_safety_assessed === 0 ? "No complaint has been analysed yet" : undefined} hint={k ? `of ${fmtInt(k.ai_food_safety_assessed)} analysed complaints - keyword rule, needs human review` : undefined} />

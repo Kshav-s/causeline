@@ -58,3 +58,8 @@ Database operations and tests for each group: see `backend/tests/test_api.py` an
 | GET `/api/analytics/haccp` | staff | Recorded HACCP potential-gap flags by process step | flag ≠ failed control |
 
 Reviewing an `nlp-category` prediction as confirmed/corrected now also runs the root-cause model for that complaint (new run; nothing overwritten). The demo-booking endpoints were removed.
+
+## Changes (approved C2/C7, 2026-11-23)
+- Similar-complaint results (`nlp-similarity` output) include `is_synthetic` and `data_label` ("SYNTHETIC DEMO DATA") per record, computed at read time.
+- `GET /api/complaints/{id}/attachments/{aid}/original` - **admin only**, audited: untouched original upload. All other photo endpoints serve the metadata-stripped display copy.
+- Staff complaint detail attachments include `sanitized`, `metadata_removed`, `has_original`, `original_sha256`, `original_size_bytes`.

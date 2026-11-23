@@ -11,7 +11,7 @@ export interface Column<T> {
   sortKey?: string;
   className?: string;
   /** hide below this breakpoint (low-priority columns) */
-  hideBelow?: "lg" | "xl";
+  hideBelow?: "lg" | "xl" | "2xl";
 }
 
 export function DataTable<T>({ columns, rows, rowKey, loading, error, onRetry, empty, onRowClick, sort, onSort, mobileCard, caption, compact }: {
@@ -20,7 +20,7 @@ export function DataTable<T>({ columns, rows, rowKey, loading, error, onRetry, e
   mobileCard?: (r: T) => ReactNode; caption: string; compact?: boolean;
 }) {
   if (error) return <ErrorState error={error} onRetry={onRetry} />;
-  const hide = (c: Column<T>) => (c.hideBelow === "lg" ? "max-lg:hidden" : c.hideBelow === "xl" ? "max-xl:hidden" : "");
+  const hide = (c: Column<T>) => (c.hideBelow === "lg" ? "max-lg:hidden" : c.hideBelow === "xl" ? "max-xl:hidden" : c.hideBelow === "2xl" ? "max-2xl:hidden" : "");
   const rowH = compact ? "h-9" : "h-11";
   return (
     <>

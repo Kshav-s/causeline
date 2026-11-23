@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { BrainCircuit, Pencil, ShieldAlert } from "lucide-react";
 import { api, ApiError } from "../../services/api";
+import { useAuth } from "../../hooks/auth";
 import type { AnalysisRun, Complaint } from "../../types/api";
 import { Banner, Button, Card, ErrorState, KeyValue, Mono, PageHeader, Pill, SeverityPill, Skeleton, StatusPill } from "../../components/ui/primitives";
 import { ProvenanceBadge } from "../../components/ui/ProvenanceBadge";
@@ -12,7 +13,8 @@ import { Modal, useToast } from "../../components/ui/overlays";
 import { AnalysisResult, ReviewStatus } from "../../components/domain/AnalysisResult";
 import { cx, fmtDate, fmtDateTime } from "../../utils/format";
 
-type Attachment = { id: number; filename: string; content_type: string; size_bytes: number; width: number | null; height: number | null; sha256: string; created_at: string };
+type Attachment = { id: number; filename: string; content_type: string; size_bytes: number; width: number | null; height: number | null; sha256: string; created_at: string;
+  sanitized: boolean | null; metadata_removed: { gps?: boolean; exif_tags?: number; xmp?: boolean; png_text_chunks?: string[] } | null; has_original: boolean };
 type Detail = { complaint: Complaint; extra: Record<string, string>; historical_root_cause_hypotheses: { cause: string; probability: number }[] | null; linked_capas: string[]; recurrence_of_capa: string | null;
   submitter: { name: string | null; organisation: string | null; email: string | null; additional_info: string | null } | null; analysis_status: string | null;
   root_cause_confirmation: { by: string | null; at: string } | null; attachments: Attachment[] };
@@ -124,6 +126,7 @@ function EditDialog({ c, open, onOpenChange }: { c: Complaint; open: boolean; on
 
 export default function ComplaintDetail() {
   const { id = "" } = useParams();
+  const { user } = useAuth();
   const qc = useQueryClient();
   const toast = useToast();
   const [edit, setEdit] = useState(false);
@@ -151,6 +154,9 @@ export default function ComplaintDetail() {
           <Button variant="secondary" icon={<Pencil className="size-4" />} onClick={() => setEdit(true)}>Edit</Button>
           <Button icon={<BrainCircuit className="size-4" />} loading={analyze.isPending} onClick={() => analyze.mutate()}>Run AI analysis</Button>
         </>} />
+      {c.is_synthetic && (
+        <Banner tone="demo" className="mb-4" title="SYNTHETIC DEMO DATA">This is a synthetic demonstration record ({c.data_origin}), not a genuine ABT CPD complaint. Its recorded category, root cause and CAPA values are demonstration values.</Banner>
+      )}
       <Card className="mb-4" bodyClass="py-3"><Stepper label="Investigation stage (derived from recorded fields)" steps={STEPS} current={stage(c)} /></Card>
       <div className="grid gap-4 xl:grid-cols-12">
         <div className="xl:col-span-8 space-y-4 min-w-0">
@@ -170,7 +176,11 @@ export default function ComplaintDetail() {
                   return (
                     <figure key={a.id} className="rounded-[var(--radius-card)] border border-line overflow-hidden bg-surface-2">
                       <a href={src} target="_blank" rel="noreferrer"><img src={src} alt={`Complaint photo ${a.filename}`} className="h-36 w-full object-cover" loading="lazy" /></a>
-                      <figcaption className="p-2 text-[11px] text-muted"><div className="truncate" title={a.filename}>{a.filename}</div><div>{a.width}x{a.height} · {(a.size_bytes / 1024).toFixed(0)} KB</div><div className="font-mono truncate" title={`SHA-256 ${a.sha256}`}>sha256 {a.sha256.slice(0, 12)}</div></figcaption>
+                      <figcaption className="p-2 text-[11px] text-muted"><div className="truncate" title={a.filename}>{a.filename}</div><div>{a.width}x{a.height} · {(a.size_bytes / 1024).toFixed(0)} KB</div><div className="font-mono truncate" title={`SHA-256 ${a.sha256}`}>sha256 {a.sha256.slice(0, 12)}</div>
+                        {a.sanitized ? <div className="mt-1 text-[var(--ok-fg)]" title="Display copy has EXIF, GPS, XMP and text metadata removed">{a.metadata_removed?.gps ? "GPS location removed" : "Metadata removed"}{a.metadata_removed?.exif_tags ? ` · ${a.metadata_removed.exif_tags} EXIF tags` : ""}</div>
+                          : <div className="mt-1">Uploaded before metadata stripping</div>}
+                        {a.has_original && user?.role === "admin" && <a href={`${src}/original`} className="mt-1 inline-block text-link hover:underline" title="Untouched upload; may contain location data. Access is audited.">Original (restricted)</a>}
+                      </figcaption>
                     </figure>
                   );
                 })}

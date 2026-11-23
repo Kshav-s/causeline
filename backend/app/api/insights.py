@@ -36,7 +36,8 @@ def overview(f: dict = Depends(_filters), user: User = Depends(get_current_user)
     df = _df(db, f)
     pending_reviews = db.scalar(select(func.count(Prediction.id)).where(Prediction.review_status == "pending")) or 0
     since = date.today() - timedelta(days=30)
-    new_30d = db.scalar(select(func.count(Complaint.id)).where(Complaint.created_at >= since)) or 0
+    # complaints RECEIVED in the last 30 days (not rows inserted: the historical import was loaded recently)
+    new_30d = db.scalar(select(func.count(Complaint.id)).where(Complaint.complaint_received_date >= since)) or 0
     public_total = db.scalar(select(func.count(Complaint.id)).where(Complaint.source == "public")) or 0
     analysis_open = db.scalar(select(func.count(Complaint.id)).where(Complaint.analysis_status.in_(["pending", "partial", "failed"]))) or 0
     # AI food-safety escalations: complaints whose most recent food-safety rule output escalated

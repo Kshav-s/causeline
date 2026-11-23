@@ -4,6 +4,7 @@ import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Gauge } from "lucide-react";
 import { api, ApiError } from "../../services/api";
+import { SyntheticNotice } from "../../components/domain/SyntheticNotice";
 import { useUrlState } from "../../hooks/useUrlState";
 import { useCapabilities } from "../../hooks/auth";
 import type { Prediction } from "../../types/api";
@@ -161,6 +162,7 @@ export default function Risk() {
   return (
     <>
       <PageHeader title={batch ? "Product & batch risk" : "Product risk"} description="Risk is estimated at the level stated on each section. Batch tiers come from the supplied model; product monitoring is a rule-based trend." />
+      <SyntheticNotice what="Product trends and historical batch scores" />
       <Banner tone="info" className="mb-4" title="Level of estimation">
         Product monitoring compares complaint counts per product (rule-based). Batch scores use the supplied 30-day batch model, which uses only information available before dispatch.
         {" "}Batch records themselves are not stored yet - {caps?.missing_datasets[0] ?? "the batch dataset"} has not been supplied.

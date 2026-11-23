@@ -27,3 +27,5 @@
 - `PUBLIC_SUBMIT_PER_HOUR`, `MAX_IMAGE_MB`, `MAX_IMAGES_PER_COMPLAINT`; behind a reverse proxy make sure the client IP reaches the app (proxy headers) or rate limits apply to the proxy IP.
 - `NLP_SERVICE_URL` (optional) and `NLP_SERVICE_TIMEOUT_S`.
 - Pillow is now required (`pip install pillow`, pinned in requirements).
+- C7: `ATTACHMENT_DIR/originals/` holds untouched uploads (may contain GPS). Restrict it at filesystem level, include it in backups, and never expose it through a web server; only `/api/complaints/{id}/attachments/{aid}/original` (admins, audited) serves it.
+- C1: leave `NLP_SERVICE_URL` empty for the official built-in pipeline. Tunnel URLs are refused when `ENVIRONMENT=production`.

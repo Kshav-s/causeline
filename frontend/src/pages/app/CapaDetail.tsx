@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../services/api";
+import { SyntheticNotice } from "../../components/domain/SyntheticNotice";
 import { Banner, Card, ErrorState, InsufficientData, KeyValue, PageHeader, Pill, SeverityPill, Skeleton, StatusPill } from "../../components/ui/primitives";
 import { ProvenanceBadge } from "../../components/ui/ProvenanceBadge";
 import { Stepper } from "../../components/ui/Stepper";
@@ -43,6 +44,7 @@ export default function CapaDetail() {
     <>
       <PageHeader title={d.capa_id} description={`${d.product_name} · ${d.complaint_category}`}
         meta={<><Pill tone={EFF_TONE[d.effectiveness]}>Effectiveness: {d.effectiveness}</Pill>{d.capa_status && <Pill tone="info">Status: {d.capa_status}</Pill>}</>} />
+      <SyntheticNotice what="This CAPA and its linked complaints" />
       <Card className="mb-4" bodyClass="py-3"><Stepper label="CAPA stage" steps={STAGES} current={stage} blocked={d.effectiveness === "Ineffective"} /></Card>
       <Banner tone={d.effectiveness === "Ineffective" ? "bad" : d.effectiveness === "Effective" ? "ok" : "warn"} className="mb-4"
         title={d.effectiveness === "Ineffective" ? "Problem recurred after this CAPA" : d.effectiveness === "Effective" ? "No similar recurrence recorded in the follow-up window" : "Effectiveness cannot yet be established"}>

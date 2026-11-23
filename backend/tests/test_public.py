@@ -104,7 +104,9 @@ def test_access_key_required_for_details_and_images(client):
     aid = v["attachments"][0]["id"]
     assert client.get(f"/api/public/complaints/{cid}/attachments/{aid}").status_code == 404
     img = client.get(f"/api/public/complaints/{cid}/attachments/{aid}", headers={"X-Access-Key": key})
-    assert img.status_code == 200 and img.headers["content-type"] == "image/png" and img.content == png()
+    assert img.status_code == 200 and img.headers["content-type"] == "image/png"
+    # C7: the served file is the metadata-stripped copy (re-encoded), so compare pixels, not bytes
+    assert Image.open(io.BytesIO(img.content)).convert("RGB").tobytes() == Image.open(io.BytesIO(png())).convert("RGB").tobytes()
     assert "no-store" in img.headers["cache-control"]
 
 
@@ -269,3 +271,109 @@ def test_public_products_list(client):
     client.cookies.clear()
     p = client.get("/api/public/products").json()["products"]
     assert p and all(isinstance(x, str) for x in p)
+
+
+
+# ---------------------------------------------------------------- C7: location metadata stripped, original retained (restricted)
+def gps_jpeg() -> bytes:
+    exif = Image.Exif()
+    exif[0x0112] = 6  # orientation: rotate 90 degrees when displayed
+    exif[0x010F] = "TestCam"
+    exif[0x8825] = {1: "N", 2: (12.0, 58.0, 30.0), 3: "E", 4: (77.0, 35.0, 10.0)}  # GPS IFD
+    b = io.BytesIO()
+    img = Image.new("RGB", (40, 20), (10, 120, 200))
+    img.paste((240, 200, 20), (0, 0, 20, 20))  # asymmetric so orientation is checkable
+    img.save(b, "JPEG", quality=100, exif=exif.tobytes())
+    return b.getvalue()
+
+
+def png_with_text() -> bytes:
+    from PIL.PngImagePlugin import PngInfo
+    meta = PngInfo(); meta.add_text("GPSLocation", "12.975,77.594"); meta.add_text("Comment", "home address")
+    b = io.BytesIO(); Image.new("RGB", (8, 8), (1, 2, 3)).save(b, "PNG", pnginfo=meta)
+    return b.getvalue()
+
+
+def test_location_metadata_stripped_and_original_restricted(client, db):
+    original_jpg = gps_jpeg()
+    assert Image.open(io.BytesIO(original_jpg)).getexif().get_ifd(0x8825)  # fixture really carries GPS
+    j = submit(client, [("images", ("phone.jpg", original_jpg, "image/jpeg")), ("images", ("scan.png", png_with_text(), "image/png"))]).json()
+    v = client.get(f"/api/public/complaints/{j['complaint_id']}", headers={"X-Access-Key": j["access_key"]}).json()
+    served = [client.get(f"/api/public/complaints/{j['complaint_id']}/attachments/{a['id']}", headers={"X-Access-Key": j["access_key"]}).content for a in v["attachments"]]
+    jpg = Image.open(io.BytesIO(served[0]))
+    assert len(jpg.getexif()) == 0 and "exif" not in jpg.info  # no EXIF at all, so no GPS
+    assert jpg.size == (20, 40)  # orientation baked into pixels: still displays the right way up
+    ref = __import__("PIL.ImageOps", fromlist=["x"]).exif_transpose(Image.open(io.BytesIO(original_jpg))).convert("RGB")
+    import numpy as np
+    diff = float(np.abs(np.asarray(ref, dtype=int) - np.asarray(jpg.convert("RGB"), dtype=int)).mean())
+    assert diff < 4  # image content preserved (JPEG q95 re-encode)
+    pngc = Image.open(io.BytesIO(served[1]))
+    assert not getattr(pngc, "text", {}) and pngc.convert("RGB").tobytes() == Image.open(io.BytesIO(png_with_text())).convert("RGB").tobytes()  # lossless, text chunks gone
+    c = db.scalar(select(Complaint).where(Complaint.complaint_id == j["complaint_id"]))
+    rows = db.scalars(select(ComplaintAttachment).where(ComplaintAttachment.complaint_pk == c.id).order_by(ComplaintAttachment.id)).all()
+    assert rows[0].sanitized and rows[0].metadata_removed["gps"] is True and rows[1].metadata_removed["png_text_chunks"] == ["Comment", "GPSLocation"]
+    from tests.conftest import _login
+    _login(client, "analyst@test.local")
+    assert client.get(f"/api/complaints/{j['complaint_id']}/attachments/{rows[0].id}/original").status_code == 403  # analysts: display copy only
+    staff_img = client.get(f"/api/complaints/{j['complaint_id']}/attachments/{rows[0].id}")
+    assert len(Image.open(io.BytesIO(staff_img.content)).getexif()) == 0
+    _login(client, "admin@test.local")
+    orig = client.get(f"/api/complaints/{j['complaint_id']}/attachments/{rows[0].id}/original")
+    assert orig.status_code == 200 and orig.content == original_jpg  # untouched evidence retained
+    assert db.scalar(select(AuditLog).where(AuditLog.action == "attachment.original_download", AuditLog.entity_id == j["complaint_id"]))
+    client.cookies.clear()
+    assert client.get(f"/api/complaints/{j['complaint_id']}/attachments/{rows[0].id}/original").status_code == 401
+
+
+# ---------------------------------------------------------------- C2: synthetic labelling of retrieved historical records
+def test_similar_results_labelled_synthetic(client, db, first_complaint):
+    from app.ml.engines import EngineResult
+    from app.services import ml_service
+    j = submit(client).json()
+    c = db.scalar(select(Complaint).where(Complaint.complaint_id == j["complaint_id"]))
+    # store a similarity output that references one synthetic historical record and one non-synthetic (public) record
+    r = EngineResult("nlp-similarity", "completed", output={"results": [{"complaint_id": first_complaint.complaint_id, "similarity": 0.9},
+                                                                         {"complaint_id": j["complaint_id"], "similarity": 0.5}]})
+    ml_service._persist(db, "c2-run", r, {"text": "x"}, None, c, "complaint"); db.commit()
+    v = client.get(f"/api/public/complaints/{j['complaint_id']}", headers={"X-Access-Key": j["access_key"]}).json()
+    res = v["analysis"]["predictions"]["nlp-similarity"]["output"]["results"]
+    assert res[0]["is_synthetic"] is True and res[0]["data_label"] == "SYNTHETIC DEMO DATA"
+    assert res[1]["is_synthetic"] is False and res[1]["data_label"] is None
+    stored = db.scalar(select(Prediction).where(Prediction.run_id == "c2-run"))
+    assert "is_synthetic" not in stored.output_payload["results"][0]  # labelled at read time; stored output unchanged
+    reg = client.get("/api/public/register", params={"q": first_complaint.complaint_id}).json()["items"][0]
+    assert reg["is_synthetic"] is True
+
+
+# ---------------------------------------------------------------- C5: late model status changes are persisted
+def test_late_status_change_written_to_model_versions(client, db):
+    from app.ml.registry import registry
+    from app.models import ModelVersion
+    lm = registry.get("nlp-similarity")
+    before = (lm.status, lm.reason)
+    try:
+        registry._set("nlp-similarity", "ready")
+        db.expire_all()
+        assert db.scalar(select(ModelVersion.status).where(ModelVersion.model_key == "nlp-similarity")) == "ready"
+    finally:
+        registry._set("nlp-similarity", *before)
+    db.expire_all()
+    assert db.scalar(select(ModelVersion.status).where(ModelVersion.model_key == "nlp-similarity")) == before[0]
+
+
+# ---------------------------------------------------------------- C1: temporary tunnels refused in production
+def test_temporary_tunnel_url_refused_in_production():
+    from pydantic import ValidationError
+    from app.core.config import Settings
+    with pytest.raises(ValidationError):
+        Settings(environment="production", jwt_secret="x" * 40, nlp_service_url="https://abc-def.trycloudflare.com")
+    assert Settings(environment="production", jwt_secret="x" * 40, nlp_service_url="https://nlp.abtcpd.example").nlp_service_url
+    assert Settings(environment="production", jwt_secret="x" * 40).nlp_service_url == ""  # built-in pipeline = official mode
+
+
+def test_new_last_30_days_counts_received_date_not_import_time(admin, db):
+    """Regression: the historical import was inserted today; 'new' must use the complaint received date."""
+    from datetime import date, timedelta
+    k = admin.get("/api/dashboard").json()["kpis"]
+    expected = db.scalar(select(func.count(Complaint.id)).where(Complaint.complaint_received_date >= date.today() - timedelta(days=30)))
+    assert k["new_last_30_days"] == expected and k["new_last_30_days"] < k["total_complaints"]

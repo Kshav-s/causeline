@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { api } from "../../services/api";
+import { SyntheticNotice } from "../../components/domain/SyntheticNotice";
 import { useUrlState } from "../../hooks/useUrlState";
 import { Banner, Card, Mono, PageHeader, Pill, type Tone } from "../../components/ui/primitives";
 import { KpiCard } from "../../components/ui/KpiCard";
@@ -42,6 +43,7 @@ export default function Capa() {
   return (
     <>
       <PageHeader title="CAPA effectiveness" description="A closed CAPA is not assumed effective. Effectiveness is judged from later complaints linked to the CAPA." />
+      <SyntheticNotice what="CAPA records and effectiveness rates" />
       {list.data && <Banner tone="info" className="mb-5" title="Partly supported by the supplied data">
         Owner, open/close dates and the actions taken are not available - {list.data.unavailable_reason} CAPAs are identified from complaint records; effectiveness uses the recorded, rule-based label from the source data; recurrences are later complaints whose recorded prior CAPA is this CAPA.
       </Banner>}

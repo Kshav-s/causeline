@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../services/api";
+import { SyntheticNotice } from "../../components/domain/SyntheticNotice";
 import { useUrlState } from "../../hooks/useUrlState";
 import { Card, PageHeader, Pill } from "../../components/ui/primitives";
 import { FilterChips, Input, MultiSelect, Select } from "../../components/ui/forms";
@@ -33,6 +34,7 @@ export default function Analytics() {
   return (
     <>
       <PageHeader title="Analytics" description="Trends, Pareto, recurrence and closure analysis computed from stored complaint records." />
+      <SyntheticNotice what="These analytics" />
       <Card className="mb-4" bodyClass="py-3">
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Analytics filters">
           <Input aria-label="From date" type="date" value={get("from")} onChange={(e) => set({ from: e.target.value })} className="w-[150px]" />

@@ -61,6 +61,18 @@ class Settings(BaseSettings):
     def _default_db(cls, v):  # an empty DATABASE_URL in .env means "use the SQLite default"
         return v or f"sqlite:///{(BACKEND_DIR / 'data' / 'causeline.db').as_posix()}"
 
+    @field_validator("nlp_service_url")
+    @classmethod
+    def _no_temporary_tunnels(cls, v: str, info):
+        """C1 (approved 2026-11-23): the built-in pipeline is the official NLP mode. An external service may be
+        configured later, but temporary tunnel URLs (e.g. *.trycloudflare.com) are never accepted in production."""
+        v = (v or "").strip()
+        temporary = ("trycloudflare.com", "ngrok.io", "ngrok-free.app", "loca.lt", "localtunnel.me")
+        env = (info.data or {}).get("environment", "development")
+        if v and env == "production" and any(t in v.lower() for t in temporary):
+            raise ValueError("NLP_SERVICE_URL points to a temporary tunnel; not allowed in production")
+        return v
+
     @property
     def is_sqlite(self) -> bool:
         return self.database_url.startswith("sqlite")

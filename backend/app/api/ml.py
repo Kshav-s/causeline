@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy import desc, func, select
 from sqlalchemy.orm import Session, selectinload
 
+from app.analytics.complaints import synthetic_ids
 from app.core.deps import client_ip, get_current_user
 from app.core.ratelimit import inference_limiter
 from app.database.session import get_db
@@ -14,14 +15,19 @@ from app.services import ml_service
 router = APIRouter(prefix="/api/ml", tags=["ml"])
 
 
-def prediction_out(p: Prediction, users: dict[int, str] | None = None) -> dict:
+def prediction_out(p: Prediction, users: dict[int, str] | None = None, synthetic: set[str] | None = None) -> dict:
     mv = p.model_version
+    output = p.output_payload
+    if synthetic is not None and mv.model_key == "nlp-similarity" and output and output.get("results"):
+        # C2: label each retrieved historical record; payload copy only - the stored prediction is not modified
+        output = {**output, "results": [{**r, "is_synthetic": r.get("complaint_id") in synthetic,
+                                         "data_label": "SYNTHETIC DEMO DATA" if r.get("complaint_id") in synthetic else None} for r in output["results"]]}
     return {"id": p.id, "reference": p.reference, "run_id": p.run_id, "status": p.status, "subject_type": p.subject_type,
             "complaint_pk": p.complaint_pk,
             "model": {"key": mv.model_key, "version": mv.version, "name": mv.name, "kind": mv.kind, "status": mv.status,
                       "confidence_supported": mv.confidence_supported, "low_confidence_threshold": mv.low_confidence_threshold,
                       "limitations": mv.limitations, "metrics": mv.metrics},
-            "input": p.input_payload, "output": p.output_payload, "top_label": p.top_label, "top_score": p.top_score,
+            "input": p.input_payload, "output": output, "top_label": p.top_label, "top_score": p.top_score,
             "low_confidence": p.low_confidence, "message": p.message, "review_status": p.review_status,
             "reviews": [{"action": r.action, "corrected_label": r.corrected_label, "reason": r.reason,
                          "reviewer": (users or {}).get(r.reviewer_id, r.reviewer_id), "created_at": r.created_at.isoformat()} for r in p.reviews],
@@ -72,8 +78,9 @@ def get_run(run_id: str, user: User = Depends(get_current_user), db: Session = D
     if not preds:
         raise HTTPException(404, "Analysis run not found")
     u = _users(db)
+    syn = synthetic_ids(db)
     return {"run_id": run_id, "created_at": preds[0].created_at.isoformat(), "created_by": u.get(preds[0].created_by_id),
-            "complaint_pk": preds[0].complaint_pk, "predictions": {p.model_version.model_key: prediction_out(p, u) for p in preds}}
+            "complaint_pk": preds[0].complaint_pk, "predictions": {p.model_version.model_key: prediction_out(p, u, syn) for p in preds}}
 
 
 @router.get("/complaints/{complaint_pk}/runs")
@@ -82,10 +89,11 @@ def complaint_runs(complaint_pk: int, user: User = Depends(get_current_user), db
     preds = db.scalars(select(Prediction).options(selectinload(Prediction.reviews)).where(Prediction.complaint_pk == complaint_pk)
                        .order_by(desc(Prediction.created_at), Prediction.id)).all()
     u = _users(db)
+    syn = synthetic_ids(db)
     runs: dict[str, dict] = {}
     for p in preds:
         r = runs.setdefault(p.run_id, {"run_id": p.run_id, "created_at": p.created_at.isoformat(), "created_by": u.get(p.created_by_id), "predictions": {}})
-        r["predictions"][p.model_version.model_key] = prediction_out(p, u)
+        r["predictions"][p.model_version.model_key] = prediction_out(p, u, syn)
     return {"runs": list(runs.values())}
 
 
@@ -103,7 +111,8 @@ def list_predictions(review_status: str | None = Query(None, pattern="^(pending|
     cids = {p.complaint_pk for p in items if p.complaint_pk}
     cmap = dict(db.execute(select(Complaint.id, Complaint.complaint_id).where(Complaint.id.in_(cids))).all()) if cids else {}
     u = _users(db)
-    return {"items": [{**prediction_out(p, u), "complaint_id": cmap.get(p.complaint_pk)} for p in items], "total": total}
+    syn = synthetic_ids(db)
+    return {"items": [{**prediction_out(p, u, syn), "complaint_id": cmap.get(p.complaint_pk)} for p in items], "total": total}
 
 
 @router.post("/predictions/{reference}/review")

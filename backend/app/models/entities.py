@@ -154,6 +154,12 @@ class ComplaintAttachment(Base):
     height: Mapped[int | None] = mapped_column(Integer)
     sha256: Mapped[str] = mapped_column(String(64))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    # C7: stored_name is the metadata-stripped display copy; the untouched original is retained in restricted storage
+    sanitized: Mapped[bool | None] = mapped_column(Boolean)
+    metadata_removed: Mapped[dict | None] = mapped_column(JSON)  # what was found and removed (e.g. {"gps": true, "exif_tags": 14})
+    original_stored_name: Mapped[str | None] = mapped_column(String(80))
+    original_sha256: Mapped[str | None] = mapped_column(String(64))
+    original_size_bytes: Mapped[int | None] = mapped_column(Integer)
 
 
 class InvestigationNote(Base):

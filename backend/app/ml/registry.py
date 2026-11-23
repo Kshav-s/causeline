@@ -148,6 +148,7 @@ class ModelRegistry:
     def __init__(self):
         self.models: dict[str, LoadedModel] = {}
         self._lock = threading.Lock()
+        self.on_status_change = None  # callable(key) set by the app to persist late status changes (C5)
 
     # ------------------------------------------------------------ loading
     def load_all(self, load_sbert: bool | None = None) -> None:
@@ -180,6 +181,11 @@ class ModelRegistry:
             lm.obj = obj
         if status in ("ready", "degraded"):
             lm.validated_at = datetime.now(timezone.utc)
+        if self.on_status_change:
+            try:
+                self.on_status_change(key)
+            except Exception:  # noqa: BLE001 - persistence problems must never break model loading
+                log.exception("could not persist status change for %s", key)
 
     def _strict_load(self, path: Path):
         with warnings.catch_warnings():

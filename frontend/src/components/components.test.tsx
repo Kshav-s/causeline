@@ -72,6 +72,15 @@ describe("AnalysisResult", () => {
     expect(screen.queryByRole("button", { name: /Confirm/ })).not.toBeInTheDocument();
     expect(screen.getByText("Root-cause suggestions not available yet")).toBeInTheDocument();
   });
+  it("labels synthetic historical records in similar results (C2)", () => {
+    wrap(<AnalysisResult readOnly run={run({ "nlp-similarity": pred("nlp-similarity", { output: { results: [
+      { complaint_id: "ABT-CMP-2020-000001", complaint_received_date: "2020-01-01", complaint_category: "Packaging issue", product_name: "Bread", complaint_summary: "s", similarity: 0.8, is_synthetic: true },
+      { complaint_id: "CL-2026-000009", complaint_received_date: "2026-11-01", complaint_category: "Packaging issue", product_name: "Bread", complaint_summary: "s", similarity: 0.7, is_synthetic: false },
+    ] } }) })} />);
+    expect(screen.getAllByText("SYNTHETIC DEMO DATA")).toHaveLength(2); // one row badge + the explanatory note
+    expect(screen.getByText("ABT-CMP-2020-000001").parentElement!.textContent).toContain("SYNTHETIC DEMO DATA");
+    expect(screen.getByText("CL-2026-000009").parentElement!.textContent).not.toContain("SYNTHETIC DEMO DATA");
+  });
   it("reports an unavailable model as unavailable", () => {
     wrap(<AnalysisResult run={run({ "nlp-similarity": pred("nlp-similarity", { status: "error", message: "Model 'nlp-similarity' is not available (degraded)" }) })} />);
     expect(screen.getByText("Similarity search unavailable")).toBeInTheDocument();

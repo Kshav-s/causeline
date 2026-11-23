@@ -109,7 +109,9 @@ async def submit(request: Request,
             access_key_hash=_hash(key), analysis_status="pending", analysis_attempts=0))
         for s in stored:
             db.add(ComplaintAttachment(complaint_pk=c.id, stored_name=s.stored_name, original_filename=s.original_filename, content_type=s.content_type,
-                                       size_bytes=s.size_bytes, width=s.width, height=s.height, sha256=s.sha256))
+                                       size_bytes=s.size_bytes, width=s.width, height=s.height, sha256=s.sha256, sanitized=True,
+                                       metadata_removed=s.metadata_removed, original_stored_name=s.original_stored_name,
+                                       original_sha256=s.original_sha256, original_size_bytes=s.original_size_bytes))
         audit(db, "complaint.public_submit", None, "complaint", c.complaint_id, {"images": len(stored)}, client_ip(request))
         for role in ("analyst", "admin"):
             notify(db, "public_complaint", f"New complaint {c.complaint_id}", f"{product_name} - submitted on the public form",
@@ -118,6 +120,11 @@ async def submit(request: Request,
     except Exception:
         db.rollback()
         att.remove([s.stored_name for s in stored])
+        for s in stored:
+            try:
+                p = att.original_path_for(s.original_stored_name); p.chmod(0o644); p.unlink(missing_ok=True)
+            except Exception:  # noqa: BLE001
+                pass
         raise
     invalidate_cache()
     _run_analysis(db, c, client_ip(request))
@@ -133,8 +140,10 @@ def _public_view(db: Session, c: Complaint) -> dict:
     latest_run = preds[0].run_id if preds else None
     from app.api.ml import prediction_out
     run: dict = {}
+    from app.analytics.complaints import synthetic_ids
+    syn = synthetic_ids(db)
     for p in preds:  # newest first -> keep the first (newest) output per model
-        run.setdefault(p.model_version.model_key, prediction_out(p, {}))
+        run.setdefault(p.model_version.model_key, prediction_out(p, {}, syn))
     for p in run.values():  # never expose staff identities publicly
         for r in p["reviews"]:
             r["reviewer"] = "CauseLine staff"

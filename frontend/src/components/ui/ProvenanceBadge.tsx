@@ -13,7 +13,7 @@ const P: Record<Provenance, { label: string; icon: typeof Cpu; style: "solid" | 
   rule: { label: "Rule-based", icon: FunctionSquare, style: "solid", token: "rule" },
   human: { label: "Human verified", icon: BadgeCheck, style: "solid", token: "human" },
   insufficient: { label: "Insufficient data", icon: CircleSlash, style: "dashed", token: "insuf" },
-  demo: { label: "Demo data", icon: FlaskConical, style: "solid", token: "demo" },
+  demo: { label: "SYNTHETIC DEMO DATA", icon: FlaskConical, style: "solid", token: "demo" },
   historical: { label: "Historical model output", icon: History, style: "dashed", token: "hist" },
 };
 

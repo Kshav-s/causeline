@@ -13,3 +13,4 @@ frontend/vite.log
 backend/data/
 backend/storage/
 backups/
+frontend/tsconfig.tsbuildinfo

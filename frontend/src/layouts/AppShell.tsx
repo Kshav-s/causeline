@@ -198,10 +198,10 @@ export function AppShell() {
           <span className="md:hidden"><Logo compact /></span>
           <Breadcrumbs />
           <div className="flex-1 flex justify-center"><GlobalSearch /></div>
-          {caps?.data.demo_data && (
+          {!!caps?.data.synthetic_complaints && (
             <span className="inline-flex items-center gap-1 h-6 px-2 rounded-full border text-[11px] font-semibold uppercase tracking-wide max-sm:hidden"
-              style={{ color: "var(--pv-demo-fg)", background: "var(--pv-demo-bg)", borderColor: "var(--pv-demo-bd)" }} title="All records are synthetic demonstration data (SYNTHETIC_ABT_CPD)">
-              <FlaskConical className="size-3" />Demo data
+              style={{ color: "var(--pv-demo-fg)", background: "var(--pv-demo-bg)", borderColor: "var(--pv-demo-bd)" }} title={`${caps.data.synthetic_complaints.toLocaleString("en-IN")} of ${caps.data.complaints.toLocaleString("en-IN")} records are synthetic demonstration data (SYNTHETIC_ABT_CPD)`}>
+              <FlaskConical className="size-3" />Synthetic demo data
             </span>
           )}
           <Notifications />

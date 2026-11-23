@@ -20,9 +20,15 @@ log = logging.getLogger("causeline")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
+
+    def persist_status(_key: str) -> None:  # C5: e.g. nlp-similarity loading -> ready after the encoder thread finishes
+        with SessionLocal() as db:
+            sync_model_versions(db)
+    registry.on_status_change = None  # avoid one DB write per model during the initial load
     registry.load_all()
     with SessionLocal() as db:
         sync_model_versions(db)
+    registry.on_status_change = persist_status
     log.info("Models: %s", {k: m.status for k, m in registry.models.items()})
     yield
 

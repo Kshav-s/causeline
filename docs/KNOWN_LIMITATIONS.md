@@ -24,10 +24,12 @@
 
 ## Public complaint workflow (2026-11-23)
 17. **Lost access keys cannot be recovered online** (only a hash is stored, by design). Staff can still see the complaint; there is no self-service recovery.
-18. **Photos are stored, not analysed.** No computer-vision model exists; the UI says so. Photos are kept original (EXIF metadata, which may include location, is not stripped) to preserve evidence integrity.
+18. **Photos are stored, not analysed.** No computer-vision model exists; the UI says so. Since C7 the copy shown to anyone is metadata-stripped (GPS/EXIF/XMP/text removed); the untouched original is kept for evidence and is downloadable by administrators only (audited). Photos uploaded before C7 (test records only) have no separate original.
 19. **Root-cause suggestions for public complaints appear only after staff confirm the category.** The model was trained on recorded categories; CauseLine does not feed it the NLP classifier's guess. Food family is filled from recorded data only when the product name matches a known product exactly.
 20. **The NLP classifier is often wrong on free-form public wording** (e.g. a mould complaint classified as "Labelling / allergen issue" at 0.19). Low scores are flagged "uncertain - manual classification recommended"; staff review is the safeguard.
-21. **NLP service:** by default the handover's NLP models run inside the backend. `NLP_SERVICE_URL` switches to an external service using the handover's `POST /analyze` contract (validated, with in-process fallback). No external URL was supplied, so the remote path is tested with a simulated service only.
+21. **NLP service:** the built-in pipeline (the handover's own artifacts, in-process) is the **official mode** (C1). `NLP_SERVICE_URL` can switch to an external service using the handover's `POST /analyze` contract (validated, in-process fallback); temporary tunnel URLs are refused in production. The remote path is tested against a simulated service only.
 22. Rate limits and spam protection are per-process and IP-based (honeypot + limits). No CAPTCHA; a shared store is needed for multi-instance deployments.
 23. Staff are still invited by an administrator; there is no self-registration for anyone.
 24. CAPA owner, actions and open/close dates remain unavailable until `04_ABT_CPD_CAPA_History.csv` is supplied; staff cannot yet create CAPA records in the UI.
+25. **All historical records, similar-complaint results and model training data are synthetic** and are labelled SYNTHETIC DEMO DATA row by row (C2). C3 (retraining) and C6 (index rebuild) are deferred until genuine ABT CPD data is supplied.
+26. **JPEG/WEBP display copies are re-encoded at quality 95** to drop metadata - visually equivalent, not byte-identical; the original is retained (admin-only).
