@@ -175,3 +175,33 @@ Conditions: preserve `CL-2026-000029` permanently; delete only individually veri
 **Defect found and fixed during cleanup:** reference allocation took `max(existing id) + 1`, so after the deletion the next complaint would have been issued `CL-2026-000030` - a reference already named in the audit trail for a deleted record. The allocator now takes the high-water mark over complaints **and** complaint IDs in the append-only audit log (`app/ingestion/complaints.py::next_manual_id`); format, uniqueness and retry-on-collision unchanged. Next live reference: `CL-2026-000048`. Test: `test_deleted_reference_is_never_reissued`.
 
 **Tests after cleanup:** backend pytest **68 passed**; Vitest **10 passed**; type-check pass; Playwright **6 passed** (desktop + mobile). E2E now runs against an **isolated backend** (port 8001, scratch copy of the database) via `CL_API_TARGET`/`CL_PORT`, so test runs no longer create records in the live database - verified: live complaint count unchanged after the run (18,001), the isolated copy received the 6 test submissions (`CL-2026-000048` onward).
+
+
+---
+
+## 13. Improvement programme (items 1-14) - implemented and verified (2026-11-24)
+
+Assessment first: `docs/IMPROVEMENT_ASSESSMENT.md`. Each step was tested before the next.
+
+| # | Item | Result | Verified by |
+|---|---|---|---|
+| 1 | Submission journey | Four steps (About you, Product and problem, Photos, Review and submit) with progress indicator, per-step validation, image previews, review screen. **Duplicate protection**: one-time submission token per form (only its SHA-256 stored, unique index) - a repeat gets 409 with the existing reference, nothing is created, photos are not stored twice; a same-device content signature warns before resending. Fix found while testing: the Next button was being re-used as the Submit button, so revealing the review step could submit the form - they are now separate elements. | `test_same_form_submitted_twice_creates_one_complaint`; E2E duplicate test and step flow (desktop + mobile) |
+| 2 | Analysis page | Evidence summary at the top: Recorded information / NLP prediction / Similarity scores / Root-cause hypotheses / Food-safety alert / Human-verified findings, each with its provenance badge; only the last line is a finding. Existing panels unchanged. | 2 Vitest tests; E2E |
+| 3 | Tracking | Complainant timeline built only from stored records (submission, analysis runs, quality-team reviews, status changes, root-cause confirmation, closure), labelled Recorded / AI suggestion / Quality team. No staff names, internal notes or change reasons. Reference verification unchanged. | `test_complainant_timeline_shows_progress_but_no_internal_details`; E2E |
+| 4 | Register | Already had search, filters, sorting, pagination and details; unchanged. | existing tests |
+| 5 | Dashboard | KPI row adds the recorded food-safety count and Zombie CAPAs; Pareto, monthly trend, recurring defects and CAPA effectiveness were already present. | `scripts/verify_metrics.py` |
+| 6 | Zombie CAPA detector | New page and API. 1,255 zombie CAPAs of 2,388 closed; 2,081 recurrences (1,084 same recorded cause, 134 different, 863 not recorded); median 65 recorded follow-up days to first recurrence. Each links originating complaints, earlier investigation IDs and recurrences. | 4 tests incl. independent recomputation |
+| 7 | Product / batch risk | New "Repeat-complaint batches" (recorded batch_id, 2 or more complaints) - identical to the supplied `recurring_batches.csv` (same batch count, recurring count, maximum). Batch-risk model unchanged (degraded, needs dataset 02). | parity test on the full file; endpoint test |
+| 8 | Zero Complaint Path Simulator | New page and API, labelled ESTIMATE, six stated assumptions. 2025 baseline 987 complaints; 404 attributable; estimated avoidable 168 (range 122-216); 583 not reachable on current evidence. Causes with fewer than 10 assessed CAPAs are not estimated. | 4 tests incl. full-dataset independent recount |
+| 9 | HACCP | **No HACCP plan supplied**, so control points cannot be monitored against limits - stated on the page. Added complaint signals per recorded control point (gap flags, critical, last flagged). | `test_haccp_states_plan_missing_and_lists_control_points` |
+| 10 | UI states | New pages use the existing loading skeletons, empty/error states with retry, mobile card layouts and labelled controls; the simulator table got a mobile card layout after the screenshot review. | screenshots |
+| 11 | Metrics from the database | **24/24** dashboard metrics and chart totals equal independent raw SQL on the live database. | `scripts/verify_metrics.py` |
+| 12 | NLP + root cause connected | All six models load (batch-risk degraded as before); preprocessing parity tests pass; full-journey E2E: NLP suggestion -> staff correction -> root-cause model runs -> confirmed cause recorded separately. | pytest parity tests; E2E full journey |
+| 13 | Tracking + image security | Unchanged and re-tested: access-key 404s, metadata-stripped display copies, admin-only originals. | `test_public.py`; E2E privacy test |
+| 14 | Critical journeys | E2E: duplicate protection, submission -> analysis -> register, privacy, staff view, full journey to confirmed cause, complainant timeline, reports, zombie detector and simulator. | **10/10** Playwright (desktop + mobile) |
+
+**Defect found and fixed - analysis windows anchored in a data gap.** The historical import ends 2025-12-31; the only genuine submission is dated 2026-11-23. "Last 12 months" comparisons were anchored on the latest record, so product monitoring showed **all 49 products as Falling** and only **4** emerging hotspots. Windows now end at the last month with complete coverage (2025-12-31) and the response says why; with continuous live data the anchor is the latest date as before. Corrected: 26 Stable / 15 Falling / 8 Rising; 412 recurring and **133** emerging hotspots - matching the supplied report. Tests: `test_reference_date_*`.
+
+**Regression:** backend **83 passed**; Vitest **12 passed**; type-check and production build pass; Playwright **10 passed** (isolated backend); screenshots **64/64** (32 routes x desktop + mobile), no overflow or console errors; live metric check 24/24. No test run modified the live database (18,001 complaints).
+
+**Left for the project owner:** 28 pending-review predictions from 23 Nov testing remain (26 free-text runs on the AI Analysis page, 2 on historical record `ABT-CMP-2007-014934`). They count in "Awaiting review". They were outside the C8 approval and have not been touched.

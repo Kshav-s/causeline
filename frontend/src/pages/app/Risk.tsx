@@ -21,7 +21,7 @@ type BatchRow = { batch_id: string; product_name: string; production_date: strin
 type Options = { categorical_levels: Record<string, string[]>; tier_thresholds: { medium: number; high: number }; status: string; status_reason: string; metrics: Record<string, unknown>; limitations: string[] };
 
 function Products() {
-  const q = useQuery({ queryKey: ["products-monitor"], queryFn: () => api.get<{ rows: ProductRow[]; reference_date: string; rule: string }>("/api/analytics/products") });
+  const q = useQuery({ queryKey: ["products-monitor"], queryFn: () => api.get<{ rows: ProductRow[]; reference_date: string; reference_note: string | null; rule: string }>("/api/analytics/products") });
   const cols: Column<ProductRow>[] = [
     { key: "p", header: "Product", cell: (r) => <Link to={`/app/complaints?product=${encodeURIComponent(r.product_name)}`} onClick={(e) => e.stopPropagation()} className="text-link hover:underline">{r.product_name}</Link> },
     { key: "f", header: "Food family", hideBelow: "xl", cell: (r) => r.food_family },
@@ -33,7 +33,7 @@ function Products() {
     { key: "i", header: "Indicator", cell: (r) => <Pill tone={r.indicator === "Rising" ? "bad" : r.indicator === "Falling" ? "ok" : "neu"}>{r.indicator}</Pill> },
   ];
   return (
-    <Card title="Product-level monitoring" subtitle={q.data ? `Relative to the latest complaint date (${fmtDate(q.data.reference_date)}). ${q.data.rule}` : undefined} actions={<ProvenanceBadge kind="rule" />} bodyClass="p-0">
+    <Card title="Product-level monitoring" subtitle={q.data ? `Relative to ${fmtDate(q.data.reference_date)}. ${q.data.rule}${q.data.reference_note ? ` ${q.data.reference_note}` : ""}` : undefined} actions={<ProvenanceBadge kind="rule" />} bodyClass="p-0">
       <DataTable caption="Product monitoring" columns={cols} rows={q.data?.rows} rowKey={(r) => r.product_id} loading={q.isLoading} error={q.error}
         mobileCard={(r) => <div className="flex justify-between gap-2"><div className="min-w-0"><div className="truncate">{r.product_name}</div><div className="text-[12px] text-muted">{r.last_12m} in last 12 months</div></div><Pill tone={r.indicator === "Rising" ? "bad" : "neu"}>{r.indicator}</Pill></div>} />
     </Card>
@@ -154,6 +154,40 @@ function ScoreBatch() {
   );
 }
 
+type RepeatBatch = { batch_id: string; product_name: string; complaints: number; categories: number; top_category: string | null; severity_weighted: number;
+  critical: number; food_safety_related: number; first: string; last: string; span_days: number };
+type RepeatResp = { items: RepeatBatch[]; total: number; rule: string;
+  summary: { batches_with_complaints: number; recurring_batches: number; complaints_with_batch: number; complaints_total: number; max_complaints_single_batch: number } };
+
+function RepeatBatches() {
+  const { get, set } = useUrlState();
+  const page = Number(get("page", "1")), sort = get("sort", "complaints"), order = get("order", "desc") as "asc" | "desc";
+  const [q, setQ] = useState(get("q"));
+  const r = useQuery({ queryKey: ["repeat-batches", page, sort, order, get("q")], placeholderData: keepPreviousData,
+    queryFn: () => api.get<RepeatResp>("/api/risk/recurring-batches", { page, page_size: 25, sort, order, q: get("q") }) });
+  const s = r.data?.summary;
+  const cols: Column<RepeatBatch>[] = [
+    { key: "b", header: "Batch", sortKey: "batch_id", cell: (x) => <Link to={`/app/complaints?q=${encodeURIComponent(x.batch_id)}`} className="font-mono text-[12px] text-link hover:underline">{x.batch_id}</Link> },
+    { key: "p", header: "Product", cell: (x) => <span className="block max-w-48 truncate" title={x.product_name}>{x.product_name}</span> },
+    { key: "n", header: "Complaints", sortKey: "complaints", align: "right", cell: (x) => <b className="num">{x.complaints}</b> },
+    { key: "c", header: "Top category", hideBelow: "lg", cell: (x) => <span className="block max-w-48 truncate" title={x.top_category ?? ""}>{x.top_category ?? "—"}{x.categories > 1 && <span className="text-muted"> +{x.categories - 1}</span>}</span> },
+    { key: "cr", header: "Critical", sortKey: "critical", align: "right", hideBelow: "xl", cell: (x) => x.critical || <span className="text-faint">0</span> },
+    { key: "fs", header: "Food-safety", align: "right", hideBelow: "xl", cell: (x) => x.food_safety_related || <span className="text-faint">0</span> },
+    { key: "span", header: "Within", align: "right", hideBelow: "lg", cell: (x) => `${x.span_days} days` },
+    { key: "l", header: "Last complaint", sortKey: "last", align: "right", cell: (x) => fmtDate(x.last) },
+  ];
+  return (
+    <Card title="Batches with repeat complaints" subtitle={r.data ? `${fmtInt(s?.recurring_batches)} of ${fmtInt(s?.batches_with_complaints)} complained-about batches have 2 or more complaints. ${fmtInt(s?.complaints_with_batch)} of ${fmtInt(s?.complaints_total)} complaints carry a batch number. ${r.data.rule}` : undefined}
+      actions={<ProvenanceBadge kind="recorded" />} bodyClass="p-0">
+      <div className="p-4 border-b border-line"><form onSubmit={(e) => { e.preventDefault(); set({ q }); }}><SearchInput value={q} onChange={setQ} placeholder="Batch or product (press Enter)" className="w-80 max-md:w-full" label="Search batches" /></form></div>
+      <DataTable caption="Batches with repeat complaints" columns={cols} rows={r.data?.items} rowKey={(x) => x.batch_id} loading={r.isLoading} error={r.error} onRetry={() => r.refetch()}
+        sort={{ key: sort, order }} onSort={(k) => set({ sort: k, order: sort === k && order === "desc" ? "asc" : "desc" })}
+        mobileCard={(x) => <div className="space-y-0.5"><div className="flex justify-between gap-2"><Mono className="text-[12px] text-link">{x.batch_id}</Mono><b className="text-[13px] num">{x.complaints} complaints</b></div><div className="text-[13px] truncate">{x.product_name}</div><div className="text-[12px] text-muted">{x.top_category} · within {x.span_days} days · last {fmtDate(x.last)}</div></div>} />
+      {r.data && <Pagination page={page} pageSize={25} total={r.data.total} onPage={(p) => set({ page: String(p) }, false)} />}
+    </Card>
+  );
+}
+
 export default function Risk() {
   const { get, set } = useUrlState();
   const { data: caps } = useCapabilities();
@@ -164,11 +198,11 @@ export default function Risk() {
       <PageHeader title={batch ? "Product & batch risk" : "Product risk"} description="Risk is estimated at the level stated on each section. Batch tiers come from the supplied model; product monitoring is a rule-based trend." />
       <SyntheticNotice what="Product trends and historical batch scores" />
       <Banner tone="info" className="mb-4" title="Level of estimation">
-        Product monitoring compares complaint counts per product (rule-based). Batch scores use the supplied 30-day batch model, which uses only information available before dispatch.
+        Product monitoring compares complaint counts per product (rule-based). Repeat-complaint batches count recorded batch numbers on complaints. Batch scores use the supplied 30-day batch model, which uses only information available before dispatch.
         {" "}Batch records themselves are not stored yet - {caps?.missing_datasets[0] ?? "the batch dataset"} has not been supplied.
       </Banner>
-      <div className="mb-4"><CountTabs label="Risk sections" value={tab} onChange={(t) => set({ tab: t, tier: null })} tabs={[{ id: "products", label: "Product monitoring" }, ...(batch ? [{ id: "history", label: "Historical batch scores" }, { id: "score", label: "Score a batch" }] : [])]} /></div>
-      {tab === "history" && batch ? <HistoricalBatches /> : tab === "score" && batch ? <ScoreBatch /> : <Products />}
+      <div className="mb-4"><CountTabs label="Risk sections" value={tab} onChange={(t) => set({ tab: t, tier: null, q: null, sort: null, order: null })} tabs={[{ id: "products", label: "Product monitoring" }, { id: "repeat", label: "Repeat-complaint batches" }, ...(batch ? [{ id: "history", label: "Historical batch scores" }, { id: "score", label: "Score a batch" }] : [])]} /></div>
+      {tab === "history" && batch ? <HistoricalBatches /> : tab === "score" && batch ? <ScoreBatch /> : tab === "repeat" ? <RepeatBatches /> : <Products />}
     </>
   );
 }

@@ -3,19 +3,19 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../services/api";
 import { SyntheticNotice } from "../../components/domain/SyntheticNotice";
 import { useUrlState } from "../../hooks/useUrlState";
-import { Card, PageHeader, Pill } from "../../components/ui/primitives";
+import { Card, PageHeader, Pill, Banner } from "../../components/ui/primitives";
 import { FilterChips, Input, MultiSelect, Select } from "../../components/ui/forms";
 import { ProvenanceBadge } from "../../components/ui/ProvenanceBadge";
 import { DataTable } from "../../components/ui/DataTable";
 import { BarList, ChartCard, ColumnChart, LinesChart, ParetoChart, SimpleTable, TrendChart } from "../../charts/charts";
-import { fmtInt, fmtMonth } from "../../utils/format";
+import { fmtInt, fmtMonth, fmtDate } from "../../utils/format";
 import type { Pareto } from "../../types/api";
 
 type Trends = { monthly: { month: string; total: number; critical: number; ma3: number }[]; top_categories: string[]; yearly_by_category: Record<string, number>[];
   day_of_week: { label: string; count: number }[]; month_of_year: { label: number; count: number }[]; closure_days: { n: number; median: number | null; p90: number | null; histogram: { bucket: string; count: number }[] };
   product_comparison: { label: string; count: number }[]; category_distribution: { label: string; count: number }[] };
 type Hot = { product_id: string; product_name: string; complaint_category: string; total: number; max_in_90d: number; last_12m: number; prior_12m: number; critical: number; post_capa_recurrences: number; recurring_flag: boolean; emerging_flag: boolean; priority_score: number };
-type Rec = { rows: Hot[]; recurring_groups: number; emerging_groups: number; groups: number; reference_date: string; rule: string; post_capa_by_year: { year: number; n: number; post: number; pct: number }[] };
+type Rec = { rows: Hot[]; recurring_groups: number; emerging_groups: number; groups: number; reference_date: string; reference_note: string | null; rule: string; post_capa_by_year: { year: number; n: number; post: number; pct: number }[] };
 const DIMS = [{ value: "complaint_category", label: "Complaint category" }, { value: "defect_subcategory", label: "Defect subcategory" }, { value: "product_name", label: "Product" }, { value: "food_family", label: "Food family" },
   { value: "customer_name", label: "Customer" }, { value: "root_cause_category", label: "Root cause (recorded)" }, { value: "haccp_process_step", label: "HACCP process step" }];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -28,7 +28,8 @@ export default function Analytics() {
   const t = useQuery({ queryKey: ["trends", f], queryFn: () => api.get<Trends>("/api/analytics/trends", f) });
   const p = useQuery({ queryKey: ["pareto", dim, weighted, f], queryFn: () => api.get<Pareto>("/api/analytics/pareto", { ...f, dimension: dim, weighted }) });
   const r = useQuery({ queryKey: ["recurrence", f], queryFn: () => api.get<Rec>("/api/analytics/recurrence", f) });
-  const hc = useQuery({ queryKey: ["haccp"], queryFn: () => api.get<{ rows: { process_step: string; complaints: number; potential_gap_flags: number; flag_rate: number; critical: number; food_safety_related: number; controls: number; requires_review: boolean }[]; flagged_total: number; complaints_with_haccp_step: number; basis: string }>("/api/analytics/haccp") });
+  const hc = useQuery({ queryKey: ["haccp"], queryFn: () => api.get<{ rows: { process_step: string; complaints: number; potential_gap_flags: number; flag_rate: number; critical: number; food_safety_related: number; controls: number; requires_review: boolean }[]; flagged_total: number; complaints_with_haccp_step: number; basis: string; plan_available: boolean; plan_note: string;
+    controls: { control_id: string; process_step: string | null; complaints: number; potential_gap_flags: number; flag_rate: number; critical: number; food_safety_related: number; products: number; last_complaint: string; last_flagged: string | null }[] }>("/api/analytics/haccp") });
   const chips = (["product", "category", "severity"] as const).flatMap((k) => getAll(k).map((v) => ({ key: k + v, label: v, onRemove: () => set({ [k]: getAll(k).filter((x) => x !== v) }) })));
   const d = t.data;
   return (
@@ -97,7 +98,20 @@ export default function Analytics() {
         </ChartCard>
       </div>
 
-      <Card className="mb-4" title="HACCP signals" subtitle={hc.data ? `${fmtInt(hc.data.flagged_total)} recorded potential-gap flags across ${fmtInt(hc.data.complaints_with_haccp_step)} complaints with a HACCP step. ${hc.data.basis}` : undefined}
+      {hc.data && !hc.data.plan_available && <Banner tone="info" className="mb-3" title="HACCP plan not supplied - control points cannot be monitored against limits">{hc.data.plan_note}</Banner>}
+      <Card className="mb-4" title="Complaint signals by HACCP control point" subtitle="Each recorded control point referenced by complaints, ranked by potential-gap flags. Review prompts only."
+        actions={<ProvenanceBadge kind="recorded" />} bodyClass="p-0">
+        <DataTable caption="Complaint signals by HACCP control point" rows={hc.data?.controls.slice(0, 20)} rowKey={(x) => x.control_id} loading={hc.isLoading} error={hc.error} columns={[
+          { key: "id", header: "Control point", cell: (x) => <span className="font-mono text-[12px]">{x.control_id}</span> },
+          { key: "s", header: "Process step", cell: (x) => <span className="block max-w-56 truncate" title={x.process_step ?? ""}>{x.process_step ?? "—"}</span> },
+          { key: "n", header: "Complaints", align: "right", cell: (x) => fmtInt(x.complaints) },
+          { key: "g", header: "Potential gap flags", align: "right", cell: (x) => fmtInt(x.potential_gap_flags) },
+          { key: "c", header: "Critical", align: "right", hideBelow: "lg", cell: (x) => fmtInt(x.critical) },
+          { key: "p", header: "Products", align: "right", hideBelow: "xl", cell: (x) => fmtInt(x.products) },
+          { key: "lf", header: "Last flagged", align: "right", hideBelow: "lg", cell: (x) => x.last_flagged ? fmtDate(x.last_flagged) : "—" },
+        ]} mobileCard={(x) => <div className="space-y-0.5"><div className="flex justify-between gap-2"><span className="font-mono text-[12px]">{x.control_id}</span><span className="text-[12px] text-muted">{x.potential_gap_flags} flags</span></div><div className="text-[13px] truncate">{x.process_step}</div><div className="text-[12px] text-muted">{x.complaints} complaints · {x.critical} critical</div></div>} />
+      </Card>
+      <Card className="mb-4" title="HACCP signals by process step" subtitle={hc.data ? `${fmtInt(hc.data.flagged_total)} recorded potential-gap flags across ${fmtInt(hc.data.complaints_with_haccp_step)} complaints with a HACCP step. ${hc.data.basis}` : undefined}
         actions={<ProvenanceBadge kind="recorded" />} bodyClass="p-0">
         <DataTable caption="HACCP signals" rows={hc.data?.rows.slice(0, 15)} rowKey={(x) => x.process_step} loading={hc.isLoading} error={hc.error} columns={[
           { key: "s", header: "Process step", cell: (x) => <span className="font-medium">{x.process_step}</span> },
@@ -110,7 +124,7 @@ export default function Analytics() {
         ]} mobileCard={(x) => <div className="flex justify-between gap-2"><div className="min-w-0"><div className="truncate">{x.process_step}</div><div className="text-[12px] text-muted">{x.potential_gap_flags} flags · {x.complaints} complaints</div></div>{x.requires_review && <Pill tone="warn">Review</Pill>}</div>} />
       </Card>
 
-      <Card title="Recurring product-defect hotspots" subtitle={r.data ? `${fmtInt(r.data.recurring_groups)} recurring and ${fmtInt(r.data.emerging_groups)} emerging of ${fmtInt(r.data.groups)} product × category groups. ${r.data.rule}` : undefined}
+      <Card title="Recurring product-defect hotspots" subtitle={r.data ? `${fmtInt(r.data.recurring_groups)} recurring and ${fmtInt(r.data.emerging_groups)} emerging of ${fmtInt(r.data.groups)} product × category groups, relative to ${fmtDate(r.data.reference_date)}. ${r.data.rule}${r.data.reference_note ? ` ${r.data.reference_note}` : ""}` : undefined}
         actions={<ProvenanceBadge kind="rule" />} bodyClass="p-0">
         <DataTable caption="Recurrence hotspots" rows={r.data?.rows.slice(0, 25)} rowKey={(x) => x.product_id + x.complaint_category} loading={r.isLoading} error={r.error} columns={[
           { key: "p", header: "Product", cell: (x) => <Link className="text-link hover:underline" to={`/app/complaints?product=${encodeURIComponent(x.product_name)}&category=${encodeURIComponent(x.complaint_category)}`}>{x.product_name}</Link> },

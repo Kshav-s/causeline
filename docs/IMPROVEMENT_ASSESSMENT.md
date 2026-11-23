@@ -72,3 +72,6 @@ public submission `CL-2026-000029`).
 | F | 8 | Zero Complaint Path Simulator (API + page section, labelled estimate) |
 | G | 7, 9 | Recurring batches; HACCP control-point signals with "plan not supplied" disclosure |
 | H | 10, 14 | UI states review; full-journey E2E (isolated backend); screenshots; docs |
+
+## 7. Outcome (2026-11-24)
+Steps A-H implemented and tested; results in `docs/TECHNICAL_VERIFICATION_REPORT.md` section 13. One more defect was found during step F and fixed: trend windows anchored in the 2026 data gap (every product shown as Falling).

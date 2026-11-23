@@ -47,6 +47,16 @@ def sql_metrics(c: sqlite3.Connection) -> dict:
         st = sorted(k for k, v in cnt.items() if v == top and k is not None)  # ties -> alphabetical (pandas mode order)
         first_word[cid] = (st[0] if st else "").split(" ")[0]
     eff = Counter(first_word.values())
+    # Zombie CAPAs: closed (label not "CAPA not closed", not open in watchlist) with >= 1 identifier-linked recurrence
+    full_label = {}
+    for cid, cnt in labels.items():
+        top = max(cnt.values())
+        st = sorted(k for k, v in cnt.items() if v == top and k is not None)
+        full_label[cid] = st[0] if st else ""
+    open_wl = {r[0] for r in c.execute("select capa_id from capa_watchlist where capa_status != 'Closed'")}
+    recurred = {r[0] for r in c.execute("select distinct prior_capa_id from complaints where prior_capa_id is not null and recurrence_after_prior_capa=1")}
+    closed = {k for k, lab in full_label.items() if "CAPA not closed" not in lab and k not in open_wl}
+    m.update(closed_capas=len(closed), zombie_capas=len(closed & recurred))
     assess = eff["Effective"] + eff["Ineffective"]
     m.update(capas_total=len(labels), capas_pending=eff["Pending"], capa_assessable=assess,
              capa_ineffective_rate=round(eff["Ineffective"] / assess, 4) if assess else None)

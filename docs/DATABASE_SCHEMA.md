@@ -28,3 +28,4 @@ All mutable tables carry `created_at` / `updated_at` (UTC). CAPAs are not a sepa
 - `demo_bookings` retained with its records; no longer written or exposed.
 - Applied to the existing database by an additive startup step (`ALTER TABLE ... ADD COLUMN` for missing nullable columns only; never drops or rewrites). A full backup was taken first (`backups/`).
 - C7: `complaint_attachments` + `sanitized`, `metadata_removed` (JSON), `original_stored_name`, `original_sha256`, `original_size_bytes` (nullable; added by the additive start-up step).
+- 2026-11-24: `complaints.submission_token_hash` (String 64, nullable, **unique index** `ix_complaints_submission_token_hash`) - SHA-256 of the public form's one-time token. The additive start-up step now also creates indexes declared on added columns.

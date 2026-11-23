@@ -13,7 +13,7 @@ fs.mkdirSync(out, { recursive: true });
 const PUBLIC = [["home", "/"], ["raise", "/raise"], ["register", "/register"], ["track", "/track"], ["staff-login", "/staff"]];
 const APP = [["overview", "/app"], ["complaints", "/app/complaints"], ["complaints-historical", "/app/complaints?sort=complaint_received_date&order=asc"], ["complaint-detail", "/app/complaints/ABT-CMP-2007-014934"], ["complaint-new", "/app/complaints/new"],
   ["ai", "/app/ai"], ["ai-queue", "/app/ai?tab=queue"], ["root-cause", "/app/root-cause"], ["capa", "/app/capa"], ["capa-detail", "/app/capa/ABT-CAPA-000001"], ["risk", "/app/risk"],
-  ["risk-batches", "/app/risk?tab=history"], ["risk-score", "/app/risk?tab=score"], ["analytics", "/app/analytics"], ["data", "/app/data"], ["data-history", "/app/data?tab=history"],
+  ["risk-repeat", "/app/risk?tab=repeat"], ["zombie-capa", "/app/capa/zombies"], ["zombie-capa-detail", "/app/capa/ABT-CAPA-001940"], ["simulator", "/app/simulator"], ["risk-batches", "/app/risk?tab=history"], ["risk-score", "/app/risk?tab=score"], ["analytics", "/app/analytics"], ["data", "/app/data"], ["data-history", "/app/data?tab=history"],
   ["reports", "/app/reports"], ["settings", "/app/settings"], ["admin-users", "/app/admin/users"], ["admin-models", "/app/admin/models"], ["admin-audit", "/app/admin/audit"]];
 const VIEWPORTS = [["desktop", { width: 1440, height: 900 }], ["mobile", { width: 390, height: 844 }]];
 

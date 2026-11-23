@@ -14,7 +14,7 @@ import { daysBetween, fmtDate, fmtDateTime, fmtInt, fmtMonth, fmtPct } from "../
 import type { Pareto } from "../../types/api";
 
 interface Dash {
-  kpis: { total_complaints: number; open_complaints: number; critical_complaints: number; food_safety_related: number; recurred_after_prior_capa: number; capas_total: number;
+  kpis: { zombie_capas: number; closed_capas: number; total_complaints: number; open_complaints: number; critical_complaints: number; food_safety_related: number; recurred_after_prior_capa: number; capas_total: number;
     capas_pending: number; capa_ineffective_rate: number | null; capa_assessable: number; synthetic_share: number | null; date_min: string | null; date_max: string | null; pending_reviews: number;
     new_last_30_days: number; public_submissions: number; analysis_incomplete: number; ai_food_safety_escalations: number; ai_food_safety_assessed: number };
   monthly: { month: string; total: number; critical: number; ma3: number }[];
@@ -60,11 +60,13 @@ export default function Overview() {
         <KpiCard label="Awaiting review" value={fmtInt(k?.pending_reviews)} provenance="model" loading={q.isLoading} to="/app/ai?tab=queue" hint="Model outputs without a human decision" />
       </div>
 
-      <div className="grid gap-4 grid-cols-2 xl:grid-cols-4 mb-5">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 mb-5">
         <KpiCard label="New (last 30 days)" value={fmtInt(k?.new_last_30_days)} provenance="recorded" loading={q.isLoading} hint="Received in the last 30 days (ignores the period filter)" />
         <KpiCard label="Raised on CauseLine" value={fmtInt(k?.public_submissions)} provenance="recorded" loading={q.isLoading} hint="Submitted on the public form (no account)" />
         <KpiCard label="AI food-safety escalations" value={fmtInt(k?.ai_food_safety_escalations)} provenance="rule" loading={q.isLoading} to="/app/ai?tab=queue"
           unavailable={k && k.ai_food_safety_assessed === 0 ? "No complaint has been analysed yet" : undefined} hint={k ? `of ${fmtInt(k.ai_food_safety_assessed)} analysed complaints - keyword rule, needs human review` : undefined} />
+        <KpiCard label="Food-safety related" value={fmtInt(k?.food_safety_related)} provenance="recorded" loading={q.isLoading} to="/app/analytics" hint="Recorded flag in the complaint data" />
+        <KpiCard label="Zombie CAPAs" value={fmtInt(k?.zombie_capas)} provenance="rule" loading={q.isLoading} to="/app/capa/zombies" hint={k ? `Closed, then recurred · of ${fmtInt(k.closed_capas)} closed` : undefined} />
         <KpiCard label="AI analysis incomplete" value={fmtInt(k?.analysis_incomplete)} provenance="recorded" loading={q.isLoading} hint="Pending, partial or failed - complaint saved, analysis can be retried" />
       </div>
 

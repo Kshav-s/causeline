@@ -58,3 +58,7 @@ E2E tests submit real complaints, so they must not run against the live database
 3. `CL_API_TARGET=http://127.0.0.1:8001 CL_PORT=5174 npx vite --strictPort`
 4. `CL_BASE=http://localhost:5174 CL_EMAIL=... CL_PASSWORD=... npx playwright test`
 After C8: backend 68 passed, Vitest 10 passed, Playwright 6 passed; live complaint count unchanged by the run.
+
+## Improvement programme (2026-11-24)
+Backend 83 passed (new: duplicate token, timeline, zombie x4, simulator x5 incl. full-dataset recount, reference date x2, recurring batches x2 incl. parity with the supplied report, HACCP). Vitest 12 passed (evidence summary x2). Playwright 10 passed: duplicate protection, step form, timeline, evidence summary, full journey (submission -> staff correction -> root-cause model -> confirmed cause -> complainant timeline -> reports, zombie detector, simulator). Screenshots 64/64 clean. `scripts/verify_metrics.py`: 24/24 dashboard metrics equal raw SQL on live data.
+Note: the login limiter (10 per 5 min) blocks back-to-back E2E + screenshot runs; restart the isolated backend between runs.

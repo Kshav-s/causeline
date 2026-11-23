@@ -243,3 +243,39 @@ export function RateCIList({ rows, overall }: { rows: { label: string; n: number
     </div>
   );
 }
+
+type PathPoint = { step: number; label: string; remaining: number; remaining_low: number; remaining_high: number };
+
+/** Zero Complaint Path: estimated remaining complaints as CAPAs are added cause by cause (largest estimated effect first).
+ * One series + its uncertainty band; the dashed line marks complaints that have no attributable cause (never reduced). */
+export function PathChart({ data, floor }: { data: PathPoint[]; floor: number }) {
+  const d = data.map((p) => ({ ...p, band: [p.remaining_low, p.remaining_high] }));
+  return (
+    <div className="h-full flex flex-col">
+      <Legend items={[{ label: "Estimated remaining complaints (range shaded)", color: "var(--c1)" }, { label: "Complaints with no attributable cause", color: "var(--ink-2)", dashed: true }]} />
+      <div className="flex-1 min-h-0">
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={d} margin={{ top: 8, right: 12, left: -8, bottom: 0 }}>
+            <CartesianGrid vertical={false} stroke="var(--grid)" />
+            <XAxis dataKey="step" tick={AXIS} tickLine={false} axisLine={{ stroke: "var(--line)" }} tickFormatter={(s: number) => (s === 0 ? "Baseline" : `+${s}`)} minTickGap={16} />
+            <YAxis tick={AXIS} tickLine={false} axisLine={false} allowDecimals={false} width={48} domain={[0, (max: number) => Math.ceil(max * 1.05)]} />
+            <Tooltip cursor={{ stroke: "var(--line-strong)" }} content={({ active, payload }) => {
+              if (!active || !payload?.length) return null;
+              const p = payload[0].payload as PathPoint;
+              return (
+                <div className="rounded-[var(--radius-card)] border border-line bg-surface px-3 py-2 text-[12px] shadow-pop max-w-64">
+                  <div className="font-semibold text-ink">{p.step === 0 ? "Baseline (recorded)" : `+ CAPA on: ${p.label}`}</div>
+                  <div className="text-ink-2 num">Estimate {fmtInt(Math.round(p.remaining))} remaining</div>
+                  {p.step > 0 && <div className="text-muted num">Range {fmtInt(Math.round(p.remaining_low))}–{fmtInt(Math.round(p.remaining_high))}</div>}
+                </div>
+              );
+            }} />
+            <Area dataKey="band" type="stepAfter" stroke="none" fill="var(--c1)" fillOpacity={0.14} isAnimationActive={false} activeDot={false} />
+            <Line dataKey="remaining" type="stepAfter" stroke="var(--c1)" strokeWidth={2} dot={false} activeDot={{ r: 4, strokeWidth: 2, stroke: "var(--surface)" }} isAnimationActive={false} />
+            <ReferenceLine y={floor} stroke="var(--ink-2)" strokeDasharray="4 3" />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}

@@ -63,3 +63,13 @@ Reviewing an `nlp-category` prediction as confirmed/corrected now also runs the 
 - Similar-complaint results (`nlp-similarity` output) include `is_synthetic` and `data_label` ("SYNTHETIC DEMO DATA") per record, computed at read time.
 - `GET /api/complaints/{id}/attachments/{aid}/original` - **admin only**, audited: untouched original upload. All other photo endpoints serve the metadata-stripped display copy.
 - Staff complaint detail attachments include `sanitized`, `metadata_removed`, `has_original`, `original_sha256`, `original_size_bytes`.
+
+## Changes (improvement programme, 2026-11-24)
+- `POST /api/public/complaints` accepts optional `submission_token` (16-64 chars `[A-Za-z0-9_-]`). A repeat with the same token returns **409** `{detail, complaint_id, duplicate: true}`; nothing is created and no access key is returned.
+- `GET /api/public/complaints/{id}` adds `timeline[]` (`at`, `kind` = recorded | ai | human, `title`, `detail`) - complainant-safe events only.
+- `GET /api/capa/zombies` (staff): `q`, `cause` (all|same|different), `sort` (recurrences|critical|days_to_first|last_recurrence|capa_id), `order`, `page`, `page_size`. Returns `items`, `total`, `summary`, `rule`.
+- `GET /api/capa/{id}` adds a `zombie` block and investigation / root-cause fields on each linked complaint.
+- `GET /api/analytics/zero-complaint-path` (staff): `months` (3-60), repeated `cause`, `all_causes`. Returns baseline, attributable, per-cause rows with effectiveness and Wilson range, `path`, `assumptions`, `label: "ESTIMATE"`.
+- `GET /api/risk/recurring-batches` (staff): `q`, `recurring_only`, `sort`, `order`, paging.
+- `GET /api/analytics/haccp` adds `controls[]`, `plan_available: false`, `plan_note`.
+- `GET /api/dashboard` KPIs add `zombie_capas`, `closed_capas`. Recurrence and product endpoints add `reference_note`.

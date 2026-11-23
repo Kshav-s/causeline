@@ -48,11 +48,12 @@ def overview(f: dict = Depends(_filters), user: User = Depends(get_current_user)
     last_upload = db.scalar(select(Upload).where(Upload.status == "imported").order_by(desc(Upload.created_at)).limit(1))
     oldest_open = df[df.complaint_status.isin(an.OPEN_STATUSES)].sort_values("complaint_received_date").head(8)
     capa_df = an.capa_list(df)
+    _, zsum = an.zombie_capas(df, _open_capas(db))
     recent_ineffective = capa_df[(capa_df.eff == "Ineffective")].sort_values("last_recurrence", ascending=False).head(5) if len(capa_df) else capa_df
     return {
         "kpis": {**an.kpis(df), "pending_reviews": pending_reviews, "new_last_30_days": new_30d, "public_submissions": public_total,
                  "analysis_incomplete": analysis_open, "ai_food_safety_escalations": sum(1 for v in latest.values() if v),
-                 "ai_food_safety_assessed": len(latest)},
+                 "ai_food_safety_assessed": len(latest), "zombie_capas": zsum["zombies"], "closed_capas": zsum["closed_capas"]},
         "monthly": an.monthly(df),
         "severity_by_year": an.yearly_severity(df),
         "top_products": an.top(df, "product_name", 8),
@@ -128,7 +129,15 @@ def haccp(user: User = Depends(get_current_user), db: Session = Depends(get_db))
                      "controls": int(g.control.nunique()), "requires_review": bool(g.gap.sum() > 0)})
     rows.sort(key=lambda r: (-r["potential_gap_flags"], -r["complaints"]))
     return {"rows": rows, "flagged_total": int(h.gap.sum()), "complaints_with_haccp_step": int(len(h)), "records_total": int(len(df)),
+            "controls": an.haccp_controls(df), "plan_available": False, "plan_note": an.HACCP_PLAN_NOTE,
             "basis": "Recorded potential_haccp_gap_flag from the source data. It marks a possible control gap for qualified HACCP review; it does not show that a control point failed."}
+
+
+@analytics.get("/zero-complaint-path")
+def zero_complaint_path(months: int = Query(12, ge=3, le=60), cause: list[str] = Query(default=[]), all_causes: bool = True,
+                        user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """Zero Complaint Path Simulator - an ESTIMATE from historical cause distribution and recorded CAPA effectiveness."""
+    return an.zero_complaint_path(an.frame(db), months, None if (all_causes and not cause) else cause)
 
 
 @analytics.get("/products")
@@ -172,6 +181,47 @@ def capa_list(tab: str = Query("all", pattern="^(all|pending|effective|ineffecti
             "unavailable_reason": "Requires 04_ABT_CPD_CAPA_History.csv (not yet supplied)."}
 
 
+def _open_capas(db: Session) -> set[str]:
+    return {w.capa_id for w in db.scalars(select(CapaWatchlistEntry).where(CapaWatchlistEntry.capa_status != "Closed")).all()}
+
+
+ZOMBIE_RULE = ("Zombie CAPA = a CAPA recorded as closed (effectiveness label is not 'Pending - CAPA not closed' and it is not open in the "
+               "supplied watchlist) with at least one later complaint whose recorded prior_capa_id is this CAPA. Links are by identifier only. "
+               "Closure dates are not in the supplied data; 'days to first recurrence' is the recorded capa_follow_up_days.")
+
+
+@capa.get("/zombies")
+def zombies(q: str | None = None, cause: str = Query("all", pattern="^(all|same|different)$"),
+            sort: str = Query("recurrences", pattern="^(recurrences|critical|days_to_first|last_recurrence|capa_id)$"),
+            order: str = Query("desc", pattern="^(asc|desc)$"), page: int = Query(1, ge=1), page_size: int = Query(25, ge=1, le=100),
+            user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """Zombie CAPA detector: closed CAPAs followed by identifier-linked recurrences, with the earlier investigations."""
+    z, summary = an.zombie_capas(an.frame(db), _open_capas(db))
+    if q:
+        ql = q.lower()
+        z = z[z.capa_id.str.lower().str.contains(ql, regex=False) | z.product_name.fillna("").str.lower().str.contains(ql, regex=False)]
+    if cause == "same":
+        z = z[z.same_cause > 0]
+    elif cause == "different":
+        z = z[z.different_cause > 0]
+    if sort != "recurrences":
+        z = z.sort_values(sort, ascending=order == "asc", na_position="last")
+    elif order == "asc":
+        z = z.sort_values(["recurrences", "critical"], ascending=True)
+    total = len(z)
+    rows = z.iloc[(page - 1) * page_size: page * page_size]
+    items = [{"capa_id": r.capa_id, "product_name": r.product_name, "complaint_category": r.complaint_category,
+              "root_cause_category": r.root_cause_category, "root_cause_status": r.root_cause_status, "effectiveness_label": r.status_label,
+              "originating_complaints": int(r.linked), "first_complaint": r.first_complaint.date().isoformat(),
+              "investigations": r.investigations, "recurrences": int(r.recurrences), "critical_recurrences": int(r.critical),
+              "open_recurrences": int(r.open_recurrences), "first_recurrence": r.first_recurrence.date().isoformat(),
+              "last_recurrence": r.last_recurrence.date().isoformat(),
+              "days_to_first_recurrence": None if pd.isna(r.days_to_first) else int(r.days_to_first),
+              "same_cause": int(r.same_cause), "different_cause": int(r.different_cause), "unknown_cause": int(r.unknown_cause),
+              "during_follow_up": bool(r.during_follow_up)} for r in rows.itertuples()]
+    return {"items": items, "total": total, "summary": summary, "rule": ZOMBIE_RULE}
+
+
 @capa.get("/effectiveness")
 def capa_effectiveness(dimension: str = "root_cause_category", user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     if dimension not in CAPA_DIMS:
@@ -191,7 +241,9 @@ def capa_detail(capa_id: str, user: User = Depends(get_current_user), db: Sessio
     first = origin[0]
     brief = lambda c: {"complaint_id": c.complaint_id, "received": c.complaint_received_date.isoformat(), "product_name": c.product_name,
                        "complaint_category": c.complaint_category, "severity": c.complaint_severity, "status": c.complaint_status,
-                       "follow_up_days": c.capa_follow_up_days}
+                       "follow_up_days": c.capa_follow_up_days, "investigation_id": c.investigation_id,
+                       "investigation_status": c.investigation_status, "root_cause_category": c.root_cause_category,
+                       "root_cause_status": c.root_cause_status}
     # monthly timeline of same product+category complaints around the CAPA (identifier-linked recurrences highlighted)
     df = an.frame(db)
     same = df[(df.product_name == first.product_name) & (df.complaint_category == first.complaint_category)]
@@ -205,7 +257,19 @@ def capa_detail(capa_id: str, user: User = Depends(get_current_user), db: Sessio
             "first_complaint": first.complaint_received_date.isoformat(),
             "timeline": timeline, "timeline_scope": f"All complaints for {first.product_name} / {first.complaint_category}",
             "rule": "Recurrences are later complaints whose recorded prior_capa_id equals this CAPA (identifier-linked; same product and category verified in source data).",
+            "zombie": _zombie_block(capa_id, rec, first.root_cause_category, labels, w),
             "unavailable_fields": ["owner", "open/close dates", "actions"], "unavailable_reason": "Requires 04_ABT_CPD_CAPA_History.csv."}
+
+
+def _zombie_block(capa_id: str, rec: list, orig_rc: str | None, labels: list[str], w) -> dict:
+    closed = not any(an.CAPA_NOT_CLOSED in (lab or "") for lab in labels) and not (w and w.capa_status != "Closed")
+    recurred = [c for c in rec if c.recurrence_after_prior_capa]
+    days = [c.capa_follow_up_days for c in recurred if c.capa_follow_up_days is not None]
+    return {"is_zombie": bool(closed and recurred), "closed": closed, "recurrences": len(recurred),
+            "days_to_first_recurrence": int(min(days)) if days else None,
+            "same_cause": sum(1 for c in recurred if c.root_cause_category and c.root_cause_category == orig_rc),
+            "different_cause": sum(1 for c in recurred if c.root_cause_category and orig_rc and c.root_cause_category != orig_rc),
+            "rule": ZOMBIE_RULE}
 
 
 # ---------------------------------------------------------------- root cause
@@ -238,6 +302,31 @@ def rc_hypotheses(q: str | None = None, page: int = Query(1, ge=1), page_size: i
 
 
 # ---------------------------------------------------------------- risk
+@risk.get("/recurring-batches")
+def recurring_batches(q: str | None = None, recurring_only: bool = True,
+                      sort: str = Query("complaints", pattern="^(complaints|severity_weighted|critical|last|batch_id)$"),
+                      order: str = Query("desc", pattern="^(asc|desc)$"), page: int = Query(1, ge=1), page_size: int = Query(25, ge=1, le=100),
+                      user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """Batches named on more than one complaint (recorded batch_id). Batch level only where complaints carry a batch_id."""
+    b, summary = an.recurring_batches(an.frame(db))
+    if recurring_only:
+        b = b[b.recurring_batch_flag]
+    if q:
+        ql = q.lower()
+        b = b[b.batch_id.str.lower().str.contains(ql, regex=False) | b.product_name.fillna("").str.lower().str.contains(ql, regex=False)]
+    if sort != "complaints" or order == "asc":
+        b = b.sort_values(sort, ascending=order == "asc")
+    total = len(b)
+    rows = b.iloc[(page - 1) * page_size: page * page_size]
+    return {"items": [{"batch_id": r.batch_id, "product_name": r.product_name, "complaints": int(r.complaints), "categories": int(r.categories),
+                       "top_category": r.top_category, "severity_weighted": int(r.severity_weighted), "critical": int(r.critical),
+                       "food_safety_related": int(r.food_safety), "first": r.first.date().isoformat(), "last": r.last.date().isoformat(),
+                       "span_days": int(r.span_days)} for r in rows.itertuples()],
+            "total": total, "summary": summary,
+            "rule": "Recurring batch = a recorded batch_id named on 2 or more complaints for the same product (same rule as the supplied "
+                    "recurrence_detection.py). Complaints without a batch_id cannot be assigned to a batch."}
+
+
 @risk.get("/batches")
 def batch_scores(tier: str | None = Query(None, pattern="^(High|Medium|Low)$"), q: str | None = None, split: str | None = None,
                  page: int = Query(1, ge=1), page_size: int = Query(25, ge=1, le=100), user: User = Depends(get_current_user), db: Session = Depends(get_db)):

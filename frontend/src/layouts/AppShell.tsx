@@ -5,6 +5,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
   Bell, BrainCircuit, ChevronsLeft, ChevronsRight, ClipboardList, Cpu, Database, FileBarChart2, FlaskConical, GitBranch,
   LayoutDashboard, LineChart, ListChecks, LogOut, Menu, Moon, PlusCircle, ScrollText, Search, Settings, ShieldAlert, Sun, Users, X,
+  Repeat2, Route,
 } from "lucide-react";
 import { useAuth, useCapabilities } from "../hooks/auth";
 import { api } from "../services/api";
@@ -35,9 +36,11 @@ function useNav(): Group[] {
     { label: "Overview", items: [{ to: "/app", label: "Overview", icon: LayoutDashboard, end: true }] },
     { label: "Complaints", items: [{ to: "/app/complaints", label: "Complaint register", icon: ClipboardList, end: true }, { to: "/app/complaints/new", label: "New complaint", icon: PlusCircle }] },
     { label: "Intelligence", items: [{ to: "/app/ai", label: "AI analysis", icon: BrainCircuit, module: "ai_analysis" }, { to: "/app/root-cause", label: "Root cause intelligence", icon: GitBranch, module: "root_cause" }] },
-    { label: "Quality", items: [{ to: "/app/capa", label: "CAPA effectiveness", icon: ListChecks, module: "capa" },
+    { label: "Quality", items: [{ to: "/app/capa", label: "CAPA effectiveness", icon: ListChecks, module: "capa", end: true },
+      { to: "/app/capa/zombies", label: "Zombie CAPA detector", icon: Repeat2, module: "capa" },
       { to: "/app/risk", label: m.risk_level === "batch" ? "Product & batch risk" : "Product risk", icon: ShieldAlert, module: "risk" }] },
-    { label: "Insights", items: [{ to: "/app/analytics", label: "Analytics", icon: LineChart, module: "analytics" }, { to: "/app/reports", label: "Reports", icon: FileBarChart2, module: "reports" }] },
+    { label: "Insights", items: [{ to: "/app/analytics", label: "Analytics", icon: LineChart, module: "analytics" }, { to: "/app/simulator", label: "Zero complaint path", icon: Route, module: "analytics" },
+      { to: "/app/reports", label: "Reports", icon: FileBarChart2, module: "reports" }] },
     { label: "Data", items: [{ to: "/app/data", label: "Data management", icon: Database, module: "data_management" }] },
     { label: "Admin", admin: true, items: [{ to: "/app/admin/users", label: "Users & roles", icon: Users },
       { to: "/app/admin/models", label: "Model registry", icon: Cpu }, { to: "/app/admin/audit", label: "Audit log", icon: ScrollText }] },

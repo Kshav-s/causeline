@@ -19,7 +19,8 @@ from app.models import Complaint
 COLS = ["id", "complaint_id", "complaint_received_date", "complaint_closed_date", "product_id", "product_name", "food_family",
         "customer_name", "batch_id", "complaint_category", "defect_subcategory", "complaint_severity", "complaint_status",
         "food_safety_related_flag", "root_cause_category", "root_cause_status", "capa_id", "prior_capa_id",
-        "recurrence_after_prior_capa", "capa_effectiveness_status", "haccp_process_step", "is_synthetic", "investigation_status"]
+        "recurrence_after_prior_capa", "capa_effectiveness_status", "haccp_process_step", "is_synthetic", "investigation_status",
+        "investigation_id", "capa_follow_up_days", "haccp_control_id", "potential_haccp_gap_flag"]
 SEV_W = {"Routine": 1, "Major": 3, "Critical": 5}  # same weights as preprocessing.severity_weight
 OPEN_STATUSES = ["Open", "Under investigation", "Awaiting customer information"]
 CONF = ["Confirmed", "Probable"]
@@ -148,6 +149,28 @@ def pareto(df: pd.DataFrame, col: str, weighted: bool = False, threshold: float 
             "truncated": len(rows) > limit}
 
 
+def reference_date(df: pd.DataFrame, months: int = 24) -> tuple[pd.Timestamp, str | None]:
+    """Anchor for 'last N months' comparisons. Normally the latest complaint date. If the months before it contain no
+    complaints at all (e.g. a historical import ending 2025-12 followed by a single live submission in 2026-11), windows
+    anchored there would compare almost-empty periods and show every product as falling. Then the anchor moves back to
+    the end of the latest month whose preceding `months` months all contain complaints, and the reason is returned."""
+    end = df.complaint_received_date.max()
+    counts = df.complaint_received_date.dt.to_period("M").value_counts()
+    first = counts.index.min()
+    m = end.to_period("M")
+    while m - (months - 1) >= first:
+        window = pd.period_range(m - (months - 1), m, freq="M")
+        if all(counts.get(p, 0) > 0 for p in window):
+            if m == end.to_period("M"):
+                return end, None
+            ref = min(end, m.to_timestamp(how="end").normalize())
+            empty = [str(p) for p in pd.period_range(m + 1, end.to_period("M"), freq="M") if counts.get(p, 0) == 0]
+            return ref, (f"Windows end {ref.date().isoformat()}, the last month with complete coverage: {len(empty)} of the following months have no "
+                         f"complaints ({empty[0]} to {empty[-1]}), so the latest record ({end.date().isoformat()}) would make every trend look like a fall.")
+        m -= 1
+    return end, None
+
+
 def _max_window_count(dates: pd.Series, days: int = 90) -> int:
     d = np.sort(pd.to_datetime(dates).values.astype("datetime64[D]").astype(np.int64))
     j = np.searchsorted(d, d + days, side="left")
@@ -158,25 +181,25 @@ def recurrence_hotspots(df: pd.DataFrame, min_total: int = 4, min_window: int = 
     """Port of recurrence_detection.run (product x category hotspots)."""
     if df.empty:
         return {"rows": [], "recurring_groups": 0, "emerging_groups": 0, "reference_date": None}
-    end = df.complaint_received_date.max()
+    end, note = reference_date(df)
     rec, prior = end - pd.Timedelta(days=365), end - pd.Timedelta(days=730)
     rows = []
     for (pid, pname, cat), g in df.groupby(["product_id", "product_name", "complaint_category"], dropna=True):
         dts = g.complaint_received_date
         rows.append(dict(product_id=pid, product_name=pname, complaint_category=cat, total=len(g), max_in_90d=_max_window_count(dts),
-                         last_12m=int((dts > rec).sum()), prior_12m=int(((dts > prior) & (dts <= rec)).sum()),
+                         last_12m=int(((dts > rec) & (dts <= end)).sum()), prior_12m=int(((dts > prior) & (dts <= rec)).sum()),
                          severity_weighted=int(g.sev_w.sum()), critical=int((g.complaint_severity == "Critical").sum()),
                          post_capa_recurrences=int(g.recurrence_after_prior_capa.fillna(False).astype(bool).sum()),
                          last_complaint=dts.max().date().isoformat()))
     h = pd.DataFrame(rows)
     if h.empty:
-        return {"rows": [], "recurring_groups": 0, "emerging_groups": 0, "reference_date": end.date().isoformat()}
+        return {"rows": [], "recurring_groups": 0, "emerging_groups": 0, "reference_date": end.date().isoformat(), "reference_note": note}
     h["recurring_flag"] = (h.total >= min_total) & (h.max_in_90d >= min_window)
     h["emerging_flag"] = h.recurring_flag & (h.last_12m >= 2) & (h.last_12m > h.prior_12m)
     h["priority_score"] = h.severity_weighted + 3 * h.max_in_90d + 2 * h.post_capa_recurrences + 3 * h.last_12m
     h = h.sort_values("priority_score", ascending=False)
     return {"rows": h.head(limit).to_dict(orient="records"), "recurring_groups": int(h.recurring_flag.sum()),
-            "emerging_groups": int(h.emerging_flag.sum()), "groups": int(len(h)), "reference_date": end.date().isoformat(),
+            "emerging_groups": int(h.emerging_flag.sum()), "groups": int(len(h)), "reference_date": end.date().isoformat(), "reference_note": note,
             "rule": f"Recurring = >= {min_total} complaints and >= {min_window} within any 90 days. Emerging = recurring and last-12-month count >= 2 and above the prior 12 months (relative to the latest complaint date)."}
 
 
@@ -215,6 +238,114 @@ def capa_effectiveness_by(df: pd.DataFrame, dim: str) -> dict:
     return {"rows": rows, "overall_ineffective_rate": round(overall, 4), "n": int(len(m))}
 
 
+# ---------------------------------------------------------------- Zombie CAPA detector
+CAPA_NOT_CLOSED = "CAPA not closed"
+
+
+def zombie_capas(df: pd.DataFrame, open_capas: set[str] | frozenset = frozenset()) -> tuple[pd.DataFrame, dict]:
+    """CAPAs recorded as CLOSED whose problem came back: at least one later complaint names the CAPA as its prior CAPA
+    (prior_capa_id, recurrence_after_prior_capa = 1). Identifier-linked only - no text matching, no inferred links.
+
+    Closed = the recorded effectiveness label is not "Pending - CAPA not closed" and the CAPA is not open in the supplied
+    watchlist. Closure DATES are not in the supplied data (needs 04); recurrence timing is the recorded capa_follow_up_days
+    on the recurring complaint."""
+    capa = _capa_frame(df)
+    empty = {"closed_capas": 0, "zombies": 0, "zombie_share": None, "recurrences": 0, "same_cause": 0, "different_cause": 0, "unknown_cause": 0,
+             "median_days_to_first": None, "first_within_30_days": 0, "recurred_during_follow_up": 0, "labelled_ineffective_without_link": 0}
+    if capa.empty:
+        return capa, empty
+    closed = ~capa.status_label.fillna("").str.contains(CAPA_NOT_CLOSED, regex=False) & ~capa.capa_id.isin(open_capas)
+    r = df[df.prior_capa_id.notna() & df.recurrence_after_prior_capa.fillna(False).astype(bool)].copy()
+    if r.empty:
+        return capa.iloc[0:0], {**empty, "closed_capas": int(closed.sum())}
+    orig_rc = capa.set_index("capa_id").root_cause_category
+    r["orig_rc"] = r.prior_capa_id.map(orig_rc)
+    r["same_cause"] = r.root_cause_category.notna() & (r.root_cause_category == r.orig_rc)
+    r["diff_cause"] = r.root_cause_category.notna() & r.orig_rc.notna() & (r.root_cause_category != r.orig_rc)
+    g = r.groupby("prior_capa_id").agg(recurrences=("id", "count"), first_recurrence=("complaint_received_date", "min"),
+                                       last_recurrence=("complaint_received_date", "max"), days_to_first=("capa_follow_up_days", "min"),
+                                       critical=("complaint_severity", lambda s: int((s == "Critical").sum())),
+                                       same_cause=("same_cause", "sum"), different_cause=("diff_cause", "sum"),
+                                       open_recurrences=("complaint_status", lambda s: int(s.isin(OPEN_STATUSES).sum())))
+    z = capa[closed].drop(columns=["recurrences", "last_recurrence"]).merge(g, left_on="capa_id", right_index=True)
+    inv = df[df.capa_id.notna() & df.investigation_id.notna()].groupby("capa_id").investigation_id.agg(lambda s: sorted(set(s)))
+    z["investigations"] = z.capa_id.map(inv).apply(lambda v: v if isinstance(v, list) else [])
+    z["unknown_cause"] = z.recurrences - z.same_cause - z.different_cause
+    z["during_follow_up"] = z.status_label.fillna("").str.startswith("Pending")
+    z = z.sort_values(["recurrences", "critical", "capa_id"], ascending=[False, False, True])
+    n_closed = int(closed.sum())
+    summary = {"closed_capas": n_closed, "zombies": int(len(z)), "zombie_share": round(len(z) / n_closed, 4) if n_closed else None,
+               "recurrences": int(z.recurrences.sum()), "same_cause": int(z.same_cause.sum()), "different_cause": int(z.different_cause.sum()),
+               "unknown_cause": int(z.unknown_cause.sum()),
+               "median_days_to_first": float(z.days_to_first.median()) if z.days_to_first.notna().any() else None,
+               "first_within_30_days": int((z.days_to_first <= 30).sum()), "recurred_during_follow_up": int(z.during_follow_up.sum()),
+               "labelled_ineffective_without_link": int(((capa.eff == "Ineffective") & ~capa.capa_id.isin(g.index)).sum())}
+    return z, summary
+
+
+# ---------------------------------------------------------------- Zero Complaint Path Simulator
+SIM_MIN_ASSESSED = 10
+SIM_ASSUMPTIONS = [
+    "Future complaints for each root cause continue at the rate of the selected baseline window.",
+    "A new CAPA on a root cause is as effective as past CAPAs on that cause, judged by the recorded rule-based effectiveness label.",
+    "An effective CAPA prevents complaints of that cause; an ineffective one prevents none.",
+    "Only complaints with a Confirmed or Probable recorded root cause can be attributed; all other complaints are left unchanged.",
+    "Causes with fewer than 10 assessed CAPAs have no reliable effectiveness rate and are not estimated.",
+    "Historical association on synthetic data - not a forecast and not evidence that a CAPA causes the reduction.",
+]
+
+
+def zero_complaint_path(df: pd.DataFrame, months: int = 12, selected: list[str] | None = None) -> dict:
+    """ESTIMATE of how far CAPAs on each recorded root cause could move complaints towards zero, using the historical
+    cause distribution and the verified (recorded) CAPA effectiveness per cause. Point value plus a range from the
+    95% Wilson interval of the effectiveness rate."""
+    if df.empty:
+        return {"rows": [], "path": [], "baseline": 0, "assumptions": SIM_ASSUMPTIONS}
+    end, note = reference_date(df, max(months, 12))
+    start = end - pd.DateOffset(months=months)
+    w = df[(df.complaint_received_date > start) & (df.complaint_received_date <= end)]
+    attributable = w[w.root_cause_status.isin(CONF) & w.root_cause_category.notna()]
+    eff = {r["label"]: r for r in capa_effectiveness_by(df, "root_cause_category")["rows"]}
+    rows = []
+    for cause, n in attributable.root_cause_category.value_counts().items():
+        e = eff.get(cause)
+        ok = bool(e and e["n"] >= SIM_MIN_ASSESSED)
+        rate = 1 - e["ineffective_rate"] if ok else None
+        lo, hi = (1 - e["ci_high"], 1 - e["ci_low"]) if ok else (None, None)
+        rows.append({"root_cause_category": cause, "baseline_complaints": int(n), "assessed_capas": int(e["n"]) if e else 0,
+                     "effectiveness_rate": round(rate, 4) if ok else None, "effectiveness_ci": [round(lo, 4), round(hi, 4)] if ok else None,
+                     "estimable": ok, "avoidable_estimate": round(n * rate, 1) if ok else None,
+                     "avoidable_range": [round(n * lo, 1), round(n * hi, 1)] if ok else None})
+    estimable = [r for r in rows if r["estimable"]]
+    chosen = {r["root_cause_category"] for r in estimable} if selected is None else set(selected)
+    for r in rows:
+        r["selected"] = r["estimable"] and r["root_cause_category"] in chosen
+    base = int(len(w))
+    path, rem, rem_lo, rem_hi = [], float(base), float(base), float(base)
+    path.append({"step": 0, "label": "Baseline", "remaining": base, "remaining_low": base, "remaining_high": base})
+    for i, r in enumerate(sorted([r for r in rows if r["selected"]], key=lambda r: -r["avoidable_estimate"]), start=1):
+        rem -= r["avoidable_estimate"]
+        rem_lo -= r["avoidable_range"][1]
+        rem_hi -= r["avoidable_range"][0]
+        path.append({"step": i, "label": r["root_cause_category"], "remaining": round(rem, 1), "remaining_low": round(rem_lo, 1), "remaining_high": round(rem_hi, 1)})
+    sel = [r for r in rows if r["selected"]]
+    avoid = sum(r["avoidable_estimate"] for r in sel)
+    return {
+        "window": {"months": months, "from": (start + pd.Timedelta(days=1)).date().isoformat(), "to": end.date().isoformat(), "reference_note": note},
+        "baseline": base, "attributable": int(len(attributable)), "unattributed": base - int(len(attributable)),
+        "not_estimable": int(sum(r["baseline_complaints"] for r in rows if not r["estimable"])),
+        "selected_causes": len(sel), "avoidable_estimate": round(avoid, 1),
+        "avoidable_range": [round(sum(r["avoidable_range"][0] for r in sel), 1), round(sum(r["avoidable_range"][1] for r in sel), 1)],
+        "remaining_estimate": round(base - avoid, 1),
+        "remaining_range": [round(base - sum(r["avoidable_range"][1] for r in sel), 1), round(base - sum(r["avoidable_range"][0] for r in sel), 1)],
+        "floor_without_attribution": base - int(len(attributable)),
+        "rows": sorted(rows, key=lambda r: (-(r["avoidable_estimate"] or -1), -r["baseline_complaints"])),
+        "path": path, "assumptions": SIM_ASSUMPTIONS, "label": "ESTIMATE",
+        "method": "avoidable = baseline complaints with that recorded cause x historical CAPA effectiveness for that cause (Effective / assessed, "
+                  "pending excluded); range from the 95% Wilson interval of the effectiveness rate.",
+    }
+
+
 # ---------------------------------------------------------------- root cause
 def root_cause_stats(df: pd.DataFrame) -> dict:
     has = df.root_cause_category.notna()
@@ -248,21 +379,64 @@ def root_cause_associations(df: pd.DataFrame, category: str | None = None, top_n
     return t.to_dict(orient="records")
 
 
+# ---------------------------------------------------------------- recurring batches
+def recurring_batches(df: pd.DataFrame, min_complaints: int = 2) -> tuple[pd.DataFrame, dict]:
+    """Port of recurrence_detection.py (batch part): complaints grouped by recorded batch_id + product; recurring = >= 2.
+    Batch level is supported only for complaints that carry a batch_id; production attributes need dataset 02."""
+    c = df[df.batch_id.notna()]
+    if c.empty:
+        return c.iloc[0:0], {"batches_with_complaints": 0, "recurring_batches": 0, "complaints_with_batch": 0, "complaints_total": int(len(df)),
+                             "max_complaints_single_batch": 0}
+    b = c.groupby(["batch_id", "product_id", "product_name"], dropna=False).agg(
+        complaints=("id", "count"), categories=("complaint_category", "nunique"), severity_weighted=("sev_w", "sum"),
+        critical=("complaint_severity", lambda s: int((s == "Critical").sum())),
+        food_safety=("food_safety_related_flag", lambda s: int(s.fillna(False).astype(bool).sum())),
+        top_category=("complaint_category", lambda s: s.mode().iloc[0] if not s.mode().empty else None),
+        first=("complaint_received_date", "min"), last=("complaint_received_date", "max")).reset_index()
+    b["recurring_batch_flag"] = b.complaints >= min_complaints
+    b["span_days"] = (b["last"] - b["first"]).dt.days
+    b = b.sort_values(["complaints", "severity_weighted", "batch_id"], ascending=[False, False, True])
+    return b, {"batches_with_complaints": int(len(b)), "recurring_batches": int(b.recurring_batch_flag.sum()),
+               "complaints_with_batch": int(len(c)), "complaints_total": int(len(df)),
+               "max_complaints_single_batch": int(b.complaints.max())}
+
+
+# ---------------------------------------------------------------- HACCP control points
+HACCP_PLAN_NOTE = ("No HACCP plan was supplied (critical limits, monitoring frequency, verification and corrective-action procedures). "
+                   "Control-point monitoring against limits is therefore not possible. Shown instead: complaints that reference each recorded "
+                   "control point and the source data's potential_haccp_gap_flag - prompts for qualified HACCP review, not evidence that a control failed.")
+
+
+def haccp_controls(df: pd.DataFrame) -> list[dict]:
+    h = df[df.haccp_control_id.notna()]
+    rows = []
+    for (cid, step), g in h.groupby(["haccp_control_id", "haccp_process_step"], dropna=False):
+        gap = g.potential_haccp_gap_flag.fillna(False).astype(bool)
+        rows.append({"control_id": cid, "process_step": step if isinstance(step, str) else None, "complaints": int(len(g)),
+                     "potential_gap_flags": int(gap.sum()), "flag_rate": round(float(gap.mean()), 4),
+                     "critical": int((g.complaint_severity == "Critical").sum()),
+                     "food_safety_related": int(g.food_safety_related_flag.fillna(False).astype(bool).sum()),
+                     "products": int(g.product_name.nunique()), "last_complaint": g.complaint_received_date.max().date().isoformat(),
+                     "last_flagged": g.loc[gap, "complaint_received_date"].max().date().isoformat() if gap.any() else None})
+    rows.sort(key=lambda r: (-r["potential_gap_flags"], -r["complaints"], r["control_id"]))
+    return rows
+
+
 # ---------------------------------------------------------------- product monitoring
 def product_monitoring(df: pd.DataFrame) -> dict:
     """Rule-based product-level monitoring: last 12 months vs prior 12 months relative to the latest complaint date."""
     if df.empty:
         return {"rows": [], "reference_date": None}
-    end = df.complaint_received_date.max()
+    end, note = reference_date(df)
     rec, prior = end - pd.Timedelta(days=365), end - pd.Timedelta(days=730)
     start24 = (end - pd.DateOffset(months=23)).to_period("M")
     months = [str(p) for p in pd.period_range(start24, end.to_period("M"), freq="M")]
     rows = []
     for (pid, pname), g in df.groupby(["product_id", "product_name"], dropna=True):
         dts = g.complaint_received_date
-        l12, p12 = int((dts > rec).sum()), int(((dts > prior) & (dts <= rec)).sum())
+        l12, p12 = int(((dts > rec) & (dts <= end)).sum()), int(((dts > prior) & (dts <= rec)).sum())
         spark = g[g.month.isin(months)].groupby("month").size().reindex(months, fill_value=0).astype(int).tolist()
-        recent = g[dts > rec]
+        recent = g[(dts > rec) & (dts <= end)]
         rows.append({"product_id": pid, "product_name": pname, "food_family": g.food_family.mode().iloc[0] if not g.food_family.mode().empty else None,
                      "total": int(len(g)), "last_12m": l12, "prior_12m": p12,
                      "change_pct": round(100 * (l12 - p12) / p12, 1) if p12 else None,
@@ -271,5 +445,5 @@ def product_monitoring(df: pd.DataFrame) -> dict:
                      "monthly_24m": spark,
                      "indicator": "Rising" if (p12 and l12 > p12 * 1.25 and l12 >= 5) else ("Falling" if (p12 and l12 < p12 * 0.75) else "Stable")})
     rows.sort(key=lambda r: (-r["last_12m"], r["product_name"]))
-    return {"rows": rows, "reference_date": end.date().isoformat(), "months": months,
+    return {"rows": rows, "reference_date": end.date().isoformat(), "reference_note": note, "months": months,
             "rule": "Rising = last-12-month complaints > 125% of the prior 12 months and >= 5; Falling = < 75%; otherwise Stable."}

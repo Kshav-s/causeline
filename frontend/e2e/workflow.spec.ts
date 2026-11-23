@@ -8,7 +8,7 @@ const PNG_BLUE = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADE
 
 const DESC = () => `E2E ${Date.now()}: hard plastic fragment found inside a sealed yoghurt cup after opening.`;
 
-async function fillSteps(page: Page, description: string, withPhotos = true) {
+async function fillSteps(page: Page, description: string, withPhotos = true, product = "Set yoghurt") {
   await expect(page.getByRole("navigation", { name: "Complaint form progress" })).toBeVisible();
   await page.getByRole("button", { name: "Next" }).click();                          // step 1 validated before moving on
   await expect(page.getByText("Enter your name")).toBeVisible();
@@ -17,7 +17,7 @@ async function fillSteps(page: Page, description: string, withPhotos = true) {
   await page.getByRole("button", { name: "Next" }).click();
   await page.getByRole("button", { name: "Next" }).click();                          // step 2 validated
   await expect(page.getByText("Describe the problem in at least 20 characters")).toBeVisible();
-  await page.getByLabel("Product name or code").fill("Set yoghurt");
+  await page.getByLabel("Product name or code").fill(product);
   await page.getByLabel("How serious is it?").selectOption("Major");
   await page.getByLabel("What happened?").fill(description);
   await page.getByRole("button", { name: "Next" }).click();
@@ -39,13 +39,13 @@ async function fillSteps(page: Page, description: string, withPhotos = true) {
   await expect(review.getByText("E2E Visitor")).toBeVisible();
 }
 
-async function raise(page: Page) {
+async function raise(page: Page, product?: string) {
   await page.goto("/");
   await expect(page.getByRole("link", { name: /sign in/i })).toHaveCount(0);
   await expect(page.getByText(/request a demo/i)).toHaveCount(0);
   await page.getByRole("link", { name: "Raise a Complaint" }).first().click();
   await expect(page).toHaveURL(/\/raise$/);
-  await fillSteps(page, DESC());
+  await fillSteps(page, DESC(), true, product);
   await page.getByRole("button", { name: "Submit complaint" }).click();
   await expect(page).toHaveURL(/\/complaint\/CL-\d{4}-\d{6}/, { timeout: 30_000 });
   return page.url().match(/CL-\d{4}-\d{6}/)![0];
@@ -122,4 +122,48 @@ test("staff: hidden /staff sign-in, complaint shows photos, complainant and note
   await page.getByLabel("New investigation note").fill("Retained sample requested from the store.");
   await page.getByRole("button", { name: "Add note" }).click();
   await expect(page.getByText("Retained sample requested from the store.")).toBeVisible();
+});
+
+test("full journey: submission -> AI analysis -> staff review -> root-cause suggestions -> confirmed cause -> complainant timeline -> reporting", async ({ page }) => {
+  test.skip(!EMAIL || !PASSWORD, "set CL_EMAIL and CL_PASSWORD");
+  test.setTimeout(120_000);
+  const id = await raise(page, "Plain set yoghurt");                                      // catalogue product -> food family known
+  await page.goto("/staff");
+  await page.getByLabel("Email").fill(EMAIL);
+  await page.getByLabel("Password", { exact: true }).fill(PASSWORD);
+  await page.getByRole("button", { name: "Sign in" }).click();
+  await expect(page.getByRole("heading", { name: "Overview" })).toBeVisible();
+  // staff review of the NLP suggestion (human verification before any root-cause model run)
+  await page.goto(`/app/complaints/${id}`);
+  const cat = page.getByRole("region", { name: "Complaint category" });
+  await cat.getByRole("button", { name: "Correct…" }).click();
+  await page.locator("#rv-label").selectOption("Physical defect / foreign matter");
+  await page.locator("#rv-reason").fill("Fragment visible in the photos.");
+  await page.getByRole("button", { name: "Save correction" }).click();
+  await expect(page.getByText("Review recorded")).toBeVisible();
+  const rc = page.getByRole("region", { name: "Possible root causes" });
+  await expect(rc.getByText(/Possible explanations to direct the investigation/)).toBeVisible({ timeout: 20_000 });
+  // investigator records the confirmed cause (separate from the model's hypotheses)
+  await page.getByRole("button", { name: "Record confirmed cause" }).click();
+  await page.locator("#cc-cause").selectOption({ index: 1 });
+  await page.locator("#cc-reason").fill("Retained sample analysis.");
+  await page.getByRole("button", { name: "Record as confirmed" }).click();
+  await expect(page.getByText("Confirmed root cause recorded")).toBeVisible();
+  // the complainant sees the progress, labelled by source, without internal details
+  await page.goto(`/complaint/${id}`);
+  const tl = page.getByRole("region", { name: "Investigation timeline" });
+  await expect(tl.getByText("Category set by the quality team: Physical defect / foreign matter")).toBeVisible();
+  await expect(tl.getByText("Root-cause suggestions generated")).toBeVisible();
+  await expect(tl.getByText(/^Root cause confirmed: /)).toBeVisible();
+  await expect(page.getByRole("region", { name: "Evidence summary" }).getByText(/Category: Physical defect \/ foreign matter/)).toBeVisible();
+  await expect(tl.getByText("Fragment visible in the photos.")).toHaveCount(0);           // staff reasons stay internal
+  // reporting and quality views built from stored records
+  await page.goto("/app/reports");
+  await expect(page.getByRole("heading", { name: "Reports", exact: true })).toBeVisible();
+  await page.goto("/app/capa/zombies");
+  await expect(page.getByRole("heading", { name: "Zombie CAPA detector" })).toBeVisible();
+  await expect(page.getByText(/Zombie CAPA = a CAPA recorded as closed/)).toBeVisible();
+  await page.goto("/app/simulator");
+  await expect(page.getByText("Estimates, not forecasts")).toBeVisible();
+  await expect(page.getByText("Baseline complaints", { exact: true })).toBeVisible();
 });

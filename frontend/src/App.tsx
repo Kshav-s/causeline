@@ -19,6 +19,8 @@ const AiAnalysis = lazy(() => import("./pages/app/AiAnalysis"));
 const RootCause = lazy(() => import("./pages/app/RootCause"));
 const Capa = lazy(() => import("./pages/app/Capa"));
 const CapaDetail = lazy(() => import("./pages/app/CapaDetail"));
+const ZombieCapa = lazy(() => import("./pages/app/ZombieCapa"));
+const Simulator = lazy(() => import("./pages/app/Simulator"));
 const Risk = lazy(() => import("./pages/app/Risk"));
 const Analytics = lazy(() => import("./pages/app/Analytics"));
 const DataManagement = lazy(() => import("./pages/app/DataManagement"));
@@ -68,6 +70,8 @@ export default function App() {
           <Route path="ai" element={<AiAnalysis />} />
           <Route path="root-cause" element={<RootCause />} />
           <Route path="capa" element={<Capa />} />
+          <Route path="capa/zombies" element={<ZombieCapa />} />
+          <Route path="simulator" element={<Simulator />} />
           <Route path="capa/:id" element={<CapaDetail />} />
           <Route path="risk" element={<Risk />} />
           <Route path="analytics" element={<Analytics />} />

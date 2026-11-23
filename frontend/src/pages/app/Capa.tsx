@@ -51,7 +51,7 @@ export default function Capa() {
         <KpiCard label="CAPAs" value={fmtInt(k?.capas_total)} provenance="recorded" loading={list.isLoading} />
         <KpiCard label="Effectiveness pending" value={fmtInt(k?.capas_pending)} provenance="recorded" hint="Not closed or follow-up not complete" loading={list.isLoading} to="/app/capa?tab=pending" />
         <KpiCard label="Ineffective rate" value={fmtPct(k?.capa_ineffective_rate)} provenance="rule" hint={k ? `of ${fmtInt(k.capa_assessable)} assessed CAPAs` : undefined} loading={list.isLoading} to="/app/capa?tab=ineffective" />
-        <KpiCard label="Complaints recurring after a CAPA" value={fmtInt(k?.recurred_after_prior_capa)} provenance="recorded" loading={list.isLoading} hint="Linked to the earlier CAPA by identifier" />
+        <KpiCard label="Complaints recurring after a CAPA" value={fmtInt(k?.recurred_after_prior_capa)} provenance="recorded" loading={list.isLoading} hint="Linked to the earlier CAPA by identifier · open the Zombie CAPA detector" to="/app/capa/zombies" />
       </div>
       <ChartCard className="mb-4" title="Where CAPAs fail most often" subtitle={eff.data ? `Ineffective rate by ${DIMS.find((x) => x.value === dim)?.label.toLowerCase()} · overall ${fmtPct(eff.data.overall_ineffective_rate)} (n=${fmtInt(eff.data.n)})` : undefined}
         provenance="rule" loading={eff.isLoading} error={eff.error} empty={!eff.data?.rows.length} height={Math.max(220, Math.min(560, (eff.data?.rows.length ?? 8) * 28 + 70))}
