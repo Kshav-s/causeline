@@ -12,7 +12,7 @@ from datetime import date, datetime, timezone
 from typing import Literal
 
 from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, Query, Request, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import EmailStr, TypeAdapter, ValidationError
 from sqlalchemy import asc, desc, func, or_, select
 from sqlalchemy.orm import Session, selectinload
@@ -23,7 +23,7 @@ from app.core.config import get_settings
 from app.core.deps import client_ip
 from app.core.ratelimit import RateLimiter
 from app.database.session import get_db
-from app.models import Complaint, ComplaintAttachment, ModelVersion, Prediction
+from app.models import AuditLog, Complaint, ComplaintAttachment, ModelVersion, Prediction
 from app.services import attachments as att
 from app.services import ml_service
 from app.services.complaint_ids import add_with_unique_id
@@ -45,6 +45,17 @@ def _authorised(db: Session, complaint_id: str, key: str | None) -> Complaint:
     if not c or not c.access_key_hash or not key or not hmac.compare_digest(c.access_key_hash, _hash(key)):
         raise HTTPException(404, "Complaint not found, or the access key is not valid")
     return c
+
+
+def _duplicate(db: Session, token_hash: str) -> JSONResponse | None:
+    """Same form submitted again (double click, network retry, back + resubmit): nothing new is created. The existing
+    reference is returned (references are public in the register); the access key is never re-issued."""
+    cid = db.scalar(select(Complaint.complaint_id).where(Complaint.submission_token_hash == token_hash))
+    if not cid:
+        return None
+    return JSONResponse(status_code=409, content={
+        "detail": f"This complaint has already been submitted as {cid}. It was not created a second time.",
+        "complaint_id": cid, "duplicate": True})
 
 
 def _run_analysis(db: Session, c: Complaint, ip: str | None) -> None:
@@ -73,11 +84,15 @@ async def submit(request: Request,
                  batch_id: str | None = Form(None, max_length=40),
                  additional_info: str | None = Form(None, max_length=2000),
                  website: str | None = Form(None),  # honeypot: humans never see this field
+                 submission_token: str | None = Form(None, pattern=r"^[A-Za-z0-9_-]{16,64}$"),  # one per form session (idempotency)
                  images: list[UploadFile] = File(default=[]),
                  db: Session = Depends(get_db)):
     submit_limiter.check(f"submit:{client_ip(request)}")
     if website:
         raise HTTPException(400, "Submission rejected")
+    token_hash = _hash(submission_token) if submission_token else None
+    if token_hash and (dup := _duplicate(db, token_hash)):
+        return dup
     if complaint_date > date.today():
         raise HTTPException(422, "Complaint date cannot be in the future")
     if (date.today() - complaint_date).days > 3650:
@@ -106,7 +121,7 @@ async def submit(request: Request,
             complaint_summary=description[:120], complaint_severity=severity, complaint_status="Open",
             customer_name=(organisation or "").strip() or None, submitter_name=customer_name.strip(),
             submitter_organisation=(organisation or "").strip() or None, submitter_email=email, additional_info=(additional_info or "").strip() or None,
-            access_key_hash=_hash(key), analysis_status="pending", analysis_attempts=0))
+            access_key_hash=_hash(key), submission_token_hash=token_hash, analysis_status="pending", analysis_attempts=0))
         for s in stored:
             db.add(ComplaintAttachment(complaint_pk=c.id, stored_name=s.stored_name, original_filename=s.original_filename, content_type=s.content_type,
                                        size_bytes=s.size_bytes, width=s.width, height=s.height, sha256=s.sha256, sanitized=True,
@@ -117,7 +132,7 @@ async def submit(request: Request,
             notify(db, "public_complaint", f"New complaint {c.complaint_id}", f"{product_name} - submitted on the public form",
                    f"/app/complaints/{c.complaint_id}", audience_role=role)
         db.commit()  # the complaint is durable BEFORE any model runs
-    except Exception:
+    except Exception as exc:
         db.rollback()
         att.remove([s.stored_name for s in stored])
         for s in stored:
@@ -125,12 +140,72 @@ async def submit(request: Request,
                 p = att.original_path_for(s.original_stored_name); p.chmod(0o644); p.unlink(missing_ok=True)
             except Exception:  # noqa: BLE001
                 pass
-        raise
+        # two identical requests at the same moment: the unique token index rejects the second one
+        if token_hash and (dup := _duplicate(db, token_hash)):
+            return dup
+        raise exc
     invalidate_cache()
     _run_analysis(db, c, client_ip(request))
     db.refresh(c)
     return {"complaint_id": c.complaint_id, "access_key": key, "analysis_status": c.analysis_status,
             "message": "Keep this reference and access key. The key is shown only once and is needed to view your complaint."}
+
+
+FAILED = {"failed", "error", "unavailable"}
+STATUS_FIELDS = {"complaint_status": "Status changed to {to}", "investigation_status": "Investigation status: {to}"}
+
+
+def _timeline(db: Session, c: Complaint, preds: list, n_files: int) -> list[dict]:
+    """Complainant-safe history, oldest first. Built only from stored records: submission, analysis runs, quality-team
+    reviews, status changes, root-cause confirmation and closure. Never includes staff identities, internal
+    investigation notes, exports or admin actions. Each event says who it came from (recorded / AI / quality team)."""
+    ev = [{"at": c.created_at, "kind": "recorded", "title": "Complaint received",
+           "detail": f"Reference issued. {n_files} photo{'s' if n_files != 1 else ''} attached." if n_files else "Reference issued. No photos attached."}]
+    runs: dict[str, list] = {}
+    for p in preds:
+        runs.setdefault(p.run_id, []).append(p)
+    for run in runs.values():
+        keys = {p.model_version.model_key for p in run}
+        at = min(p.created_at for p in run)
+        bad = sum(p.status in FAILED for p in run)
+        if keys == {"root-cause"}:
+            ev.append({"at": at, "kind": "ai", "title": "Root-cause suggestions generated",
+                       "detail": "Run after the quality team confirmed the category. Suggestions only - not a confirmed cause."})
+        else:
+            ev.append({"at": at, "kind": "ai", "title": "AI analysis completed" if not bad else "AI analysis partly completed",
+                       "detail": f"{len(run) - bad} of {len(run)} checks produced a result. Results are suggestions for the quality team."})
+        for p in run:
+            for r in p.reviews:
+                key = p.model_version.model_key
+                if key == "nlp-category":
+                    title = {"confirmed": f"Category confirmed by the quality team: {p.top_label}",
+                             "corrected": f"Category set by the quality team: {r.corrected_label}",
+                             "rejected": "AI category suggestion rejected by the quality team"}.get(r.action, "Category reviewed")
+                elif key == "root-cause":
+                    title = "Root-cause suggestions reviewed by the quality team"
+                else:
+                    continue
+                ev.append({"at": r.created_at, "kind": "human", "title": title, "detail": None})
+    if c.analysis_status == "failed" and c.last_analysis_at and not runs:
+        ev.append({"at": c.last_analysis_at, "kind": "recorded", "title": "AI analysis could not run", "detail": "Your complaint is saved. The analysis can be retried."})
+    closed_logged = False
+    for log in db.scalars(select(AuditLog).where(AuditLog.entity_type == "complaint", AuditLog.entity_id == c.complaint_id,
+                                                 AuditLog.action == "complaint.update").order_by(AuditLog.created_at)).all():
+        for field, tmpl in STATUS_FIELDS.items():
+            ch = ((log.details or {}).get("changes") or {}).get(field)
+            if ch and ch.get("to"):
+                closed_logged |= field == "complaint_status" and ch["to"] == "Closed"
+                ev.append({"at": log.created_at, "kind": "human", "title": tmpl.format(to=ch["to"]), "detail": None})
+    if c.root_cause_status == "Confirmed" and c.root_cause_confirmed_at:
+        ev.append({"at": c.root_cause_confirmed_at, "kind": "human", "title": f"Root cause confirmed: {c.root_cause_category}",
+                   "detail": "Confirmed by an investigator from evidence, separate from any AI suggestion."})
+    if c.complaint_status == "Closed" and c.complaint_closed_date and not closed_logged:
+        ev.append({"at": datetime.combine(c.complaint_closed_date, datetime.min.time(), timezone.utc), "kind": "human", "title": "Complaint closed", "detail": None})
+    for e in ev:
+        if e["at"].tzinfo is None:
+            e["at"] = e["at"].replace(tzinfo=timezone.utc)
+    ev.sort(key=lambda e: e["at"])
+    return [{**e, "at": e["at"].isoformat()} for e in ev]
 
 
 def _public_view(db: Session, c: Complaint) -> dict:
@@ -159,6 +234,7 @@ def _public_view(db: Session, c: Complaint) -> dict:
         "attachments": [{"id": f.id, "filename": f.original_filename, "content_type": f.content_type, "size_bytes": f.size_bytes,
                          "width": f.width, "height": f.height} for f in files],
         "analysis": {"run_id": latest_run, "created_at": preds[0].created_at.isoformat(), "predictions": run} if run else None,
+        "timeline": _timeline(db, c, preds, len(files)),
     }
 
 

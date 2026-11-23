@@ -60,3 +60,5 @@ def _add_missing_columns() -> None:
                     raise RuntimeError(f"Cannot auto-add NOT NULL column {table.name}.{col.name}; write a migration")
                 ddl = col.type.compile(dialect=engine.dialect)
                 conn.execute(text(f'ALTER TABLE "{table.name}" ADD COLUMN "{col.name}" {ddl}'))
+            for idx in table.indexes:  # indexes declared on newly added columns (e.g. unique submission token)
+                idx.create(conn, checkfirst=True)

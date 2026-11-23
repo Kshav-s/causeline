@@ -16,7 +16,34 @@ type View = {
     analysis_attempts: number | null; last_analysis_at: string | null; verified_category: string | null; confirmed_root_cause: string | null };
   attachments: { id: number; filename: string; content_type: string; size_bytes: number; width: number | null; height: number | null }[];
   analysis: (AnalysisRun & { created_at: string }) | null;
+  timeline: { at: string; kind: "recorded" | "ai" | "human"; title: string; detail: string | null }[];
 };
+
+const WHO: Record<string, { label: string; kind: "recorded" | "nlp" | "human"; dot: string }> = {
+  recorded: { label: "Recorded", kind: "recorded", dot: "var(--pv-recorded-fg)" },
+  ai: { label: "AI suggestion", kind: "nlp", dot: "var(--pv-nlp-fg)" },
+  human: { label: "Quality team", kind: "human", dot: "var(--pv-human-fg)" },
+};
+
+function Timeline({ items }: { items: View["timeline"] }) {
+  return (
+    <ol className="relative space-y-4 before:absolute before:left-[5px] before:top-1.5 before:bottom-1.5 before:w-px before:bg-line">
+      {items.map((e, i) => {
+        const w = WHO[e.kind] ?? WHO.recorded;
+        return (
+          <li key={i} className="relative pl-6">
+            <span className="absolute left-0 top-1.5 size-[11px] rounded-full border-2 border-surface" style={{ background: w.dot }} aria-hidden />
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="text-[13px] font-medium text-ink">{e.title}</span>
+              <ProvenanceBadge kind={w.kind} label={w.label} />
+            </div>
+            <div className="text-[12px] text-muted"><time dateTime={e.at}>{fmtDateTime(e.at)}</time>{e.detail && <> · {e.detail}</>}</div>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
 
 const ANALYSIS: Record<string, { tone: "ok" | "warn" | "bad" | "info"; label: string }> = {
   completed: { tone: "ok", label: "AI analysis complete" }, partial: { tone: "warn", label: "AI analysis partly complete" },
@@ -126,6 +153,11 @@ export default function ComplaintStatus() {
             )}
             {c.investigation_status && <p className="text-[12px] text-muted mt-2">Investigation status: {c.investigation_status}</p>}
           </section>
+          <section className="rounded-[var(--radius-card)] border border-line bg-surface p-5" aria-label="Investigation timeline">
+            <h2 className="font-semibold mb-3">Timeline</h2>
+            {q.data!.timeline?.length ? <Timeline items={q.data!.timeline} /> : <p className="text-[13px] text-muted">No events recorded yet.</p>}
+            <p className="text-[12px] text-muted mt-4 border-t border-line pt-3">Shows what happened to your complaint and who it came from. Internal investigation notes and staff names are not shown.</p>
+          </section>
         </div>
         <div className="xl:col-span-7 min-w-0 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -138,7 +170,7 @@ export default function ComplaintStatus() {
               Your complaint is saved ({c.complaint_id}) - you do not need to submit it again. {retry.error ? (retry.error as Error).message : ""}
             </Banner>
           )}
-          {analysis ? <AnalysisResult run={analysis} showInput={false} readOnly /> : <InsufficientData title="No analysis results yet">The models have not produced a result for this complaint. Use Retry analysis above.</InsufficientData>}
+          {analysis ? <AnalysisResult run={analysis} showInput={false} readOnly recorded={`Your description, product details and ${attachments.length} photo${attachments.length === 1 ? "" : "s"}`} verified={{ category: c.verified_category, rootCause: c.confirmed_root_cause }} /> : <InsufficientData title="No analysis results yet">The models have not produced a result for this complaint. Use Retry analysis above.</InsufficientData>}
           <div className="rounded-[var(--radius-card)] border border-line bg-surface-2 p-4 text-[12px] text-muted flex gap-2">
             <ShieldAlert className="size-4 shrink-0 mt-0.5" />
             <p><b className="text-ink-2">Model disclaimer.</b> The AI models were trained on synthetic demonstration data. Their outputs are suggestions with stated uncertainty, not findings. Categories and root causes are confirmed only by the CauseLine quality team <BadgeCheck className="inline size-3.5" />.</p>

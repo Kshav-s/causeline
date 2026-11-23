@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { ProvenanceBadge } from "./ui/ProvenanceBadge";
 import { KpiCard } from "./ui/KpiCard";
 import { DataTable } from "./ui/DataTable";
-import { AnalysisResult } from "./domain/AnalysisResult";
+import { AnalysisResult, EvidenceSummary } from "./domain/AnalysisResult";
 import type { AnalysisRun, Prediction } from "../types/api";
 
 const wrap = (ui: ReactNode) => render(<QueryClientProvider client={new QueryClient()}><MemoryRouter>{ui}</MemoryRouter></QueryClientProvider>);
@@ -84,5 +84,28 @@ describe("AnalysisResult", () => {
   it("reports an unavailable model as unavailable", () => {
     wrap(<AnalysisResult run={run({ "nlp-similarity": pred("nlp-similarity", { status: "error", message: "Model 'nlp-similarity' is not available (degraded)" }) })} />);
     expect(screen.getByText("Similarity search unavailable")).toBeInTheDocument();
+  });
+});
+
+describe("EvidenceSummary", () => {
+  const full = (over: Record<string, Partial<Prediction>> = {}) => run({
+    "nlp-category": pred("nlp-category", { top_label: "Packaging issue", top_score: 0.31, low_confidence: true, review_status: "pending", ...over["nlp-category"] }),
+    "nlp-similarity": pred("nlp-similarity", { output: { results: [{ similarity: 0.62, is_synthetic: true }] } }),
+    "root-cause": pred("root-cause", { status: "insufficient_data" }),
+    "food-safety-flag": pred("food-safety-flag", { output: { escalate_for_food_safety_review: true, reason_keywords: ["glass"], reason_category_in_safety_bucket: false } }),
+  });
+  it("keeps the six evidence types apart and never shows a suggestion as a finding", () => {
+    wrap(<EvidenceSummary run={full()} />);
+    for (const n of ["Recorded information", "NLP prediction", "Similarity scores", "Root-cause hypotheses", "Food-safety alert", "Human-verified findings"])
+      expect(screen.getByText(n)).toBeInTheDocument();
+    expect(screen.getByText(/Packaging issue · score 0.31 · uncertain/)).toBeInTheDocument();
+    expect(screen.getByText(/1 similar records · top 0.62 · synthetic demo data/)).toBeInTheDocument();
+    expect(screen.getByText("Waiting for a confirmed category")).toBeInTheDocument();
+    expect(screen.getByText("Escalated for review (keyword rule)")).toBeInTheDocument();
+    expect(screen.getByText("Not yet reviewed by the quality team")).toBeInTheDocument();
+  });
+  it("shows a human-verified category only after a review", () => {
+    wrap(<EvidenceSummary run={full({ "nlp-category": { review_status: "corrected", reviews: [{ action: "corrected", corrected_label: "Foreign matter", reason: "x", reviewer: "A", created_at: "2026-11-23T11:00:00" }] as Prediction["reviews"] } })} />);
+    expect(screen.getByText("Category: Foreign matter")).toBeInTheDocument();
   });
 });

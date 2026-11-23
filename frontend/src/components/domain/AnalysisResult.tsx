@@ -122,7 +122,45 @@ function Unavailable({ p, what }: { p: Prediction; what: string }) {
   return <Banner tone="warn" title={`${what} unavailable`}>{p.message}</Banner>;
 }
 
-export function AnalysisResult({ run, showInput = true, readOnly = false }: { run: AnalysisRun; showInput?: boolean; readOnly?: boolean }) {
+type Kind = "recorded" | "nlp" | "similarity" | "model" | "rule" | "human";
+type Line = { kind: Kind; name: string; value: React.ReactNode; tone?: "warn" | "bad" | "muted" };
+
+/** One block that keeps the six kinds of evidence visibly apart, so a suggestion is never read as a finding. */
+export function EvidenceSummary({ run, recorded, verified }: { run: AnalysisRun; recorded?: string; verified?: { category?: string | null; rootCause?: string | null } }) {
+  const P = run.predictions;
+  const cat = P["nlp-category"], safety = P["food-safety-flag"], sim = P["nlp-similarity"], rc = P["root-cause"];
+  const results = (sim?.output?.results ?? []) as { similarity: number; is_synthetic?: boolean }[];
+  const review = (p?: Prediction) => p && (p.review_status === "confirmed" || p.review_status === "corrected") ? p : undefined;
+  const catReviewed = review(cat);
+  const humanCat = verified?.category ?? (catReviewed ? (catReviewed.review_status === "corrected" ? catReviewed.reviews.at(-1)?.corrected_label : catReviewed.top_label) : null);
+  const lines: Line[] = [
+    { kind: "recorded", name: "Recorded information", value: recorded ?? "Complaint text as submitted" },
+    { kind: "nlp", name: "NLP prediction", value: !cat ? "Not run" : cat.status !== "completed" ? "Unavailable" : <>{cat.top_label} · score {cat.top_score?.toFixed(2)}{cat.low_confidence && " · uncertain"}</>, tone: cat?.low_confidence ? "warn" : undefined },
+    { kind: "similarity", name: "Similarity scores", value: !sim || sim.status !== "completed" ? "Unavailable" : results.length ? <>{results.length} similar records · top {results[0].similarity.toFixed(2)}{results.some((r) => r.is_synthetic) && " · synthetic demo data"}</> : "No similar records" },
+    { kind: "model", name: "Root-cause hypotheses", value: !rc ? "Not run" : rc.status === "completed" ? <>{rc.output!.hypotheses.length} possible causes · not confirmed</> : rc.status === "insufficient_data" ? "Waiting for a confirmed category" : "Unavailable", tone: rc?.status === "completed" ? undefined : "muted" },
+    { kind: "rule", name: "Food-safety alert", value: !safety || safety.status !== "completed" ? "Unavailable" : safety.output?.escalate_for_food_safety_review ? "Escalated for review (keyword rule)" : "No keyword trigger", tone: safety?.output?.escalate_for_food_safety_review ? "bad" : undefined },
+    { kind: "human", name: "Human-verified findings", value: humanCat || verified?.rootCause ? <>{humanCat && <>Category: {humanCat}</>}{humanCat && verified?.rootCause && " · "}{verified?.rootCause && <>Root cause: {verified.rootCause}</>}</> : "Not yet reviewed by the quality team", tone: humanCat || verified?.rootCause ? undefined : "muted" },
+  ];
+  return (
+    <section aria-label="Evidence summary" className="rounded-[var(--radius-card)] border border-line bg-surface">
+      <h4 className="px-4 pt-3 pb-1 font-semibold text-ink">Evidence summary</h4>
+      <p className="px-4 text-[12px] text-muted">Each line says where it comes from. Only the last line is a confirmed finding.</p>
+      <dl className="mt-2 divide-y divide-line">
+        {lines.map((l) => (
+          <div key={l.name} className="grid grid-cols-[minmax(0,190px)_1fr] max-sm:grid-cols-1 gap-x-3 gap-y-1 px-4 py-2 items-center">
+            <dt className="flex items-center gap-2 min-w-0"><ProvenanceBadge kind={l.kind} /></dt>
+            <dd className="text-[13px] min-w-0">
+              <span className="block text-[12px] font-medium text-muted">{l.name}</span>
+              <span className={cx("break-words", l.tone === "warn" ? "text-[var(--warn-fg)]" : l.tone === "bad" ? "text-[var(--bad-fg)] font-medium" : l.tone === "muted" ? "text-muted" : "text-ink")}>{l.value}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
+export function AnalysisResult({ run, showInput = true, readOnly = false, recorded, verified }: { run: AnalysisRun; showInput?: boolean; readOnly?: boolean; recorded?: string; verified?: { category?: string | null; rootCause?: string | null } }) {
   const P = run.predictions;
   const cat = P["nlp-category"], sub = P["nlp-subcategory"], safety = P["food-safety-flag"], sim = P["nlp-similarity"], rc = P["root-cause"];
   const escalate = safety?.output?.escalate_for_food_safety_review;
@@ -135,6 +173,7 @@ export function AnalysisResult({ run, showInput = true, readOnly = false }: { ru
   const nextStep = readOnly ? "The CauseLine quality team reviews every complaint. AI results are suggestions only - the confirmed category and root cause will appear here once an investigator records them." : next;
   return (
     <div className="space-y-4">
+      <EvidenceSummary run={run} recorded={recorded} verified={verified} />
       {showInput && cat && (
         <div className="rounded-[var(--radius-card)] bg-surface-2 border border-line p-3">
           <div className="flex items-center gap-2 mb-1"><span className="overline text-muted">Submitted text</span><ProvenanceBadge kind="recorded" label="Input" /></div>

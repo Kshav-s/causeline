@@ -388,3 +388,54 @@ def test_deleted_reference_is_never_reissued(client, db):
     db.commit()
     second = submit(client).json()["complaint_id"]
     assert int(second.rsplit("-", 1)[1]) > int(first.rsplit("-", 1)[1]), (first, second)
+
+
+def test_same_form_submitted_twice_creates_one_complaint(client, db):
+    tok = "tok_" + "A1b2C3d4E5f6G7h8"
+    files = [("images", ("a.png", png(), "image/png"))]
+    first = submit(client, files, submission_token=tok)
+    assert first.status_code == 201, first.text
+    n_complaints = db.scalar(select(func.count(Complaint.id)))
+    n_files = db.scalar(select(func.count(ComplaintAttachment.id)))
+    again = submit(client, files, submission_token=tok)  # double click / network retry / back + resubmit
+    assert again.status_code == 409
+    j = again.json()
+    assert j["duplicate"] is True and j["complaint_id"] == first.json()["complaint_id"] and "access_key" not in j
+    assert db.scalar(select(func.count(Complaint.id))) == n_complaints           # nothing new created
+    assert db.scalar(select(func.count(ComplaintAttachment.id))) == n_files      # photos not stored twice
+    c = db.scalar(select(Complaint).where(Complaint.complaint_id == j["complaint_id"]))
+    assert c.submission_token_hash and tok not in c.submission_token_hash        # only a hash is kept
+    assert submit(client, submission_token="bad token!").status_code == 422     # malformed token rejected
+    assert submit(client, submission_token="tok_" + "Z9y8X7w6V5u4T3s2").status_code == 201  # a new form is accepted
+
+
+def test_complainant_timeline_shows_progress_but_no_internal_details(client, first_complaint):
+    client.cookies.clear()
+    j = client.post("/api/public/complaints", data=form(product_name=first_complaint.product_name),
+                    files=[("images", ("a.png", png(), "image/png"))]).json()
+    cid, key = j["complaint_id"], j["access_key"]
+    view = lambda: (client.cookies.clear(), client.get(f"/api/public/complaints/{cid}", headers={"X-Access-Key": key}).json())[1]
+    v0 = view()
+    t0 = v0["timeline"]
+    # the AI event mirrors the recorded analysis status (similarity may still be loading in the test environment -> partial)
+    expect_ai = {"completed": "AI analysis completed", "partial": "AI analysis partly completed"}[v0["complaint"]["analysis_status"]]
+    assert [e["title"] for e in t0][:2] == ["Complaint received", expect_ai] and t0[0]["kind"] == "recorded" and t0[1]["kind"] == "ai"
+    assert "1 photo attached" in t0[0]["detail"]
+    ref = view()["analysis"]["predictions"]["nlp-category"]["reference"]
+    from tests.conftest import _login
+    _login(client, "analyst@test.local")
+    client.post(f"/api/ml/predictions/{ref}/review", json={"action": "corrected", "corrected_label": "Physical defect / foreign matter", "reason": "Photo"})
+    client.post(f"/api/complaints/{cid}/notes", json={"note": "INTERNAL: supplier Acme suspected"})
+    client.patch(f"/api/complaints/{cid}", json={"complaint_status": "Under investigation", "change_reason": "Triage done"})
+    client.patch(f"/api/complaints/{cid}", json={"root_cause_category": "Incoming material contamination", "root_cause_status": "Confirmed",
+                                                 "change_reason": "Lot test positive"})
+    t = view()["timeline"]
+    titles = [e["title"] for e in t]
+    assert "Category set by the quality team: Physical defect / foreign matter" in titles
+    assert "Root-cause suggestions generated" in titles
+    assert "Status changed to Under investigation" in titles
+    assert "Root cause confirmed: Incoming material contamination" in titles
+    assert [e["at"] for e in t] == sorted(e["at"] for e in t)                        # chronological
+    blob = str(t)
+    assert "INTERNAL" not in blob and "Acme" not in blob and "Analyst" not in blob   # no notes, no staff identities
+    assert "Triage done" not in blob and "Lot test positive" not in blob             # staff change reasons stay internal

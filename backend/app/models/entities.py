@@ -131,6 +131,8 @@ class Complaint(TimestampMixin, Base):
     submitter_email: Mapped[str | None] = mapped_column(String(255))
     additional_info: Mapped[str | None] = mapped_column(Text)
     access_key_hash: Mapped[str | None] = mapped_column(String(64))  # sha256 of the submitter's private key; key itself never stored
+    # sha256 of the form's one-time submission token: a repeated submission of the same form is rejected (idempotency)
+    submission_token_hash: Mapped[str | None] = mapped_column(String(64), unique=True, index=True)
     analysis_status: Mapped[str | None] = mapped_column(String(20), index=True)  # pending | completed | partial | failed
     analysis_attempts: Mapped[int | None] = mapped_column(Integer, default=0)
     last_analysis_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

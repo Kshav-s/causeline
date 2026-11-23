@@ -6,31 +6,65 @@ const PASSWORD = process.env.CL_PASSWORD ?? "";
 const PNG_RED = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGM4IScHAAK2AQU0pnWqAAAAAElFTkSuQmCC", "base64");
 const PNG_BLUE = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGOQkzsBAAFiAQURG6MhAAAAAElFTkSuQmCC", "base64");
 
+const DESC = () => `E2E ${Date.now()}: hard plastic fragment found inside a sealed yoghurt cup after opening.`;
+
+async function fillSteps(page: Page, description: string, withPhotos = true) {
+  await expect(page.getByRole("navigation", { name: "Complaint form progress" })).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();                          // step 1 validated before moving on
+  await expect(page.getByText("Enter your name")).toBeVisible();
+  await page.getByLabel("Your name").fill("E2E Visitor");
+  await page.getByLabel("Email").fill("visitor@example.com");
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Next" }).click();                          // step 2 validated
+  await expect(page.getByText("Describe the problem in at least 20 characters")).toBeVisible();
+  await page.getByLabel("Product name or code").fill("Set yoghurt");
+  await page.getByLabel("How serious is it?").selectOption("Major");
+  await page.getByLabel("What happened?").fill(description);
+  await page.getByRole("button", { name: "Next" }).click();
+  if (withPhotos) {
+    await page.getByLabel("Choose photos").setInputFiles([
+      { name: "cup.png", mimeType: "image/png", buffer: PNG_RED },
+      { name: "lid.png", mimeType: "image/png", buffer: PNG_BLUE },
+      { name: "notes.txt", mimeType: "text/plain", buffer: Buffer.from("not an image") },
+    ]);
+    await expect(page.getByRole("img", { name: /cup\.png/ })).toBeVisible();          // preview before submission
+    await expect(page.getByText("Only JPG, PNG or WEBP")).toBeVisible();              // bad file flagged client-side
+    await page.getByRole("button", { name: "Next" }).click();
+    await expect(page.getByText("Remove the photos marked with a problem")).toBeVisible();
+    await page.getByRole("button", { name: "Remove notes.txt" }).click();             // remove before submission
+  }
+  await page.getByRole("button", { name: "Next" }).click();
+  const review = page.getByRole("region", { name: "Review your complaint" });          // review step shows what will be sent
+  await expect(review.getByText(description)).toBeVisible();
+  await expect(review.getByText("E2E Visitor")).toBeVisible();
+}
+
 async function raise(page: Page) {
   await page.goto("/");
   await expect(page.getByRole("link", { name: /sign in/i })).toHaveCount(0);
   await expect(page.getByText(/request a demo/i)).toHaveCount(0);
   await page.getByRole("link", { name: "Raise a Complaint" }).first().click();
   await expect(page).toHaveURL(/\/raise$/);
-  await page.getByRole("button", { name: "Submit complaint" }).click();          // client validation first
-  await expect(page.getByText("Enter your name")).toBeVisible();
-  await page.getByLabel("Your name").fill("E2E Visitor");
-  await page.getByLabel("Email").fill("visitor@example.com");
-  await page.getByLabel("Product name or code").fill("Set yoghurt");
-  await page.getByLabel("How serious is it?").selectOption("Major");
-  await page.getByLabel("What happened?").fill(`E2E ${Date.now()}: hard plastic fragment found inside a sealed yoghurt cup after opening.`);
-  await page.getByLabel("Choose photos").setInputFiles([
-    { name: "cup.png", mimeType: "image/png", buffer: PNG_RED },
-    { name: "lid.png", mimeType: "image/png", buffer: PNG_BLUE },
-    { name: "notes.txt", mimeType: "text/plain", buffer: Buffer.from("not an image") },
-  ]);
-  await expect(page.getByRole("img", { name: /cup\.png/ })).toBeVisible();          // preview before submission
-  await expect(page.getByText("Only JPG, PNG or WEBP")).toBeVisible();              // bad file flagged client-side
-  await page.getByRole("button", { name: "Remove notes.txt" }).click();             // remove before submission
+  await fillSteps(page, DESC());
   await page.getByRole("button", { name: "Submit complaint" }).click();
   await expect(page).toHaveURL(/\/complaint\/CL-\d{4}-\d{6}/, { timeout: 30_000 });
   return page.url().match(/CL-\d{4}-\d{6}/)![0];
 }
+
+test("duplicate protection: the same complaint sent again from this device is caught before a second record is made", async ({ page }) => {
+  const d = DESC();
+  await page.goto("/raise");
+  await fillSteps(page, d, false);
+  await page.getByRole("button", { name: "Submit complaint" }).click();
+  await expect(page).toHaveURL(/\/complaint\/CL-\d{4}-\d{6}/, { timeout: 30_000 });
+  const id = page.url().match(/CL-\d{4}-\d{6}/)![0];
+  await page.goto("/raise");
+  await fillSteps(page, d, false);
+  await page.getByRole("button", { name: "Submit complaint" }).click();
+  await expect(page.getByText("You have already sent this complaint")).toBeVisible();
+  await expect(page.getByRole("link", { name: `Open ${id}` })).toBeVisible();
+  await expect(page).toHaveURL(/\/raise$/);                                           // nothing sent
+});
 
 test("visitor: raise complaint with photos -> reference -> real AI analysis -> register, no login", async ({ page }) => {
   const id = await raise(page);
@@ -45,6 +79,12 @@ test("visitor: raise complaint with photos -> reference -> real AI analysis -> r
   await expect(page.getByRole("region", { name: "Similar historical complaints" })).toBeVisible();
   await expect(page.getByRole("region", { name: "Photos" }).getByRole("img")).toHaveCount(2);
   await expect(page.getByText("Model disclaimer.")).toBeVisible();
+  const tl = page.getByRole("region", { name: "Investigation timeline" });                // complainant-safe history
+  await expect(tl.getByText("Complaint received")).toBeVisible();
+  await expect(tl.getByText(/AI analysis (partly )?completed/)).toBeVisible();
+  const ev = page.getByRole("region", { name: "Evidence summary" });                    // six evidence types kept apart
+  for (const t of ["Recorded information", "NLP prediction", "Similarity scores", "Root-cause hypotheses", "Food-safety alert", "Human-verified findings"])
+    await expect(ev.getByText(t, { exact: true })).toBeVisible();
   await page.reload();                                                                  // persisted + key remembered on device
   await expect(page.getByRole("region", { name: "Complaint category" })).toBeVisible();
   await page.goto(`/register?q=${id}`);
