@@ -1,0 +1,242 @@
+"""Public (no-account) complaint workflow: submission, images, privacy, failure handling, register, staff view, NLP client."""
+import io
+
+import httpx
+import pytest
+from PIL import Image
+from sqlalchemy import func, select
+
+from app.models import AuditLog, Complaint, ComplaintAttachment, Prediction
+
+DESC = "Customer found a hard plastic fragment inside a sealed yoghurt cup after opening it at home."
+
+
+def png(w=40, h=30, color=(200, 30, 30), fmt="PNG") -> bytes:
+    b = io.BytesIO()
+    Image.new("RGB", (w, h), color).save(b, fmt)
+    return b.getvalue()
+
+
+def form(**over):
+    d = {"customer_name": "Asha Verma", "product_name": "Set yoghurt", "complaint_date": "2026-11-20", "description": DESC,
+         "organisation": "Verma Stores", "email": "asha@example.com", "severity": "Major", "additional_info": "Bought on 18 Nov"}
+    d.update(over)
+    return {k: v for k, v in d.items() if v is not None}
+
+
+def submit(client, files=None, **over):
+    client.cookies.clear()
+    return client.post("/api/public/complaints", data=form(**over), files=files or [])
+
+
+# ---------------------------------------------------------------- submission
+def test_submit_without_login_with_images(client, db):
+    files = [("images", ("a.png", png(), "image/png")), ("images", ("b.jpg", png(fmt="JPEG"), "image/jpeg")),
+             ("images", ("c.webp", png(fmt="WEBP"), "image/webp"))]
+    r = submit(client, files)
+    assert r.status_code == 201, r.text
+    j = r.json()
+    assert j["complaint_id"].startswith("CL-2026-") and len(j["access_key"]) >= 30
+    assert j["analysis_status"] in ("completed", "partial")
+    c = db.scalar(select(Complaint).where(Complaint.complaint_id == j["complaint_id"]))
+    assert c.source == "public" and c.submitter_email == "asha@example.com" and c.access_key_hash and j["access_key"] not in c.access_key_hash
+    assert db.scalar(select(func.count(ComplaintAttachment.id)).where(ComplaintAttachment.complaint_pk == c.id)) == 3
+    preds = db.scalars(select(Prediction).where(Prediction.complaint_pk == c.id)).all()
+    assert {p.model_version.model_key for p in preds} >= {"nlp-category", "nlp-subcategory", "food-safety-flag", "nlp-similarity", "root-cause"}
+    assert all(p.created_by_id is None for p in preds)  # anonymous run, still versioned
+    assert db.scalar(select(AuditLog).where(AuditLog.action == "complaint.public_submit", AuditLog.entity_id == c.complaint_id))
+
+
+@pytest.mark.parametrize("name,data,code", [
+    ("evil.exe", b"MZ\x90\x00", 415),                     # wrong extension
+    ("fake.png", b"<html>not an image</html>", 415),      # renamed non-image
+    ("trunc.png", png()[:40], 415),                       # corrupt/truncated
+    ("empty.jpg", b"", 400),
+    ("anim.gif", png(fmt="GIF"), 415),                    # real image, disallowed type
+])
+def test_image_validation(client, name, data, code):
+    assert submit(client, [("images", (name, data, "image/png"))]).status_code == code
+
+
+def test_image_size_and_count_limits(client):
+    big = png(4000, 4000, fmt="PNG") + b"\0" * (5 * 1024 * 1024)
+    assert submit(client, [("images", ("big.png", big, "image/png"))]).status_code == 413
+    seven = [("images", (f"i{i}.png", png(), "image/png")) for i in range(7)]
+    assert submit(client, seven).status_code == 422
+
+
+def test_required_fields_and_rules(client):
+    r = client.post("/api/public/complaints", data={"product_name": "x"})
+    assert r.status_code == 422 and {e["field"] for e in r.json()["errors"]} >= {"customer_name", "description", "complaint_date"}
+    assert submit(client, complaint_date="2099-01-01").status_code == 422
+    assert submit(client, email="not-an-email").status_code == 422
+    assert submit(client, severity="Apocalyptic").status_code == 422
+    assert submit(client, description="too short").status_code == 422
+    assert submit(client, email=None, organisation=None, severity=None).status_code == 201  # optional fields really optional
+
+
+def test_honeypot_blocks_bots(client, db):
+    before = db.scalar(select(func.count(Complaint.id)))
+    assert submit(client, website="http://spam").status_code == 400
+    assert db.scalar(select(func.count(Complaint.id))) == before
+
+
+def test_rate_limit(client):
+    from app.api.public import submit_limiter
+    submit_limiter.max_calls = 2
+    try:
+        codes = [submit(client).status_code for _ in range(3)]
+        assert codes == [201, 201, 429]
+    finally:
+        submit_limiter.max_calls = 10
+
+
+# ---------------------------------------------------------------- privacy
+def test_access_key_required_for_details_and_images(client):
+    j = submit(client, [("images", ("a.png", png(), "image/png"))]).json()
+    cid, key = j["complaint_id"], j["access_key"]
+    assert client.get(f"/api/public/complaints/{cid}").status_code == 404
+    assert client.get(f"/api/public/complaints/{cid}", headers={"X-Access-Key": "wrong"}).status_code == 404
+    assert client.get("/api/public/complaints/ABT-CMP-2007-014934", headers={"X-Access-Key": key}).status_code == 404  # key is per complaint
+    v = client.get(f"/api/public/complaints/{cid}", headers={"X-Access-Key": key}).json()
+    assert v["complaint"]["description"] == DESC and v["attachments"] and v["analysis"]["predictions"]["nlp-category"]["status"] == "completed"
+    aid = v["attachments"][0]["id"]
+    assert client.get(f"/api/public/complaints/{cid}/attachments/{aid}").status_code == 404
+    img = client.get(f"/api/public/complaints/{cid}/attachments/{aid}", headers={"X-Access-Key": key})
+    assert img.status_code == 200 and img.headers["content-type"] == "image/png" and img.content == png()
+    assert "no-store" in img.headers["cache-control"]
+
+
+def test_register_is_anonymised(client):
+    j = submit(client).json()
+    r = client.get("/api/public/register", params={"q": j["complaint_id"]}).json()
+    assert r["total"] == 1
+    row = r["items"][0]
+    assert set(row) == {"complaint_id", "submitted", "product_name", "category", "category_source", "predicted_category", "severity", "status",
+                        "analysis_status", "source", "is_synthetic"}
+    assert row["category"] is None and row["predicted_category"]  # AI suggestion is labelled separately, never as the category
+    text = str(r)
+    assert "asha@example.com" not in text and "Asha" not in text and "yoghurt cup" not in text
+
+
+def test_register_filters_sort_paging(client):
+    r = client.get("/api/public/register", params={"severity": "Critical", "page_size": 5, "sort": "date", "order": "asc"}).json()
+    assert len(r["items"]) <= 5 and all(i["severity"] == "Critical" for i in r["items"])
+    assert client.get("/api/public/register", params={"sort": "password"}).status_code == 422
+
+
+def test_public_cannot_reach_staff_endpoints(client):
+    client.cookies.clear()
+    for path in ("/api/complaints", "/api/complaints/ABT-CMP-2007-014934", "/api/dashboard", "/api/uploads", "/api/admin/users", "/api/capa"):
+        assert client.get(path).status_code == 401
+
+
+# ---------------------------------------------------------------- failure handling
+def test_analysis_failure_keeps_complaint_and_retry_works(client, db, monkeypatch):
+    from app.services import ml_service
+
+    def boom(*a, **k):
+        raise RuntimeError("model service down")
+    monkeypatch.setattr(ml_service, "_nlp_results", boom)
+    j = submit(client).json()
+    assert j["analysis_status"] == "failed"
+    c = db.scalar(select(Complaint).where(Complaint.complaint_id == j["complaint_id"]))
+    assert c is not None and c.analysis_attempts == 1  # complaint persisted despite the failure
+    monkeypatch.undo()
+    r = client.post(f"/api/public/complaints/{j['complaint_id']}/analyze", headers={"X-Access-Key": j["access_key"]})
+    assert r.status_code == 200 and r.json()["complaint"]["analysis_status"] in ("completed", "partial")
+    assert r.json()["analysis"]["predictions"]["nlp-category"]["status"] == "completed"
+    if r.json()["complaint"]["analysis_status"] == "completed":
+        assert client.post(f"/api/public/complaints/{j['complaint_id']}/analyze", headers={"X-Access-Key": j["access_key"]}).status_code == 409
+
+
+# ---------------------------------------------------------------- staff side
+def test_staff_sees_submitter_images_notes_activity(client, admin):
+    j = submit(client, [("images", ("a.png", png(), "image/png"))]).json()
+    from tests.conftest import _login
+    _login(client, "analyst@test.local")
+    d = client.get(f"/api/complaints/{j['complaint_id']}").json()
+    assert d["submitter"]["email"] == "asha@example.com" and len(d["attachments"]) == 1
+    assert client.get(f"/api/complaints/{j['complaint_id']}/attachments/{d['attachments'][0]['id']}").status_code == 200
+    assert client.post(f"/api/complaints/{j['complaint_id']}/notes", json={"note": "Retained sample requested from store."}).status_code == 201
+    assert client.get(f"/api/complaints/{j['complaint_id']}/notes").json()["items"][0]["author"] == "Analyst"
+    acts = [a["action"] for a in client.get(f"/api/complaints/{j['complaint_id']}/activity").json()["items"]]
+    assert {"complaint.public_submit", "ml.analyze", "complaint.note"} <= set(acts)
+
+
+def test_confirmed_root_cause_is_recorded_separately(client, analyst):
+    client.cookies.clear()
+    j = submit(client).json()
+    from tests.conftest import _login
+    _login(client, "analyst@test.local")
+    cid = j["complaint_id"]
+    assert client.patch(f"/api/complaints/{cid}", json={"root_cause_status": "Confirmed", "change_reason": "x" * 5}).status_code == 422  # no category yet
+    r = client.patch(f"/api/complaints/{cid}", json={"root_cause_category": "Incoming material contamination", "root_cause_status": "Confirmed",
+                                                     "change_reason": "Supplier lot test positive"})
+    assert r.status_code == 200
+    d = client.get(f"/api/complaints/{cid}").json()
+    assert d["root_cause_confirmation"]["by"] == "Analyst"
+    hyp = client.get(f"/api/ml/complaints/{d['complaint']['id']}/runs").json()["runs"][0]["predictions"]["root-cause"]
+    assert hyp["review_status"] in ("pending", "not_applicable")  # the model suggestion was NOT converted into the confirmed cause
+
+
+def test_dashboard_counts_match_database(admin, db):
+    k = admin.get("/api/dashboard").json()["kpis"]
+    assert k["total_complaints"] == db.scalar(select(func.count(Complaint.id)))
+    assert k["public_submissions"] == db.scalar(select(func.count(Complaint.id)).where(Complaint.source == "public"))
+    assert k["critical_complaints"] == db.scalar(select(func.count(Complaint.id)).where(Complaint.complaint_severity == "Critical"))
+
+
+def test_haccp_endpoint_labels_review(admin):
+    h = admin.get("/api/analytics/haccp").json()
+    assert h["rows"] and "does not show that a control point failed" in h["basis"]
+
+
+# ---------------------------------------------------------------- external NLP service client
+REMOTE = {"classification": {"category_predictions": [{"label": "Packaging issue", "probability": 0.7}, {"label": "Physical defect / foreign matter", "probability": 0.2}],
+                             "subcategory_predictions": [{"label": "Seal failure", "probability": 0.6}],
+                             "food_safety_flag": {"escalate_for_food_safety_review": False, "reason_keywords": [], "reason_category_in_safety_bucket": False, "note": "n"}},
+          "similar": [{"complaint_id": "ABT-CMP-2020-000001", "complaint_received_date": "2020-01-01", "complaint_category": "Packaging issue",
+                       "defect_subcategory": "s", "product_name": "p", "complaint_summary": "x", "complaint_description": "PRIVATE", "similarity": 0.81}],
+          "similar_error": None, "food_safety_flag": {"escalate_for_food_safety_review": False, "reason_keywords": [], "reason_category_in_safety_bucket": False, "note": "n"},
+          "disclaimer": "synthetic"}
+
+
+def _settings_with_url(monkeypatch, url):
+    from app.core.config import get_settings
+    monkeypatch.setattr(get_settings(), "nlp_service_url", url)
+
+
+def test_remote_nlp_contract_used_when_configured(monkeypatch):
+    from app.services import ml_service
+    _settings_with_url(monkeypatch, "http://nlp.example")
+    seen = {}
+
+    def fake_post(url, json, timeout):
+        seen.update(url=url, body=json)
+        return httpx.Response(200, json=REMOTE, request=httpx.Request("POST", url))
+    monkeypatch.setattr(httpx, "post", fake_post)
+    res = {r.model_key: r for r in ml_service._nlp_results("seal broken", "X-1")}
+    assert seen["url"] == "http://nlp.example/analyze" and seen["body"] == {"text": "seal broken", "top_k_similar": 5, "exclude_complaint_id": "X-1"}
+    assert res["nlp-category"].top_label == "Packaging issue" and res["nlp-category"].output["served_by"].startswith("remote:")
+    assert "complaint_description" not in res["nlp-similarity"].output["results"][0]  # never forwards private text
+
+
+def test_remote_nlp_failure_falls_back_to_in_process(monkeypatch):
+    from app.services import ml_service
+    _settings_with_url(monkeypatch, "http://nlp.example")
+
+    def down(*a, **k):
+        raise httpx.ConnectError("refused")
+    monkeypatch.setattr(httpx, "post", down)
+    res = {r.model_key: r for r in ml_service._nlp_results("hard plastic fragment in sealed pack", None)}
+    assert res["nlp-category"].status == "completed" and any("in-process" in w for w in res["nlp-category"].warnings)
+
+
+def test_remote_nlp_invalid_payload_rejected(monkeypatch):
+    from app.services import ml_service
+    _settings_with_url(monkeypatch, "http://nlp.example")
+    bad = {**REMOTE, "classification": {**REMOTE["classification"], "category_predictions": [{"label": "A", "probability": 1.7}]}}
+    monkeypatch.setattr(httpx, "post", lambda url, json, timeout: httpx.Response(200, json=bad, request=httpx.Request("POST", url)))
+    res = {r.model_key: r for r in ml_service._nlp_results("hard plastic fragment in sealed pack", None)}
+    assert res["nlp-category"].top_label != "A"  # invalid remote output never shown; in-process result used instead

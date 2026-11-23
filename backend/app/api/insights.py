@@ -1,5 +1,5 @@
 """Dashboard, analytics, CAPA, root-cause and risk endpoints (read-only, computed from stored data)."""
-from datetime import date
+from datetime import date, timedelta
 
 import pandas as pd
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -35,12 +35,23 @@ def _df(db, f):
 def overview(f: dict = Depends(_filters), user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     df = _df(db, f)
     pending_reviews = db.scalar(select(func.count(Prediction.id)).where(Prediction.review_status == "pending")) or 0
+    since = date.today() - timedelta(days=30)
+    new_30d = db.scalar(select(func.count(Complaint.id)).where(Complaint.created_at >= since)) or 0
+    public_total = db.scalar(select(func.count(Complaint.id)).where(Complaint.source == "public")) or 0
+    analysis_open = db.scalar(select(func.count(Complaint.id)).where(Complaint.analysis_status.in_(["pending", "partial", "failed"]))) or 0
+    # AI food-safety escalations: complaints whose most recent food-safety rule output escalated
+    fs = db.execute(select(Prediction.complaint_pk, Prediction.output_payload, Prediction.created_at).join(ModelVersion, Prediction.model_version_id == ModelVersion.id)
+                    .where(ModelVersion.model_key == "food-safety-flag", Prediction.status == "completed", Prediction.complaint_pk.is_not(None))
+                    .order_by(Prediction.created_at)).all()
+    latest = {pk: (out or {}).get("escalate_for_food_safety_review", False) for pk, out, _ in fs}
     last_upload = db.scalar(select(Upload).where(Upload.status == "imported").order_by(desc(Upload.created_at)).limit(1))
     oldest_open = df[df.complaint_status.isin(an.OPEN_STATUSES)].sort_values("complaint_received_date").head(8)
     capa_df = an.capa_list(df)
     recent_ineffective = capa_df[(capa_df.eff == "Ineffective")].sort_values("last_recurrence", ascending=False).head(5) if len(capa_df) else capa_df
     return {
-        "kpis": {**an.kpis(df), "pending_reviews": pending_reviews},
+        "kpis": {**an.kpis(df), "pending_reviews": pending_reviews, "new_last_30_days": new_30d, "public_submissions": public_total,
+                 "analysis_incomplete": analysis_open, "ai_food_safety_escalations": sum(1 for v in latest.values() if v),
+                 "ai_food_safety_assessed": len(latest)},
         "monthly": an.monthly(df),
         "severity_by_year": an.yearly_severity(df),
         "top_products": an.top(df, "product_name", 8),
@@ -95,6 +106,28 @@ def recurrence(f: dict = Depends(_filters), user: User = Depends(get_current_use
         n=("id", "count"), post=("recurrence_after_prior_capa", lambda s: int(s.fillna(False).astype(bool).sum()))).reset_index()
     yearly["pct"] = (100 * yearly.post / yearly.n).round(2)
     return {**an.recurrence_hotspots(df), "post_capa_by_year": yearly.to_dict(orient="records")}
+
+
+@analytics.get("/haccp")
+def haccp(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """HACCP signals from RECORDED fields only (haccp_process_step, potential_haccp_gap_flag). A flag is a prompt for
+    qualified review, never evidence that a control point failed."""
+    df = an.frame(db)
+    extra = db.execute(select(Complaint.haccp_process_step, Complaint.haccp_control_id, Complaint.potential_haccp_gap_flag,
+                              Complaint.complaint_severity, Complaint.food_safety_related_flag).where(Complaint.haccp_process_step.is_not(None))).all()
+    if not extra:
+        return {"rows": [], "flagged_total": 0, "basis": "No HACCP fields recorded."}
+    h = pd.DataFrame(extra, columns=["step", "control", "gap", "sev", "fs"])
+    h["gap"] = h.gap.fillna(False).astype(bool)
+    h["fs"] = h.fs.fillna(False).astype(bool)
+    rows = []
+    for step, g in h.groupby("step"):
+        rows.append({"process_step": step, "complaints": int(len(g)), "potential_gap_flags": int(g.gap.sum()),
+                     "flag_rate": round(float(g.gap.mean()), 4), "critical": int((g.sev == "Critical").sum()), "food_safety_related": int(g.fs.sum()),
+                     "controls": int(g.control.nunique()), "requires_review": bool(g.gap.sum() > 0)})
+    rows.sort(key=lambda r: (-r["potential_gap_flags"], -r["complaints"]))
+    return {"rows": rows, "flagged_total": int(h.gap.sum()), "complaints_with_haccp_step": int(len(h)), "records_total": int(len(df)),
+            "basis": "Recorded potential_haccp_gap_flag from the source data. It marks a possible control gap for qualified HACCP review; it does not show that a control point failed."}
 
 
 @analytics.get("/products")

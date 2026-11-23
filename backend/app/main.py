@@ -6,7 +6,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api import admin, auth, bookings, complaints, insights, meta, ml, notifications, reports, uploads
+from app.api import admin, auth, complaints, insights, meta, ml, notifications, public, reports, uploads
 from app.core.config import get_settings
 from app.database.session import SessionLocal, init_db
 from app.ml.registry import registry
@@ -34,7 +34,7 @@ def create_app() -> FastAPI:
                               "the supplied data is synthetic demonstration data.",
                   docs_url="/api/docs" if s.environment != "production" else None, openapi_url="/api/openapi.json")
     app.add_middleware(CORSMiddleware, allow_origins=s.cors_origins, allow_credentials=True,
-                       allow_methods=["GET", "POST", "PATCH", "DELETE"], allow_headers=["Content-Type", "Authorization"])
+                       allow_methods=["GET", "POST", "PATCH", "DELETE"], allow_headers=["Content-Type", "Authorization", "X-Access-Key"])
 
     @app.middleware("http")
     async def security_headers(request: Request, call_next):
@@ -62,7 +62,7 @@ def create_app() -> FastAPI:
         return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
     for r in (auth.router, meta.router, notifications.router, complaints.router, ml.router, insights.dashboard, insights.analytics,
-              insights.capa, insights.root_cause, insights.risk, uploads.router, bookings.router, admin.router, reports.router):
+              insights.capa, insights.root_cause, insights.risk, uploads.router, admin.router, reports.router, public.router):
         app.include_router(r)
     return app
 

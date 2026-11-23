@@ -1,19 +1,20 @@
 import csv
 import io
-from datetime import date
+from datetime import date, datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
+from pydantic import BaseModel, Field
 from sqlalchemy import Select, asc, desc, func, or_, select
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.analytics.complaints import OPEN_STATUSES, invalidate_cache
 from app.core.audit import audit
 from app.core.deps import client_ip, get_current_user
 from app.database.session import get_db
-from app.ingestion.complaints import next_manual_id
-from app.models import Complaint, HistoricalRootCauseHypothesis, ModelVersion, Prediction, User
+from app.models import AuditLog, Complaint, ComplaintAttachment, HistoricalRootCauseHypothesis, InvestigationNote, ModelVersion, Prediction, User
+from app.services import attachments as att
+from app.services.complaint_ids import add_with_unique_id
 from app.schemas.common import ComplaintCreate, ComplaintListItem, ComplaintOut, ComplaintUpdate
 
 router = APIRouter(prefix="/api/complaints", tags=["complaints"])
@@ -120,26 +121,73 @@ def get_complaint(complaint_id: str, user: User = Depends(get_current_user), db:
     if c.capa_id:
         linked_capa.append(c.capa_id)
     recurrence_of = c.prior_capa_id
+    files = db.scalars(select(ComplaintAttachment).where(ComplaintAttachment.complaint_pk == c.id).order_by(ComplaintAttachment.id)).all()
+    names = dict(db.execute(select(User.id, User.full_name)).all())
     return {"complaint": ComplaintOut.model_validate(c).model_dump(), "extra": c.extra or {},
             "historical_root_cause_hypotheses": hist.hypotheses if hist else None,
-            "linked_capas": linked_capa, "recurrence_of_capa": recurrence_of}
+            "linked_capas": linked_capa, "recurrence_of_capa": recurrence_of,
+            "submitter": {"name": c.submitter_name, "organisation": c.submitter_organisation, "email": c.submitter_email,
+                          "additional_info": c.additional_info} if c.source == "public" else None,
+            "analysis_status": c.analysis_status,
+            "root_cause_confirmation": {"by": names.get(c.root_cause_confirmed_by_id), "at": c.root_cause_confirmed_at.isoformat()} if c.root_cause_confirmed_at else None,
+            "attachments": [{"id": f.id, "filename": f.original_filename, "content_type": f.content_type, "size_bytes": f.size_bytes,
+                             "width": f.width, "height": f.height, "sha256": f.sha256, "created_at": f.created_at.isoformat()} for f in files]}
+
+
+@router.get("/{complaint_id}/attachments/{attachment_id}")
+def staff_attachment(complaint_id: str, attachment_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    c = _get(db, complaint_id)
+    a = db.scalar(select(ComplaintAttachment).where(ComplaintAttachment.id == attachment_id, ComplaintAttachment.complaint_pk == c.id))
+    if not a:
+        raise HTTPException(404, "Not found")
+    return FileResponse(att.path_for(a.stored_name), media_type=a.content_type,
+                        headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff", "Content-Disposition": "inline"})
+
+
+class NoteIn(BaseModel):
+    note: str = Field(min_length=3, max_length=5000)
+
+
+@router.get("/{complaint_id}/notes")
+def list_notes(complaint_id: str, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    c = _get(db, complaint_id)
+    names = dict(db.execute(select(User.id, User.full_name)).all())
+    notes = db.scalars(select(InvestigationNote).where(InvestigationNote.complaint_pk == c.id).order_by(desc(InvestigationNote.created_at))).all()
+    return {"items": [{"id": n.id, "note": n.note, "author": names.get(n.author_id), "created_at": n.created_at.isoformat()} for n in notes]}
+
+
+@router.post("/{complaint_id}/notes", status_code=201)
+def add_note(complaint_id: str, body: NoteIn, request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    c = _get(db, complaint_id)
+    n = InvestigationNote(complaint_pk=c.id, author_id=user.id, note=body.note.strip())
+    db.add(n)
+    audit(db, "complaint.note", user.id, "complaint", c.complaint_id, {"chars": len(n.note)}, client_ip(request))
+    db.commit()
+    return {"id": n.id, "note": n.note, "author": user.full_name, "created_at": n.created_at.isoformat()}
+
+
+@router.get("/{complaint_id}/activity")
+def activity(complaint_id: str, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """Chronological history: audit events for this complaint (submission, edits, analyses, reviews, notes)."""
+    c = _get(db, complaint_id)
+    names = dict(db.execute(select(User.id, User.full_name)).all())
+    logs = db.scalars(select(AuditLog).where(AuditLog.entity_id == c.complaint_id).order_by(desc(AuditLog.created_at)).limit(200)).all()
+    refs = {p.reference for p in db.scalars(select(Prediction).where(Prediction.complaint_pk == c.id)).all()}
+    reviews = db.scalars(select(AuditLog).where(AuditLog.entity_type == "prediction", AuditLog.entity_id.in_(refs))).all() if refs else []
+    items = [{"at": l.created_at.isoformat(), "action": l.action, "by": names.get(l.user_id) or ("Public submitter" if l.user_id is None else "-"),
+              "details": l.details} for l in [*logs, *reviews]]
+    items.sort(key=lambda x: x["at"], reverse=True)
+    if c.source == "import":
+        items.append({"at": c.created_at.isoformat(), "action": "complaint.imported", "by": "Data import", "details": {"upload_id": c.upload_id, "row": c.source_row_number}})
+    return {"items": items}
 
 
 @router.post("", status_code=201)
 def create_complaint(body: ComplaintCreate, request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     data = body.model_dump()
-    for attempt in range(5):  # concurrent creates can race for the same next ID -> retry with a fresh one
-        c = Complaint(**data, complaint_id=next_manual_id(db, body.complaint_received_date.year), source="manual",
-                      is_synthetic=False, data_origin="CAUSELINE_MANUAL_ENTRY", created_by_id=user.id, updated_by_id=user.id,
-                      category_source="recorded" if body.complaint_category else None)
-        db.add(c)
-        try:
-            db.flush()
-            break
-        except IntegrityError:
-            db.rollback()
-            if attempt == 4:
-                raise HTTPException(409, "Could not allocate a complaint ID; please retry")
+    c = add_with_unique_id(db, body.complaint_received_date.year, lambda cid: Complaint(
+        **data, complaint_id=cid, source="manual", is_synthetic=False, data_origin="CAUSELINE_MANUAL_ENTRY", created_by_id=user.id,
+        updated_by_id=user.id, category_source="recorded" if body.complaint_category else None))
     audit(db, "complaint.create", user.id, "complaint", c.complaint_id, None, client_ip(request))
     db.commit(); invalidate_cache()
     return ComplaintOut.model_validate(c)
@@ -164,6 +212,12 @@ def update_complaint(complaint_id: str, body: ComplaintUpdate, request: Request,
         raise HTTPException(422, "Closed date cannot be before the received date")
     if c.complaint_status == "Closed" and not c.complaint_closed_date:
         raise HTTPException(422, "A closed complaint needs a closed date")
+    if "root_cause_status" in changes and c.root_cause_status == "Confirmed":
+        if not c.root_cause_category:
+            raise HTTPException(422, "Record the root cause category before marking it Confirmed")
+        c.root_cause_confirmed_by_id, c.root_cause_confirmed_at = user.id, datetime.now(timezone.utc)
+    elif "root_cause_category" in changes or ("root_cause_status" in changes and c.root_cause_status != "Confirmed"):
+        c.root_cause_confirmed_by_id = c.root_cause_confirmed_at = None
     c.updated_by_id = user.id
     audit(db, "complaint.update", user.id, "complaint", c.complaint_id, {"changes": changes, "reason": body.change_reason}, client_ip(request))
     db.commit(); invalidate_cache()

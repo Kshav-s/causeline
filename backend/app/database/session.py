@@ -39,4 +39,24 @@ def get_db() -> Iterator[Session]:
 
 def init_db() -> None:
     from app import models  # noqa: F401  (register tables)
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine)  # creates missing tables only
+    _add_missing_columns()
+
+
+def _add_missing_columns() -> None:
+    """Additive, non-destructive schema upgrade: ALTER TABLE ... ADD COLUMN for nullable columns that exist in the
+    models but not yet in the database. Never drops, renames or rewrites data. (Replace with Alembic before production.)"""
+    from sqlalchemy import inspect, text
+    insp = inspect(engine)
+    with engine.begin() as conn:
+        for table in Base.metadata.sorted_tables:
+            if not insp.has_table(table.name):
+                continue
+            existing = {c["name"] for c in insp.get_columns(table.name)}
+            for col in table.columns:
+                if col.name in existing:
+                    continue
+                if not col.nullable:
+                    raise RuntimeError(f"Cannot auto-add NOT NULL column {table.name}.{col.name}; write a migration")
+                ddl = col.type.compile(dialect=engine.dialect)
+                conn.execute(text(f'ALTER TABLE "{table.name}" ADD COLUMN "{col.name}" {ddl}'))

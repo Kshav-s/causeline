@@ -30,6 +30,15 @@ class Settings(BaseSettings):
     # Uploads
     upload_dir: Path = BACKEND_DIR / "storage" / "uploads"
     max_upload_mb: int = 25
+    # Complaint photographs (private storage, served only through access-checked endpoints)
+    attachment_dir: Path = BACKEND_DIR / "storage" / "attachments"
+    max_image_mb: int = 5
+    max_images_per_complaint: int = 6
+
+    # Optional external NLP service (same /analyze contract as the NLP handover). Empty = run the identical
+    # model artifacts in-process (the verified default). On remote failure CauseLine falls back to in-process.
+    nlp_service_url: str = ""
+    nlp_service_timeout_s: float = 20.0
 
     # ML artifact locations (original packages are referenced in place, never modified)
     nlp_dir: Path = REPO_ROOT / "AI_COMPLAINT_INTELLIGENCE" / "HACKATHON_MEMBER2_NLP_HANDOVER"

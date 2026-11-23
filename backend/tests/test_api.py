@@ -3,7 +3,7 @@ import io
 
 from sqlalchemy import func, select
 
-from app.models import AuditLog, Complaint, DemoBooking, Prediction, PredictionReview
+from app.models import AuditLog, Complaint, Prediction, PredictionReview
 
 
 # ---------------------------------------------------------------- auth
@@ -30,7 +30,6 @@ def test_session_cookie_is_httponly(client):
 
 def test_analyst_cannot_access_admin(analyst):
     assert analyst.get("/api/admin/users").status_code == 403
-    assert analyst.get("/api/demo-bookings").status_code == 403
     assert analyst.get("/api/admin/audit").status_code == 403
 
 
@@ -185,37 +184,6 @@ def test_mapping_missing_required_field(analyst):
     assert v["rows_valid"] == 0 and any(e["field"] == "complaint_description" for e in v["errors"])
 
 
-# ---------------------------------------------------------------- demo bookings (separate workflow)
-def _next_weekday():
-    import datetime as dt
-    d = dt.date.today() + dt.timedelta(days=2)
-    while d.weekday() >= 5:
-        d += dt.timedelta(days=1)
-    return d.isoformat()
-
-
-def test_demo_booking_public_and_isolated_from_ml(client, db):
-    client.cookies.clear()
-    before = db.scalar(select(func.count(Prediction.id)))
-    body = {"full_name": "Priya Raman", "organisation": "Example Foods", "email": "priya@example.com", "preferred_date": _next_weekday(),
-            "time_slot": "11:00", "timezone": "Asia/Kolkata", "purpose": "Evaluate complaint trend analytics for two plants.", "consent": True}
-    r = client.post("/api/demo-bookings", json=body)
-    assert r.status_code == 201 and r.json()["reference"].startswith("DMO-")
-    assert db.scalar(select(func.count(Prediction.id))) == before  # booking never touches a model
-    assert db.scalar(select(DemoBooking).where(DemoBooking.reference == r.json()["reference"])).status == "new"
-    bad = client.post("/api/demo-bookings", json={**body, "consent": False, "purpose": "short"})
-    assert bad.status_code == 422
-
-
-def test_admin_booking_workflow_and_notification(admin):
-    items = admin.get("/api/demo-bookings").json()["items"]
-    assert items
-    ref = items[0]["reference"]
-    assert admin.patch(f"/api/demo-bookings/{ref}", json={"status": "contacted", "internal_notes": "Called"}).json()["status"] == "contacted"
-    notes = admin.get("/api/notifications").json()["items"]
-    assert any(n["kind"] == "demo_booking" for n in notes)
-
-
 def test_admin_cannot_remove_last_admin(admin):
     me = admin.get("/api/auth/me").json()
     assert admin.patch(f"/api/admin/users/{me['id']}", json={"is_active": False}).status_code == 400
@@ -223,7 +191,7 @@ def test_admin_cannot_remove_last_admin(admin):
 
 def test_create_complaint_survives_id_race(analyst, first_complaint, monkeypatch):
     """Two simultaneous creates can compute the same next ID; the loser must retry, not 500."""
-    from app.api import complaints as api_c
+    from app.services import complaint_ids as api_c
     real, calls = api_c.next_manual_id, {"n": 0}
 
     def racing(db, year):

@@ -9,6 +9,7 @@ os.environ["DATABASE_URL"] = f"sqlite:///{Path(_tmp, 'test.db').as_posix()}"
 os.environ["ENABLE_SBERT"] = os.environ.get("TEST_ENABLE_SBERT", "false")
 os.environ["JWT_SECRET"] = "test-secret-not-for-production-0123456789"
 os.environ["UPLOAD_DIR"] = str(Path(_tmp, "uploads"))
+os.environ["ATTACHMENT_DIR"] = str(Path(_tmp, "attachments"))
 os.environ["ENVIRONMENT"] = "test"
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -49,7 +50,8 @@ def client(_db):
 
 @pytest.fixture(autouse=True)
 def _reset_limits():
-    for lim in (login_limiter, booking_limiter, inference_limiter):
+    from app.api.public import retry_limiter, submit_limiter, view_limiter
+    for lim in (login_limiter, booking_limiter, inference_limiter, submit_limiter, retry_limiter, view_limiter):
         lim.reset()
 
 

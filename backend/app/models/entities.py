@@ -125,7 +125,44 @@ class Complaint(TimestampMixin, Base):
     updated_by_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"))
     extra: Mapped[dict | None] = mapped_column(JSON)  # unmapped source columns, preserved verbatim
 
+    # Public submission (source = "public"). Personal data is never returned by public list endpoints.
+    submitter_name: Mapped[str | None] = mapped_column(String(120))
+    submitter_organisation: Mapped[str | None] = mapped_column(String(160))
+    submitter_email: Mapped[str | None] = mapped_column(String(255))
+    additional_info: Mapped[str | None] = mapped_column(Text)
+    access_key_hash: Mapped[str | None] = mapped_column(String(64))  # sha256 of the submitter's private key; key itself never stored
+    analysis_status: Mapped[str | None] = mapped_column(String(20), index=True)  # pending | completed | partial | failed
+    analysis_attempts: Mapped[int | None] = mapped_column(Integer, default=0)
+    last_analysis_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Confirmed root cause recorded by an investigator (separate from any model suggestion)
+    root_cause_confirmed_by_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"))
+    root_cause_confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
     __table_args__ = (Index("ix_complaints_status_date", "complaint_status", "complaint_received_date"),)
+
+
+class ComplaintAttachment(Base):
+    """Supporting photographs. Files live in private storage (never in a DB text column, never in a public web root)."""
+    __tablename__ = "complaint_attachments"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    complaint_pk: Mapped[int] = mapped_column(ForeignKey("complaints.id", ondelete="CASCADE"), index=True)
+    stored_name: Mapped[str] = mapped_column(String(80), unique=True)  # random name on disk
+    original_filename: Mapped[str] = mapped_column(String(255))
+    content_type: Mapped[str] = mapped_column(String(40))
+    size_bytes: Mapped[int] = mapped_column(Integer)
+    width: Mapped[int | None] = mapped_column(Integer)
+    height: Mapped[int | None] = mapped_column(Integer)
+    sha256: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class InvestigationNote(Base):
+    __tablename__ = "investigation_notes"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    complaint_pk: Mapped[int] = mapped_column(ForeignKey("complaints.id", ondelete="CASCADE"), index=True)
+    author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    note: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
 
 
 # ---------------------------------------------------------------- ML
