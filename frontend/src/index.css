@@ -144,6 +144,7 @@
 }
 
 html, body, #root { height: 100%; }
+html { scroll-padding-top: 84px; } /* fixed public header / sticky app bar never hides a focused field or anchor target */
 body {
   @apply bg-canvas text-ink font-sans antialiased;
   font-size: 14px;
@@ -162,6 +163,57 @@ body {
 }
 .overline { font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
 
+/* ---- Public site motion (all disabled by prefers-reduced-motion below) ---- */
+/* Cursor spotlight: a brighter copy of the 32px grid, masked to a circle around the pointer (--mx/--my set from JS). */
+.grid-spot {
+  position: absolute; inset: 0; pointer-events: none; opacity: var(--spot, 0); transition: opacity 0.45s ease;
+  background-image:
+    radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgba(14, 134, 168, 0.16), transparent 65%),
+    linear-gradient(rgba(58, 165, 196, 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(58, 165, 196, 0.55) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
+  -webkit-mask-image: radial-gradient(240px circle at var(--mx, -999px) var(--my, -999px), #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 75%);
+  mask-image: radial-gradient(240px circle at var(--mx, -999px) var(--my, -999px), #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 75%);
+}
+/* Hero preview tilts towards the pointer (--rx/--ry in degrees) and floats gently when idle. */
+.tilt { transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translate3d(var(--tx, 0px), var(--ty, 0px), 0);
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); transform-style: preserve-3d; will-change: transform; }
+.tilt-layer { transform: translateZ(40px) translate3d(calc(var(--tx, 0px) * 0.8), calc(var(--ty, 0px) * 0.8), 0); transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.float-idle { animation: float-idle 7s ease-in-out infinite; }
+@keyframes float-idle { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+
+/* Hero entrance */
+.rise { opacity: 0; animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; animation-delay: var(--d, 0ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* Scroll reveal (useReveal adds .is-in) */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: var(--d, 0ms); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* Call-to-action buttons: lift, light sweep, arrow nudge, soft pulse ring on the primary */
+.cta { position: relative; overflow: hidden; isolation: isolate; transition: transform 0.2s ease, box-shadow 0.25s ease, background-color 0.2s ease, border-color 0.2s ease; }
+.cta:hover { transform: translateY(-2px); }
+.cta::after { content: ""; position: absolute; inset: 0; z-index: -1; transform: translateX(-120%) skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent); transition: transform 0.7s ease; }
+.cta:hover::after { transform: translateX(120%) skewX(-20deg); }
+.cta .cta-arrow { transition: transform 0.25s ease; }
+.cta:hover .cta-arrow { transform: translateX(4px); }
+.cta-primary { box-shadow: 0 0 0 0 rgba(14, 134, 168, 0.55); animation: cta-pulse 2.8s ease-out 1.4s infinite; }
+.cta-primary:hover { box-shadow: 0 10px 28px -8px rgba(14, 134, 168, 0.8); animation: none; }
+.cta-ghost:hover { border-color: rgba(58, 165, 196, 0.7); box-shadow: 0 0 0 4px rgba(58, 165, 196, 0.12); }
+@keyframes cta-pulse { 0% { box-shadow: 0 0 0 0 rgba(14, 134, 168, 0.5); } 70% { box-shadow: 0 0 0 12px rgba(14, 134, 168, 0); } 100% { box-shadow: 0 0 0 0 rgba(14, 134, 168, 0); } }
+
+/* Closed-loop diagram and step sequences */
+.draw-arc { stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw-arc 0.9s ease forwards; }
+@keyframes draw-arc { to { stroke-dashoffset: 0; } }
+.node-ping { transform-box: fill-box; transform-origin: center; animation: node-ping 1.8s ease-out infinite; }
+@keyframes node-ping { from { transform: scale(1); opacity: 0.55; } to { transform: scale(1.9); opacity: 0; } }
+.outline-num { color: transparent; -webkit-text-stroke: 1.5px var(--num-stroke, #3aa5c4); }
+.flow-dash { background-image: linear-gradient(90deg, currentColor 50%, transparent 0); background-size: 10px 2px; background-repeat: repeat-x; }
+.shimmer-line { background: linear-gradient(90deg, transparent, rgba(58, 165, 196, 0.9), transparent); background-size: 50% 100%; background-repeat: no-repeat;
+  animation: shimmer-line 2.4s linear infinite; }
+@keyframes shimmer-line { from { background-position: -50% 0; } to { background-position: 150% 0; } }
+
 @media print {
   .no-print { display: none !important; }
   body { background: #fff; }
@@ -169,4 +221,9 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .rise, .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .tilt, .tilt-layer { transform: none !important; }
+  .float-idle, .cta-primary, .node-ping, .shimmer-line { animation: none !important; }
 }
+.trail-arc { stroke-dasharray: 100; stroke-dashoffset: 100; animation: trail-arc linear forwards; }
+@keyframes trail-arc { to { stroke-dashoffset: 0; } }

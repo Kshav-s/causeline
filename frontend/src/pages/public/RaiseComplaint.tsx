@@ -250,7 +250,7 @@ export default function RaiseComplaint() {
             {step < STEPS.length - 1
               // distinct keys: React must not reuse the Next <button> as the submit button, or the click that reveals
               // the review step would also submit the form
-              ? <Button key="next" type="button" onClick={next} className="max-sm:w-full">Next<ArrowRight className="size-4" /></Button>
+              ? <Button key="next" type="button" onClick={next} onMouseDown={(e) => e.preventDefault() /* keep focus: a blur-time validation reflow would otherwise move the button and swallow the tap */} className="max-sm:w-full">Next<ArrowRight className="size-4" /></Button>
               : <Button key="submit" type="submit" loading={isSubmitting || progress !== null} icon={<Send className="size-4" />} className="max-sm:w-full">Submit complaint</Button>}
           </div>
         </form>

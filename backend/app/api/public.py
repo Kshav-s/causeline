@@ -14,7 +14,7 @@ from typing import Literal
 from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, Query, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import EmailStr, TypeAdapter, ValidationError
-from sqlalchemy import asc, desc, func, or_, select
+from sqlalchemy import asc, case, desc, func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
 from app.analytics.complaints import invalidate_cache
@@ -304,6 +304,36 @@ def register(q: str | None = Query(None, max_length=100), category: list[str] = 
                                   .order_by(Complaint.complaint_category)).all()]
     return {"items": items, "total": total, "page": page, "page_size": page_size, "categories": cats,
             "severities": SEVERITIES, "statuses": ["Open", "Under investigation", "Awaiting customer information", "Closed"]}
+
+
+@router.get("/register/summary")
+def register_summary(db: Session = Depends(get_db)):
+    """Anonymised aggregate counts per recorded complaint category (no identifiers, names or free text).
+    Used by the public home page; every number is a direct COUNT over the complaints table."""
+    total = db.scalar(select(func.count(Complaint.id))) or 0
+    synthetic = db.scalar(select(func.count(Complaint.id)).where(Complaint.is_synthetic.is_(True))) or 0
+    public = db.scalar(select(func.count(Complaint.id)).where(Complaint.source == "public")) or 0
+    cat_rows = db.execute(select(Complaint.complaint_category, func.count(Complaint.id),
+                                 func.sum(case((Complaint.complaint_severity == "Critical", 1), else_=0)),
+                                 func.sum(case((Complaint.complaint_status != "Closed", 1), else_=0)))
+                          .where(Complaint.complaint_category.is_not(None)).group_by(Complaint.complaint_category)
+                          .order_by(func.count(Complaint.id).desc())).all()
+    sub_rows = db.execute(select(Complaint.complaint_category, Complaint.defect_subcategory, func.count(Complaint.id))
+                          .where(Complaint.complaint_category.is_not(None), Complaint.defect_subcategory.is_not(None),
+                                 Complaint.source == "import")  # dataset labels only; never text typed on an individual complaint
+                          .group_by(Complaint.complaint_category, Complaint.defect_subcategory)
+                          .having(func.count(Complaint.id) >= 5)).all()  # a label must be shared by >= 5 records to be shown
+    subs: dict[str, list[tuple[str, int]]] = {}
+    for cat, sub, n in sub_rows:
+        subs.setdefault(cat, []).append((sub, int(n)))
+    categories = []
+    for cat, n, crit, open_ in cat_rows:
+        s = sorted(subs.get(cat, []), key=lambda x: (-x[1], x[0]))
+        categories.append({"category": cat, "complaints": int(n), "critical": int(crit or 0), "not_closed": int(open_ or 0),
+                           "subcategories": [{"name": a, "complaints": b} for a, b in s[:4]], "subcategory_count": len(s)})
+    return {"total": int(total), "synthetic": int(synthetic), "public_submissions": int(public),
+            "uncategorised": int(total - sum(c["complaints"] for c in categories)), "categories": categories,
+            "basis": "Direct counts over the complaint register. Historical records are synthetic demonstration data."}
 
 
 @router.get("/products")

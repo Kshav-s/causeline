@@ -40,6 +40,9 @@ for (const [vpName, vp] of VIEWPORTS) {
     errors.length = 0;
     await page.goto(BASE + url, { waitUntil: "networkidle" });
     await page.waitForTimeout(700);
+    // scroll through once so scroll-reveal sections are shown, then back to the top
+    await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)); } window.scrollTo(0, 0); });
+    await page.waitForTimeout(900);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     const file = path.join(out, `${name}-${vpName}.png`);
     await page.screenshot({ path: file, fullPage: true });

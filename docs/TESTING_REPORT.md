@@ -62,3 +62,6 @@ After C8: backend 68 passed, Vitest 10 passed, Playwright 6 passed; live complai
 ## Improvement programme (2026-11-24)
 Backend 83 passed (new: duplicate token, timeline, zombie x4, simulator x5 incl. full-dataset recount, reference date x2, recurring batches x2 incl. parity with the supplied report, HACCP). Vitest 12 passed (evidence summary x2). Playwright 10 passed: duplicate protection, step form, timeline, evidence summary, full journey (submission -> staff correction -> root-cause model -> confirmed cause -> complainant timeline -> reports, zombie detector, simulator). Screenshots 64/64 clean. `scripts/verify_metrics.py`: 24/24 dashboard metrics equal raw SQL on live data.
 Note: the login limiter (10 per 5 min) blocks back-to-back E2E + screenshot runs; restart the isolated backend between runs.
+
+## Public site refresh (2026-11-24)
+Backend 85 passed (new: register summary counts, one-off subcategory text never public). Vitest 12 passed. Playwright 10 passed - the mobile run caught a lost first tap on the form's Next button (fixed). Screenshots 64/64; `e2e/screenshots.mjs` now scrolls each page once so scroll-reveal sections render before capture.

@@ -205,3 +205,30 @@ Assessment first: `docs/IMPROVEMENT_ASSESSMENT.md`. Each step was tested before 
 **Regression:** backend **83 passed**; Vitest **12 passed**; type-check and production build pass; Playwright **10 passed** (isolated backend); screenshots **64/64** (32 routes x desktop + mobile), no overflow or console errors; live metric check 24/24. No test run modified the live database (18,001 complaints).
 
 **Left for the project owner:** 28 pending-review predictions from 23 Nov testing remain (26 free-text runs on the AI Analysis page, 2 on historical record `ABT-CMP-2007-014934`). They count in "Awaiting review". They were outside the C8 approval and have not been touched.
+
+---
+
+## 14. Public site refresh (2026-11-24)
+
+Requested visual changes to the public site, using the Focus2Work screenshots in `template/` as layout reference only (no copy, brand or imagery taken). Navy/teal palette, IBM Plex type and existing components kept.
+
+| Change | Implementation |
+|---|---|
+| Larger, bolder text | Public base 16px (was 14px), headings 42px, nav links 15px semibold with underline-on-hover; fixed header turns solid on scroll |
+| Full-screen hero | Hero fills the viewport (`100svh`); white sections start on scroll. "Why teams move" label removed |
+| Cursor-lit grid | A brighter copy of the hero grid is masked to a circle at the pointer (`.grid-spot`), mouse only |
+| Moving preview | Illustrative preview tilts towards the pointer with a parallax chip, idle float |
+| Button animation | Lift, light sweep, arrow nudge, soft pulse on the primary |
+| Capability pills -> points | Six icon + title + one-line points in a band at the bottom of the hero |
+| New sections | Why CauseLine (outlined numerals), closed loop Detect -> Investigate -> Correct -> Verify (animated), complaint journey 1-5 (animated), six modules + engineering panel (live model status from `/api/public/meta`), real screenshot tour, complaint register by category (live counts), features |
+| Motion safety | All motion stops under `prefers-reduced-motion`; autoplay pauses off-screen and for 8 s after a click |
+
+**New endpoint** `GET /api/public/register/summary` - aggregate counts per recorded category (no identifiers, names or free text). Subcategory labels are shown only when they come from imported dataset records and are shared by at least 5 records, so a value typed onto one complaint can never appear publicly. Tests: `test_register_summary_is_aggregate_only_and_matches_counts`, `test_register_summary_never_shows_one_off_subcategory_text`.
+
+**Defect found and fixed - first tap on "Next" lost on phones.** The complaint form validates on blur; tapping Next blurred the description, the reflow moved the button 26 px and the tap missed it, so a visitor had to tap twice. The Next button now keeps focus on mousedown (validation still runs). Also added `scroll-padding-top` so the fixed header never hides a focused field. Found by the mobile E2E run.
+
+**Product screenshots** (`frontend/public/product/*.png`) are real captures of the running app, taken from the isolated test copy (`e2e/product-shots.mjs`) so no genuine submission appears in a public image. Replace a file to update it; a missing file hides its tab.
+
+**Regression:** backend **85 passed**; Vitest **12 passed**; type-check and build pass; Playwright **10 passed** (isolated backend); screenshots **64/64** clean. Hover behaviour checked by moving a real pointer in Playwright (`--spot=1`, preview transform applied).
+
+**Observed on the live database:** a second public submission, `CL-2026-000048` (23 Nov 19:18, same product as `CL-2026-000029`), not created by any test run. Treated as genuine and left untouched.

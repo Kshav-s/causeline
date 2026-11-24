@@ -439,3 +439,25 @@ def test_complainant_timeline_shows_progress_but_no_internal_details(client, fir
     blob = str(t)
     assert "INTERNAL" not in blob and "Acme" not in blob and "Analyst" not in blob   # no notes, no staff identities
     assert "Triage done" not in blob and "Lot test positive" not in blob             # staff change reasons stay internal
+
+
+def test_register_summary_is_aggregate_only_and_matches_counts(client, db):
+    submit(client)
+    r = client.get("/api/public/register/summary")
+    assert r.status_code == 200
+    d = r.json()
+    total = db.query(Complaint).count()
+    assert d["total"] == total
+    assert sum(c["complaints"] for c in d["categories"]) + d["uncategorised"] == total
+    for c in d["categories"]:
+        assert c["complaints"] == db.query(Complaint).filter(Complaint.complaint_category == c["category"]).count()
+        assert len(c["subcategories"]) <= 4
+    assert "@" not in r.text and "complaint_id" not in r.text and "email" not in r.text  # aggregate only: no identifiers or contact data
+
+
+def test_register_summary_never_shows_one_off_subcategory_text(client, db):
+    c = db.query(Complaint).filter(Complaint.complaint_category.is_not(None)).first()
+    secret = "Typed by staff about Jane Doe at 12 High Street"
+    c.defect_subcategory = secret
+    db.commit()
+    assert secret not in client.get("/api/public/register/summary").text

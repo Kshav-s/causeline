@@ -39,3 +39,5 @@
 30. **Analysis window anchor:** while the historical data ends 2025-12 and live submissions start 2026-11, trend windows end 2025-12-31 (stated on each page). Later submissions count in totals but not in "last 12 months" comparisons until coverage is continuous.
 31. **HACCP:** no HACCP plan supplied - no critical limits or monitoring records, so CCP monitoring against limits is not possible. Only complaint-level control-point signals are shown.
 32. **Repeat-complaint batches** cover only complaints with a recorded batch number (75.6%); batch attributes need dataset 02.
+33. **Home page register section** groups the ten recorded categories into four display groups (food safety, product quality, packaging & quantity, storage & transport). The grouping is editorial, not a field in the data, and is labelled "for display only".
+34. **Product screenshots** on the home page are static captures from the isolated test copy; they do not update when data changes. Re-run `e2e/product-shots.mjs` or replace the files.

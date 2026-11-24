@@ -73,3 +73,6 @@ Reviewing an `nlp-category` prediction as confirmed/corrected now also runs the 
 - `GET /api/risk/recurring-batches` (staff): `q`, `recurring_only`, `sort`, `order`, paging.
 - `GET /api/analytics/haccp` adds `controls[]`, `plan_available: false`, `plan_note`.
 - `GET /api/dashboard` KPIs add `zombie_capas`, `closed_capas`. Recurrence and product endpoints add `reference_note`.
+
+## Changes (public site refresh, 2026-11-24)
+- `GET /api/public/register/summary` (public, no auth): `total`, `synthetic`, `public_submissions`, `uncategorised`, `categories[]` (`category`, `complaints`, `critical`, `not_closed`, `subcategory_count`, `subcategories[]` up to 4 - imported dataset labels shared by >= 5 records only), `basis`. Aggregate counts only.

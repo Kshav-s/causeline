@@ -36,7 +36,7 @@ export default function Register() {
   const open = (row: Row) => { const k = keyFor(row.complaint_id); nav(k ? `/complaint/${row.complaint_id}#key=${encodeURIComponent(k)}` : `/track?id=${encodeURIComponent(row.complaint_id)}`); };
   const cols: Column<Row>[] = [
     { key: "id", header: "Complaint ID", sortKey: "id", cell: (x) => <span className="inline-flex flex-wrap items-center gap-1.5"><Mono className="text-[12px] text-link">{x.complaint_id}</Mono>{keyFor(x.complaint_id) && <Pill tone="info">Yours</Pill>}{x.is_synthetic && <ProvenanceBadge kind="demo" />}</span> },
-    { key: "d", header: "Submitted", sortKey: "date", align: "right", cell: (x) => fmtDate(x.submitted) },
+    { key: "d", header: "Submitted", sortKey: "date", align: "right", cell: (x) => <span className="whitespace-nowrap">{fmtDate(x.submitted)}</span> },
     { key: "p", header: "Product", sortKey: "product", cell: (x) => <span className="block max-w-52 truncate" title={x.product_name}>{x.product_name}</span> },
     { key: "c", header: "Category", cell: (x) => x.category ? <span className="block max-w-56 truncate" title={x.category}>{x.category}{x.category_source === "human_verified" && <ProvenanceBadge kind="human" label="Verified" className="ml-1.5" />}</span>
       : x.predicted_category ? <ProvenanceBadge kind="nlp" label={`AI suggestion: ${x.predicted_category}`} className="max-w-60 truncate" /> : <span className="text-faint">Not classified</span> },
