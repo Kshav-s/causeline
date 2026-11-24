@@ -26,9 +26,11 @@ async def lifespan(app: FastAPI):
             sync_model_versions(db)
     registry.on_status_change = None  # avoid one DB write per model during the initial load
     registry.load_all()
+    # Attach the hook BEFORE the sync: a background loader (e.g. the sentence encoder failing fast) that finishes
+    # between load_all() and this point is then caught by the sync below, and anything later by the hook.
+    registry.on_status_change = persist_status
     with SessionLocal() as db:
         sync_model_versions(db)
-    registry.on_status_change = persist_status
     log.info("Models: %s", {k: m.status for k, m in registry.models.items()})
     yield
 
