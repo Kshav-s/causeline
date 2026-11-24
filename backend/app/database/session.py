@@ -1,6 +1,7 @@
 from collections.abc import Iterator
+from pathlib import Path
 
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, make_url
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.core.config import get_settings
@@ -14,6 +15,9 @@ def _make_engine(url: str):
     kwargs = {"pool_pre_ping": True}
     if url.startswith("sqlite"):
         kwargs["connect_args"] = {"check_same_thread": False}
+        db_file = make_url(url).database
+        if db_file and db_file != ":memory:":  # fresh checkout / cloud host: backend/data/ is not in git
+            Path(db_file).parent.mkdir(parents=True, exist_ok=True)
     eng = create_engine(url, **kwargs)
     if url.startswith("sqlite"):
         @event.listens_for(eng, "connect")

@@ -41,3 +41,9 @@
 32. **Repeat-complaint batches** cover only complaints with a recorded batch number (75.6%); batch attributes need dataset 02.
 33. **Home page register section** groups the ten recorded categories into four display groups (food safety, product quality, packaging & quantity, storage & transport). The grouping is editorial, not a field in the data, and is labelled "for display only".
 34. **Product screenshots** on the home page are static captures from the isolated test copy; they do not update when data changes. Re-run `e2e/product-shots.mjs` or replace the files.
+
+## Render free-plan deployment (2026-11-24)
+35. **Similarity search is off on the free plan** (`ENABLE_SBERT=false`, 512 MB RAM; the encoder needs ~2 GB). `/similar` reports "unavailable" and public analyses show `partial`. Classification, food-safety flag and root-cause model still run (measured locally: ~265 MB idle, ~286 MB peak).
+36. **The API sleeps after ~15 minutes without traffic**; the next request waits for a cold start (model load ~1 minute). The static website stays up while the API sleeps.
+37. **With the default SQLite database, every restart, sleep and redeploy resets the data** to the seeded synthetic set: new public complaints, staff edits, uploads and photos are lost. Point `DATABASE_URL` at an external PostgreSQL to keep them (PostgreSQL is supported by configuration but not yet exercised - see 11). Photos stay on the ephemeral disk even then.
+38. The static site forwards `/api/*` to the API through a Render rewrite, which adds latency (community reports ~400 ms per call).

@@ -1,0 +1,54 @@
+# Render Blueprint - deploys CauseLine as two free services from the `main` branch.
+#   causeline      static site (React build). Always on, serves the website and forwards /api/* to the API.
+#   causeline-api  Python web service (FastAPI + ML/NLP models). Free plan sleeps after ~15 min idle.
+# Setup and limitations: docs/DEPLOYMENT_GUIDE.md -> "Render".
+
+services:
+  - type: web
+    name: causeline-api
+    runtime: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r backend/requirements-render.txt && python backend/scripts/seed.py
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips="*"
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.14"
+      - key: ENVIRONMENT
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: ENABLE_SBERT          # similarity search needs ~2 GB RAM; free plan has 512 MB
+        value: "false"
+      - key: ADMIN_EMAIL           # first administrator, created by seed.py during the build
+        sync: false
+      - key: ADMIN_PASSWORD        # set it here; otherwise a generated one is printed once in the build log
+        sync: false
+      - key: DATABASE_URL          # leave empty for SQLite (resets on every restart); or a free Postgres URL
+        sync: false
+
+  - type: web
+    name: causeline
+    runtime: static
+    branch: main
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+    routes:
+      # Same-origin proxy: the login cookie is SameSite=Strict, so the browser must only ever talk to this site.
+      # If Render gives the API a different address than causeline-api.onrender.com, change it here.
+      - type: rewrite
+        source: /api/*
+        destination: https://causeline-api.onrender.com/api/*
+      # React Router: every other path serves the app.
+      - type: rewrite
+        source: /*
+        destination: /index.html

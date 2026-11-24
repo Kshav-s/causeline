@@ -1,0 +1,32 @@
+# CauseLine backend for the Render FREE plan (512 MB RAM).
+# Same pins as requirements.txt, minus:
+#   - torch / sentence-transformers / transformers: similarity search needs ~2 GB RAM, so it is switched off
+#     (ENABLE_SBERT=false -> /similar reports "unavailable"; classification, food-safety flag and root cause still run)
+#   - pytest / httpx: tests are not run on the server
+# Measured locally with this set: ~265 MB idle, ~286 MB peak during a live public complaint analysis.
+# On a paid plan with >= 2 GB RAM, install requirements.txt instead and set ENABLE_SBERT=true.
+
+# web
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.4
+pydantic-settings==2.16.3
+email-validator==2.4.0
+python-multipart==0.0.34
+
+# data / auth
+SQLAlchemy==2.1.9
+bcrypt==5.0.0
+PyJWT==2.15.1
+openpyxl==3.1.5
+pillow==13.0.0
+
+# optional PostgreSQL (used only when DATABASE_URL=postgresql+psycopg://...)
+psycopg[binary]==3.3.9
+
+# ML (artifact-compatible versions - scikit-learn MUST stay 1.9.1)
+numpy==2.5.5
+pandas==3.1.1
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
